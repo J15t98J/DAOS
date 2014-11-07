@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.sch.herts.damealiceowens.studio.daos.LoginActivity">
+    <!-- android:id="@+id/" -->
 
     <!-- Login progress -->
     <ProgressBar
@@ -32,7 +33,7 @@
                 android:orientation="vertical">
 
                 <AutoCompleteTextView
-                    android:id="@+id/email"
+                    android:id="@+id/uname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
@@ -53,7 +54,7 @@
                     android:singleLine="true"/>
 
                 <Button
-                    android:id="@+id/email_sign_in_button"
+                    android:id="@+id/sign_in_button"
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
