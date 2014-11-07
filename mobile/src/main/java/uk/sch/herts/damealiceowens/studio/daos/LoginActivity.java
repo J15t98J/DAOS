@@ -106,7 +106,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mUnameView.getText().toString();
+        String uname = mUnameView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -121,11 +121,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(uname)) {
             mUnameView.setError(getString(R.string.error_field_required));
             focusView = mUnameView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
+        } else if (!isEmailValid(uname)) {
             mUnameView.setError(getString(R.string.error_invalid_email));
             focusView = mUnameView;
             cancel = true;
@@ -139,13 +139,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(uname, password);
             mAuthTask.execute((Void) null);
         }
     }
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return email.length() == 8;
     }
 
     private boolean isPasswordValid(String password) {
