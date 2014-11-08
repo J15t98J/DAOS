@@ -4,24 +4,22 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 
 import uk.sch.herts.damealiceowens.studio.daos.R;
 
-public class LoginActivity extends Activity {
+public class HomeActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.home_activity);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.login_activity, menu);
+        getMenuInflater().inflate(R.menu.home_activity, menu);
         return true;
     }
 
@@ -38,22 +36,5 @@ public class LoginActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    // GUI FUNCTIONS
-
-    public boolean validate(String uname, String pword) {
-        // return DB query (if it doesn't exist, create it!
-        return true; // test purposes
-    }
-
-
-    public void login(View view) {
-        String username = ((EditText)findViewById(R.id.uname)).getText().toString();
-        String password = ((EditText)findViewById(R.id.pword)).getText().toString();
-
-        if(validate(username, password)) { // no .getText?!?
-
-        }
     }
 }

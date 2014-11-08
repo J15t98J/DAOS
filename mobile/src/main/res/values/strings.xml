@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">Dame Alice Owen\'s School</string>
+
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_home">Home</string>
+
     <string name="action_settings">Settings</string>
 
 </resources>
