@@ -72,11 +72,12 @@ public class LoginActivity extends Activity {
         String username = ((EditText)findViewById(R.id.uname)).getText().toString();
         String password = ((EditText)findViewById(R.id.pword)).getText().toString();
 
+        //TODO: what if we can't connect?
         if(validate(username, password)) {
             Intent intent = new Intent(this, HomeActivity.class);
 
         } else {
-            //errors
+            //TODO: errors
         }
     }
 }

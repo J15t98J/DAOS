@@ -9,17 +9,20 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="uk.herts.sch.damealiceowens.studio.daos.LoginActivity"
-            android:label="@string/title_activity_login" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="Sign in" >
         </activity>
         <activity
             android:name="uk.herts.sch.damealiceowens.studio.daos.HomeActivity"
             android:label="@string/title_activity_home" >
         </activity>
+        <activity
+            android:name="uk.herts.sch.damealiceowens.studio.daos.MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
-
 
 </manifest>
