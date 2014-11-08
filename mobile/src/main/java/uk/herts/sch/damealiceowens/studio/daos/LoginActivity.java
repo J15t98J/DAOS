@@ -79,7 +79,8 @@ public class LoginActivity extends Activity {
         //TODO: what if we can't connect?
         if(validate(username, password)) {
             Intent intent = new Intent(this, HomeActivity.class);
-
+            startActivity(intent);
+            finish();
         } else {
             //TODO: errors
         }
