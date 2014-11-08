@@ -8,9 +8,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import uk.herts.sch.damealiceowens.studio.daos.db.DatabaseConnection;
 import uk.sch.herts.damealiceowens.studio.daos.R;
 
 public class LoginActivity extends Activity {
+    protected String pathToDB = "dev.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,20 @@ public class LoginActivity extends Activity {
     // GUI FUNCTIONS
 
     public boolean validate(String uname, String pword) {
+        DatabaseConnection db = new DatabaseConnection(pathToDB);
+        ResultSet results = db.executeQuery("SELECT * FROM STUDENTS, STAFF WHERE USERNAME='" + uname + "'");
+        try {
+            if(results.first()) { // If there is a user
+                return results.getString("PASSWORD") == pword;
+            } else {
+                //TODO: implement sign-up if user does not exist (require creation pword?)
+                //db.executeUpdate("INSERT INTO ")
+                //return true
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
         // return DB query (if it doesn't exist, create it!
         return true; // test purposes
     }
@@ -56,6 +75,8 @@ public class LoginActivity extends Activity {
         if(validate(username, password)) {
             Intent intent = new Intent(this, HomeActivity.class);
 
+        } else {
+            //errors
         }
     }
 }
