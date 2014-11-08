@@ -6,11 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * Created by Joshua on 08/11/2014.
- */
 public class DatabaseConnection {
     Connection conn = null;
+    Statement st = null;
 
     public DatabaseConnection(String pathToDB) {
         connect(pathToDB);
@@ -35,6 +33,14 @@ public class DatabaseConnection {
         return false;
     }
 
+    public void disconnect() {
+        try {
+            conn.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Execute a read operation (e.g. SELECT * FROM <> WHERE <>=<>)
      * @param statement operation to perform
@@ -46,6 +52,13 @@ public class DatabaseConnection {
             return st.executeQuery(statement);
         } catch(SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                st.close();
+                st = null;
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -61,6 +74,13 @@ public class DatabaseConnection {
             return st.executeUpdate(statement) == 1;
         } catch(SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                st.close();
+                st = null;
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }
