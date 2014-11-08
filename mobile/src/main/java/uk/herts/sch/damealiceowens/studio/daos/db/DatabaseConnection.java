@@ -20,7 +20,7 @@ public class DatabaseConnection {
      * @return success
      */
     public boolean connect(String pathToDB) {
-        try {
+            try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:dev.db");
             return true;
@@ -54,8 +54,10 @@ public class DatabaseConnection {
             e.printStackTrace();
         } finally {
             try {
-                st.close();
-                st = null;
+                if(st != null) {
+                    st.close();
+                    st = null;
+                }
             } catch(SQLException e) {
                 e.printStackTrace();
             }

@@ -52,6 +52,7 @@ public class LoginActivity extends Activity {
     // GUI FUNCTIONS
 
     public boolean validate(String uname, String pword) {
+        /*
         DatabaseConnection db = new DatabaseConnection(pathToDB);
         ResultSet results = db.executeQuery("SELECT * FROM STUDENTS, STAFF WHERE USERNAME='" + uname + "'");
         try {
@@ -66,7 +67,7 @@ public class LoginActivity extends Activity {
             e.printStackTrace();
             return false;
         }
-        // return DB query (if it doesn't exist, create it!
+        //*/
         return true; // test purposes
     }
 
