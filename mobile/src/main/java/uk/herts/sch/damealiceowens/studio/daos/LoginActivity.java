@@ -1,6 +1,7 @@
 package uk.herts.sch.damealiceowens.studio.daos;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,7 +53,8 @@ public class LoginActivity extends Activity {
         String username = ((EditText)findViewById(R.id.uname)).getText().toString();
         String password = ((EditText)findViewById(R.id.pword)).getText().toString();
 
-        if(validate(username, password)) { // no .getText?!?
+        if(validate(username, password)) {
+            Intent intent = new Intent(this, HomeActivity.class);
 
         }
     }
