@@ -7,5 +7,10 @@
     tools:context="uk.herts.sch.damealiceowens.studio.daos.HomeActivity">
 
 
-
+    <fragment
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:name="uk.herts.sch.damealiceowens.studio.daos.SidebarFragment"
+        android:id="@+id/sidebar"
+        tools:layout="@layout/sidebar_fragment" />
 </RelativeLayout>
