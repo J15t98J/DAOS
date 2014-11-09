@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import uk.herts.sch.damealiceowens.studio.daos.db.DatabaseConnection;
+import uk.sch.herts.damealiceowens.studio.daos.ItemListActivity;
 import uk.sch.herts.damealiceowens.studio.daos.R;
 
 public class LoginActivity extends Activity {
@@ -72,7 +73,7 @@ public class LoginActivity extends Activity {
 
         //TODO: what if we can't connect?
         if(validate(username, password)) {
-            Intent intent = new Intent(this, HomeActivity.class);
+            Intent intent = new Intent(this, ItemListActivity.class);
             startActivity(intent);
             finish();
         } else {
