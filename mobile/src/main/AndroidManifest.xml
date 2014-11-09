@@ -52,6 +52,10 @@
             android:name="uk.herts.sch.damealiceowens.studio.daos.Home"
             android:label="@string/title_activity_home" >
         </activity>
+        <activity
+            android:name="uk.sch.herts.damealiceowens.studio.daos.drawer"
+            android:label="@string/title_activity_drawer" >
+        </activity>
     </application>
 
 </manifest>
