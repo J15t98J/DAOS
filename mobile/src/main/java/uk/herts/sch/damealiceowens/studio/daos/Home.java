@@ -4,23 +4,20 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import uk.sch.herts.damealiceowens.studio.daos.Home_page;
+import uk.sch.herts.damealiceowens.studio.daos.Homework;
+import uk.sch.herts.damealiceowens.studio.daos.News_and_Events;
 import uk.sch.herts.damealiceowens.studio.daos.R;
-import uk.sch.herts.damealiceowens.studio.daos.TEST1;
-import uk.sch.herts.damealiceowens.studio.daos.TEST2;
-
-import static android.support.v7.internal.widget.AdapterViewCompat.*;
+import uk.sch.herts.damealiceowens.studio.daos.Timetable;
 
 
 public class Home extends Activity {
@@ -120,17 +117,22 @@ public class Home extends Activity {
         }
     }
 
-    private void selectItem(int position){
+    private void selectItem(int position) {
 
-        Fragment fragment1 = new TEST1();
-        Fragment fragment2 = new TEST2();
+        Fragment fragment0 = new Home_page();
+        Fragment fragment1 = new News_and_Events();
+        Fragment fragment2 = new Timetable();
+        Fragment fragment3 = new Homework();
         FragmentManager fragmentManager = getFragmentManager();
         //fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-
-        if (position == 1){
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment1).commit();
+        if (position == 0){
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment0).addToBackStack(null).commit();
+        } if (position == 1){
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment1).addToBackStack(null).commit();
         } if (position == 2){
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment2).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment2).addToBackStack(null).commit();
+        } if (position ==3){
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment3).addToBackStack(null).commit();
         }
 
         mDrawerList.setItemChecked(position, true);
