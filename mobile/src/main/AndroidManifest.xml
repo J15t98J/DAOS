@@ -48,6 +48,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="uk.sch.herts.damealiceowens.studio.daos.ItemListActivity" />
         </activity>
+        <activity
+            android:name="uk.herts.sch.damealiceowens.studio.daos.Home"
+            android:label="@string/title_activity_home" >
+        </activity>
     </application>
 
 </manifest>

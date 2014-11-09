@@ -8,11 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import uk.herts.sch.damealiceowens.studio.daos.db.DatabaseConnection;
-import uk.sch.herts.damealiceowens.studio.daos.ItemListActivity;
 import uk.sch.herts.damealiceowens.studio.daos.R;
 
 public class LoginActivity extends Activity {
@@ -73,7 +68,7 @@ public class LoginActivity extends Activity {
 
         //TODO: what if we can't connect?
         if(validate(username, password)) {
-            Intent intent = new Intent(this, ItemListActivity.class);
+            Intent intent = new Intent(this, Home.class);
             startActivity(intent);
             finish();
         } else {
