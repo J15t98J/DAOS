@@ -28,26 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="uk.herts.sch.damealiceowens.studio.daos.HomeActivity"
-            android:label="@string/title_activity_home" >
-        </activity>
-        <activity
-            android:name="uk.sch.herts.damealiceowens.studio.daos.Home_page"
-            android:label="@string/title_activity_home_page" >
-        </activity>
-        <activity
-            android:name="uk.sch.herts.damealiceowens.studio.daos.ItemListActivity"
-            android:label="@string/title_item_list" >
-        </activity>
-        <activity
-            android:name="uk.sch.herts.damealiceowens.studio.daos.ItemDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName="uk.sch.herts.damealiceowens.studio.daos.ItemListActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="uk.sch.herts.damealiceowens.studio.daos.ItemListActivity" />
-        </activity>
+
         <activity
             android:name="uk.herts.sch.damealiceowens.studio.daos.Home"
             android:label="@string/title_activity_home" >
@@ -56,6 +37,7 @@
             android:name="uk.sch.herts.damealiceowens.studio.daos.drawer"
             android:label="@string/title_activity_drawer" >
         </activity>
+
     </application>
 
 </manifest>

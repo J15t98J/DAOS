@@ -18,7 +18,7 @@ import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.Homework;
 import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.News_and_Events;
 import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.Timetable;
 import uk.sch.herts.damealiceowens.studio.daos.R;
-
+import static uk.sch.herts.damealiceowens.studio.daos.R.string.*;
 
 
 public class Home extends Activity {
@@ -44,36 +44,43 @@ public class Home extends Activity {
 
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 mDrawerLayout,
-                //R.drawable.ic_drawer,
-                R.string.drawer_open,
-                R.string.drawer_close
-        ){
+                drawer_open,
+                drawer_close
+        ) {
 
-            public void onDrawerClosed(View view){
+            public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 getActionBar().setTitle(mTitle);
-                //invalidateOptionsMenu();
+                invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getActionBar().setTitle("Dame Alice Owen's");
-                //invalidateOptionsMenu();
+                invalidateOptionsMenu();
             }
 
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-
         if (savedInstanceState == null){
             selectItem(0);
         }
+
+        getFragmentManager().addOnBackStackChangedListener(
+                new FragmentManager.OnBackStackChangedListener(){
+                    public void onBackStackChanged(){
+
+                    }
+                }
+        );
 
     }
 
@@ -97,6 +104,10 @@ public class Home extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        if (mDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
