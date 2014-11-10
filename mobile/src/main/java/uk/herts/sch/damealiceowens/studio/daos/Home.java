@@ -43,12 +43,10 @@ public class Home extends Activity {
 
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 mDrawerLayout,
+                //R.drawable.ic_drawer,
                 R.string.drawer_open,
                 R.string.drawer_close
         ){
@@ -56,24 +54,21 @@ public class Home extends Activity {
             public void onDrawerClosed(View view){
                 super.onDrawerClosed(view);
                 getActionBar().setTitle(mTitle);
-                invalidateOptionsMenu();
+                //invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getActionBar().setTitle("Dame Alice Owen's");
-                invalidateOptionsMenu();
+                //invalidateOptionsMenu();
             }
 
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        //String[] values = new String[]{"Home", "News and Events", "Timetable", "Homework"};
-
-        //ArrayAdapter<String>adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, android.R.id.text1, values);
-
-        //mDrawerList.setAdapter(adapter);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
 
         if (savedInstanceState == null){
             selectItem(0);
@@ -125,9 +120,10 @@ public class Home extends Activity {
         Fragment fragment3 = new Homework();
         FragmentManager fragmentManager = getFragmentManager();
         //fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-        if (position == 0){
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment0).addToBackStack(null).commit();
-        } if (position == 1){
+        //if (position == 0){
+        //    fragmentManager.beginTransaction().replace(R.id.content_frame, fragment0).addToBackStack(null).commit();
+        //}
+        if (position == 1){
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment1).addToBackStack(null).commit();
         } if (position == 2){
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment2).addToBackStack(null).commit();
