@@ -13,7 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import uk.herts.sch.damealiceowens.studio.daos.TEST_FRAGMENTS_LIST.TEST_HOME;
+import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.Home_page;
+import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.Homework;
+import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.News_and_Events;
+import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.Timetable;
 import uk.sch.herts.damealiceowens.studio.daos.R;
 
 
@@ -112,13 +115,26 @@ public class Home extends Activity {
 
     private void selectItem(int position) {
 
-        Fragment fragment0 = new TEST_HOME();
+        Fragment fragment0 = new Home_page();
+        Fragment fragment1 = new News_and_Events();
+        Fragment fragment2 = new Timetable();
+        Fragment fragment3 = new Homework();
 
         FragmentManager fragmentManager = getFragmentManager();
         //fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         if (position == 0){
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment0).addToBackStack(null).commit();
         }
+        if (position == 1){
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment1).addToBackStack(null).commit();
+        }
+        if (position == 2){
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment2).addToBackStack(null).commit();
+        }
+        if (position == 3){
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment3).addToBackStack(null).commit();
+        }
+
         mDrawerList.setItemChecked(position, true);
         setTitle(mItems[position]);
         mDrawerLayout.closeDrawer(mDrawerList);

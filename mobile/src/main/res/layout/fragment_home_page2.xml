@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="uk.herts.sch.damealiceowens.studio.daos.TEST_FRAGMENTS_LIST.TEST_HOME">
+    tools:context="uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.Home_page">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -54,4 +54,5 @@
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
+
 </FrameLayout>

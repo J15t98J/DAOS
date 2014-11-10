@@ -1,4 +1,4 @@
-package uk.herts.sch.damealiceowens.studio.daos.TEST_FRAGMENTS_LIST;
+package uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import uk.sch.herts.damealiceowens.studio.daos.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TEST_HOME extends Fragment {
+public class Timetable extends Fragment {
 
 
-    public TEST_HOME() {
+    public Timetable() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class TEST_HOME extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_test__home, container, false);
+        return inflater.inflate(R.layout.fragment_timetable2, container, false);
     }
 
 
