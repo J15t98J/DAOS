@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,12 +14,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.Home_page;
-import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.Homework;
 import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.News_and_Events;
-import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.Timetable;
+import uk.herts.sch.damealiceowens.studio.daos.FRAGMENTS_MENU.Planner;
 import uk.sch.herts.damealiceowens.studio.daos.R;
+
+import static android.support.v7.app.ActionBar.*;
 import static uk.sch.herts.damealiceowens.studio.daos.R.string.*;
 
 
@@ -28,6 +32,9 @@ public class Home extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mItems;
+
+    private long backPressTime;
+    private static final int DOUBLE_BACK_TIME_LIMIT = 800;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,22 +135,30 @@ public class Home extends Activity {
 
         Fragment fragment0 = new Home_page();
         Fragment fragment1 = new News_and_Events();
-        Fragment fragment2 = new Timetable();
-        Fragment fragment3 = new Homework();
+        Fragment fragment2 = new Planner();
 
         FragmentManager fragmentManager = getFragmentManager();
         //fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         if (position == 0){
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment0).addToBackStack(null).commit();
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content_frame, fragment0)
+                    //.addToBackStack(null)
+                    .commit();
         }
         if (position == 1){
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment1).addToBackStack(null).commit();
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content_frame, fragment1)
+                    //.addToBackStack(null)
+                    .commit();
         }
         if (position == 2){
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment2).addToBackStack(null).commit();
-        }
-        if (position == 3){
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment3).addToBackStack(null).commit();
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content_frame, fragment2)
+                    //.addToBackStack(null)
+                    .commit();
         }
 
         mDrawerList.setItemChecked(position, true);
@@ -155,6 +170,22 @@ public class Home extends Activity {
         mTitle = title;
         getActionBar().setTitle(mTitle);
     }
+
+    private void doubleBackPressTrigger() {
+        if (backPressTime + DOUBLE_BACK_TIME_LIMIT > System.currentTimeMillis()) {
+            super.onBackPressed();
+        }else {
+            Toast.makeText(getBaseContext(), "Press Back twice to get exit the application!", Toast.LENGTH_SHORT).show();
+        }
+        backPressTime = System.currentTimeMillis();
+    }
+
+    //Put in your activity you want to be enabled with "double back exit"
+    @Override
+    public void onBackPressed() {
+        doubleBackPressTrigger();
+    }
+
 }
 
 
