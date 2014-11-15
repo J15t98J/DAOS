@@ -135,7 +135,7 @@ public class Home extends Activity {
 
         Fragment fragment0 = new Home_page();
         Fragment fragment1 = new News_and_Events();
-        Fragment fragment2 = new Planner();
+        //Fragment fragment2 = new Planner();
 
         FragmentManager fragmentManager = getFragmentManager();
         //fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
@@ -153,13 +153,13 @@ public class Home extends Activity {
                     //.addToBackStack(null)
                     .commit();
         }
-        if (position == 2){
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.content_frame, fragment2)
-                    //.addToBackStack(null)
-                    .commit();
-        }
+        //if (position == 2){
+        //    fragmentManager
+        //            .beginTransaction()
+        //           .replace(R.id.content_frame, fragment2)
+        //            //.addToBackStack(null)
+        //            .commit();
+        //}
 
         mDrawerList.setItemChecked(position, true);
         setTitle(mItems[position]);

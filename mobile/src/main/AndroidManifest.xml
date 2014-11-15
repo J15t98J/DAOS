@@ -22,16 +22,21 @@
         <activity
             android:name="uk.herts.sch.damealiceowens.studio.daos.LoginActivity"
             android:label="Dame Alice Owen\&apos;s School" >
-            <intent-filter>
+            <!--intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter-->
         </activity>
 
         <activity
             android:name="uk.herts.sch.damealiceowens.studio.daos.Home"
             android:label="@string/title_activity_home" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="uk.sch.herts.damealiceowens.studio.daos.drawer"
