@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Dame Alice Owen\'s</string>
     <string name="title_activity_main">Dame Alice Owen\'s</string>
     <string name="action_settings">Settings</string>
@@ -10,8 +9,9 @@
     <string name="home_title">Home</string>
 
     <string-array name="main_items">
+        <item>Home</item>
         <item>News and Events</item>
-        <item>Planner</item>
+        <item>Schedule</item>
     </string-array>
     <string-array name="Test_listitems">
         <item>Test1</item>
@@ -33,7 +33,4 @@
         <item>Test17</item>
         <item>Test18</item>
     </string-array>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>
