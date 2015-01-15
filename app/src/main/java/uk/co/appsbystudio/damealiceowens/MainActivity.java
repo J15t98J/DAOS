@@ -3,34 +3,31 @@ package uk.co.appsbystudio.damealiceowens;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import junit.framework.Test;
-
 import uk.co.appsbystudio.damealiceowens.Pages.Home;
-import uk.co.appsbystudio.damealiceowens.Pages.Login;
 import uk.co.appsbystudio.damealiceowens.Pages.News;
 import uk.co.appsbystudio.damealiceowens.Pages.Planner;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    private String[] mItems;
-    private DrawerLayout mDrawerLayout;
-    private ListView mListView;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private CharSequence mTitle;
-    private CharSequence mDrawerTitle;
+    private String[] items;
+    private DrawerLayout drawerLayout;
+    private ListView listView;
+    private ActionBarDrawerToggle drawerToggle;
+    private CharSequence title;
+    private CharSequence drawerTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,31 +39,31 @@ public class MainActivity extends ActionBarActivity {
 
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment_home).commit();
 
-        mTitle = mDrawerTitle = getTitle();
-        mItems = getResources().getStringArray(R.array.main_items);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
+        title = drawerTitle = getTitle();
+        items = getResources().getStringArray(R.array.main_items);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mTitle);
+                getSupportActionBar().setTitle(title);
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(mDrawerTitle);
+                getSupportActionBar().setTitle(drawerTitle);
                 invalidateOptionsMenu();
             }
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        drawerLayout.setDrawerListener(drawerToggle);
 
-        mListView = (ListView) findViewById(R.id.left_drawer);
+        listView = (ListView) findViewById(R.id.left_drawer);
 
-        mListView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mItems));
+        listView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, items));
 
-        mListView.setOnItemClickListener(new DrawerItemCLickListener());
+        listView.setOnItemClickListener(new DrawerItemCLickListener());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -75,13 +72,13 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
+        drawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
 
@@ -99,7 +96,7 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
+        if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
@@ -111,15 +108,25 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class DrawerItemCLickListener implements ListView.OnItemClickListener {
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(listView)) {
+            drawerLayout.closeDrawer(listView);
+        }else {
+            super.onBackPressed();
+        }
+    }
+
+
+    public class DrawerItemCLickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             selectItem(position);
         }
 
         private void selectItem(int position) {
-            Fragment fragment0 = new News();
-            Fragment fragment1 = new Planner();
+            Fragment fragment0 = new Home();
+            Fragment fragment1 = new News();
+            Fragment fragment2 = new Planner();
 
             FragmentManager fragmentManager = getFragmentManager();
 
@@ -137,18 +144,17 @@ public class MainActivity extends ActionBarActivity {
                         .addToBackStack(null)
                         .commit();
             }
+            if (position == 2) {
+                fragmentManager
+                        .beginTransaction()
+                        .replace(R.id.content_frame, fragment2)
+                        .addToBackStack(null)
+                        .commit();
+            }
 
-            mListView.setItemChecked(position, true);
-            setTitle(mItems[position]);
-            mDrawerLayout.closeDrawer(mListView);
-        }
-    }
-
-    public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(mListView)) {
-            mDrawerLayout.closeDrawer(mListView);
-        }else {
-            super.onBackPressed();
+            listView.setItemChecked(position, true);
+            setTitle(items[position]);
+            drawerLayout.closeDrawer(listView);
         }
     }
 }
