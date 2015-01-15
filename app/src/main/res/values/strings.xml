@@ -33,13 +33,4 @@
         <item>Test17</item>
         <item>Test18</item>
     </string-array>
-
-
-
-
-    <string name="title_activity_card_view">CardViewActivity</string>
-    <string name="cardview_contents">Welcome to the Owen\'s app
-    </string>
-    <string name="cardview_radius_seekbar_text">Radius</string>
-    <string name="cardview_elevation_seekbar_text">Elevation</string>
 </resources>

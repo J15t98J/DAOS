@@ -1,17 +1,14 @@
 package uk.co.appsbystudio.damealiceowens.Pages;
 
-import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.widget.CardView;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SeekBar;
-
 import uk.co.appsbystudio.damealiceowens.R;
 
 public class Home extends Fragment {
+
 
     public Home() {
         // Required empty public constructor
@@ -21,7 +18,8 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        return rootView;
+    }
 }

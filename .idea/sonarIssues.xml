@@ -58,6 +58,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/uk/co/appsbystudio/damealiceowens/MainActivityImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/uk/co/appsbystudio/damealiceowens/Pages/Home.java">
           <value>
             <set />
@@ -69,6 +74,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/uk/co/appsbystudio/damealiceowens/Pages/News.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/uk/co/appsbystudio/damealiceowens/Pages/OnFragmentInteractionListener.java">
           <value>
             <set />
           </value>
@@ -109,6 +119,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/cards_layout.xml">
           <value>
             <set />
           </value>
