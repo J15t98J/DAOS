@@ -3,7 +3,6 @@ package uk.co.appsbystudio.damealiceowens;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -18,7 +17,6 @@ import android.widget.ListView;
 import uk.co.appsbystudio.damealiceowens.Pages.Home;
 import uk.co.appsbystudio.damealiceowens.Pages.News;
 import uk.co.appsbystudio.damealiceowens.Pages.Planner;
-
 
 public class MainActivity extends ActionBarActivity  {
 

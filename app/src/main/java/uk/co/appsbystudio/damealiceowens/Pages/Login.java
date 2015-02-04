@@ -1,6 +1,5 @@
 package uk.co.appsbystudio.damealiceowens.Pages;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -11,21 +10,14 @@ import android.widget.EditText;
 
 import uk.co.appsbystudio.damealiceowens.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class Login extends Fragment {
-
 
     public Login() {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
@@ -63,6 +55,4 @@ public class Login extends Fragment {
             //TODO: errors
         }
     }
-
-
 }
