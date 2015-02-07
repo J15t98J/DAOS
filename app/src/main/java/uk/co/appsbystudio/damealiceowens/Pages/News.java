@@ -18,14 +18,15 @@ public class News extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_news, container, false);
+	    View view = inflater.inflate(R.layout.fragment_news, container, false);
+	    // TODO: Switch Fragment system to Support library to support API 15/16
 	    getChildFragmentManager().beginTransaction().replace(R.id.content_frame, new NewsList()).addToBackStack(null).commit();
 	    return view;
     }
 
 	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
+	public void onPause() {
+		super.onPause();
 
 		getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.content_frame)).commit();
 	}

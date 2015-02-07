@@ -1,7 +1,6 @@
 package uk.co.appsbystudio.damealiceowens;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -32,19 +31,25 @@ public class MainActivity extends ActionBarActivity  {
     private CharSequence title;
     private CharSequence drawerTitle;
 
+	private Map<Integer, Fragment> fragments = new HashMap<>();
+	private Integer currentFragment = 0;
 	private Fragment fragment_login = new Login();
-	private Fragment fragment_home = new Home();
-	private Fragment fragment_news = new News();
-	private Fragment fragment_schedule = new Schedule();
+
+	public MainActivity() {
+		fragments.put(0, new Home());
+		fragments.put(1, new News());
+		fragments.put(2, new Schedule());
+	}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager = getFragmentManager();
-
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment_home).commit();
+	    if(savedInstanceState != null) {
+		    currentFragment = savedInstanceState.getInt("currentFragment");
+	    }
+	    getFragmentManager().beginTransaction().replace(R.id.content_frame, fragments.get(currentFragment)).commit();
 
         title = drawerTitle = getTitle();
         items = getResources().getStringArray(R.array.main_items);
@@ -112,19 +117,18 @@ public class MainActivity extends ActionBarActivity  {
         }
     }
 
-    public class DrawerItemCLickListener implements ListView.OnItemClickListener {
-	    Map<Integer, Fragment> fragments = new HashMap<>();
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		savedInstanceState.putInt("currentFragment", currentFragment);
+	}
 
-	    public DrawerItemCLickListener() {
-		    fragments.put(0, fragment_home);
-		    fragments.put(1, fragment_news);
-		    fragments.put(2, fragment_schedule);
-	    }
+    public class DrawerItemCLickListener implements ListView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	        getFragmentManager().beginTransaction().replace(R.id.content_frame, fragments.get(position)).addToBackStack(null).commit();
 
+	        currentFragment = position;
 	        listView.setItemChecked(position, true);
 	        setTitle(items[position]);
 	        drawerLayout.closeDrawer(listView);
