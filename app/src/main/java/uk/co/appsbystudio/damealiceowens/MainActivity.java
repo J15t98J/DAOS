@@ -70,6 +70,7 @@ public class MainActivity extends ActionBarActivity  {
 
         listView = (ListView) findViewById(R.id.left_drawer);
 
+	    // TODO: Custom ArrayAdapter to allow for custom list item layout
         listView.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, items));
         listView.setSelection(0);
 

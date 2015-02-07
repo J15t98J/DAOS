@@ -9,3 +9,5 @@
     android:textColor="#fff"
     android:background="?android:attr/activatedBackgroundIndicator"
     android:minHeight="?android:attr/listPreferredItemHeightSmall" />
+
+   <!-- TODO: Restructure to include icon and unread-count box; create separator and title to allow for sub-lists -->
