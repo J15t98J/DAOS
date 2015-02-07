@@ -24,8 +24,8 @@ public class News extends Fragment {
     }
 
 	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
+	public void onPause() {
+		super.onPause();
 
 		getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.content_frame)).commit();
 	}
