@@ -19,8 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import uk.co.appsbystudio.damealiceowens.Pages.Home;
+import uk.co.appsbystudio.damealiceowens.Pages.Login;
 import uk.co.appsbystudio.damealiceowens.Pages.News;
-import uk.co.appsbystudio.damealiceowens.Pages.Planner;
+import uk.co.appsbystudio.damealiceowens.Pages.Schedule;
 
 public class MainActivity extends ActionBarActivity  {
 
@@ -31,12 +32,16 @@ public class MainActivity extends ActionBarActivity  {
     private CharSequence title;
     private CharSequence drawerTitle;
 
+	private Fragment fragment_login = new Login();
+	private Fragment fragment_home = new Home();
+	private Fragment fragment_news = new News();
+	private Fragment fragment_schedule = new Schedule();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Fragment fragment_home = new Home();
         FragmentManager fragmentManager = getFragmentManager();
 
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment_home).commit();
@@ -97,6 +102,7 @@ public class MainActivity extends ActionBarActivity  {
 	    return drawerToggle.onOptionsItemSelected(item) || item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
+	@Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(listView)) {
             drawerLayout.closeDrawer(listView);
@@ -106,13 +112,16 @@ public class MainActivity extends ActionBarActivity  {
     }
 
     public class DrawerItemCLickListener implements ListView.OnItemClickListener {
+	    Map<Integer, Fragment> fragments = new HashMap<>();
+
+	    public DrawerItemCLickListener() {
+		    fragments.put(0, fragment_home);
+		    fragments.put(1, fragment_news);
+		    fragments.put(2, fragment_schedule);
+	    }
+
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	        Map<Integer, Fragment> fragments = new HashMap<>();
-	        fragments.put(0, new Home());
-	        fragments.put(1, new News());
-	        fragments.put(2, new Planner());
-
 	        getFragmentManager().beginTransaction().replace(R.id.content_frame, fragments.get(position)).addToBackStack(null).commit();
 
 	        listView.setItemChecked(position, true);

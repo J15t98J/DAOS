@@ -3,13 +3,11 @@
     android:layout_height="match_parent"
     tools:context="uk.co.appsbystudio.damealiceowens.Pages.pagecontentviews.NewsList">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/newsList"
-        android:layout_gravity="center"
+        android:layout_gravity="top"
         android:clickable="true"
         android:choiceMode="singleChoice" />
 </FrameLayout>

@@ -13,7 +13,7 @@
         <item>News and Events</item>
         <item>Schedule</item>
     </string-array>
-    <string-array name="Test_listitems">
+    <string-array name="news_listItems">
         <item>Test1</item>
         <item>Test2</item>
         <item>Test3</item>
