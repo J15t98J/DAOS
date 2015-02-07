@@ -3,9 +3,9 @@ package uk.co.appsbystudio.damealiceowens;
 import android.app.Fragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -77,7 +77,7 @@ public class MainActivity extends ActionBarActivity  {
 
 	    // TODO: Custom ArrayAdapter to allow for custom list item layout
         listView.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, items));
-        listView.setSelection(0);
+	    listView.setItemChecked(currentFragment, true);
 
         listView.setOnItemClickListener(new DrawerItemCLickListener());
 
