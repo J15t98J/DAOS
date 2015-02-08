@@ -9,5 +9,5 @@
         android:id="@+id/newsList"
         android:layout_gravity="top"
         android:clickable="true"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice"/>
 </FrameLayout>

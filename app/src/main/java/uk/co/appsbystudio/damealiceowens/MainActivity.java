@@ -53,6 +53,7 @@ public class MainActivity extends ActionBarActivity  {
 
         title = drawerTitle = getTitle();
         items = getResources().getStringArray(R.array.main_items);
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
@@ -116,6 +117,8 @@ public class MainActivity extends ActionBarActivity  {
             super.onBackPressed();
         }
     }
+
+
 
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
