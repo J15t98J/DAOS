@@ -47,11 +47,14 @@ public class MainActivity extends ActionBarActivity  {
         setContentView(R.layout.activity_main);
 
 	    if(false) { // TODO: check storage for session key to see if logged in
-			currentFragment = 0;
+		    if(false) { // TODO: check with server that session key is valid
+			    currentFragment = 0;
+			    if(savedInstanceState != null) {
+				    currentFragment = savedInstanceState.getInt("currentFragment");
+			    }
+		    }
 	    }
-	    if(savedInstanceState != null) {
-		    currentFragment = savedInstanceState.getInt("currentFragment");
-	    }
+
 		getFragmentManager().beginTransaction().replace(R.id.content_frame, fragments.get(currentFragment)).commit();
 
         title = drawerTitle = getTitle();
