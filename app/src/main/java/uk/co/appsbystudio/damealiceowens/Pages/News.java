@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsContent;
 import uk.co.appsbystudio.damealiceowens.R;
@@ -36,10 +37,8 @@ public class News extends Fragment {
 	@Override
 	public void onPause() {
 		super.onPause();
-
-		getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.list_frame)).commit();
+		getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.content_frame)).commit();
 	}
-
 
 	public class ClickListener implements ListView.OnItemClickListener {
 

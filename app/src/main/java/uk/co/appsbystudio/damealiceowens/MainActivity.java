@@ -118,8 +118,6 @@ public class MainActivity extends ActionBarActivity  {
         }
     }
 
-
-
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		savedInstanceState.putInt("currentFragment", currentFragment);
