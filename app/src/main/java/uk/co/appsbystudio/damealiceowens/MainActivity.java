@@ -32,10 +32,10 @@ public class MainActivity extends ActionBarActivity  {
     private CharSequence drawerTitle;
 
 	private final Map<Integer, Fragment> fragments = new HashMap<>();
-	private Integer currentFragment = 0;
-	private Fragment fragment_login = new Login();
+	private Integer currentFragment = -1;
 
 	public MainActivity() {
+		fragments.put(-1, new Login());
 		fragments.put(0, new Home());
 		fragments.put(1, new News());
 		fragments.put(2, new Schedule());
@@ -46,10 +46,13 @@ public class MainActivity extends ActionBarActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+	    if(false) { // TODO: check storage for session key to see if logged in
+			currentFragment = 0;
+	    }
 	    if(savedInstanceState != null) {
 		    currentFragment = savedInstanceState.getInt("currentFragment");
 	    }
-	    getFragmentManager().beginTransaction().replace(R.id.content_frame, fragments.get(currentFragment)).commit();
+		getFragmentManager().beginTransaction().replace(R.id.content_frame, fragments.get(currentFragment)).commit();
 
         title = drawerTitle = getTitle();
         items = getResources().getStringArray(R.array.main_items);
