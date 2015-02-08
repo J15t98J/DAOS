@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
-	private ArrayList<RSSItem> array = new ArrayList<RSSItem>();
-	private ArrayList<String> accepted_tags = new ArrayList<String>();
+	private final ArrayList<RSSItem> array = new ArrayList<RSSItem>();
+	private final ArrayList<String> accepted_tags = new ArrayList<String>();
 
 	public RSSFeedParser() {
 		accepted_tags.add(0, "item");

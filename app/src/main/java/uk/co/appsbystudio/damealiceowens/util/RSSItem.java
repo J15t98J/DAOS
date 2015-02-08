@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class RSSItem extends Object {
 
-	public HashMap<String, String> parameters = new HashMap<String, String>();
+	private HashMap<String, String> parameters = new HashMap<String, String>();
 
 	public void setValue(String key, String value) {
 		parameters.put(key, value);
@@ -15,6 +15,6 @@ public class RSSItem extends Object {
 	}
 
 	public Boolean getBool(String key) {
-		return parameters.get(key) == "true";
+		return parameters.get(key).equals("true");
 	}
 }
