@@ -9,5 +9,8 @@
         android:id="@+id/newsList"
         android:layout_gravity="top"
         android:clickable="true"
-        android:choiceMode="singleChoice"/>
+        android:choiceMode="singleChoice"
+        android:smoothScrollbar="true"
+        android:fastScrollEnabled="false"
+        android:fastScrollAlwaysVisible="false" />
 </FrameLayout>

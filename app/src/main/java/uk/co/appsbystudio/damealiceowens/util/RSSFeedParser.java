@@ -20,6 +20,30 @@ public class RSSFeedParser {
 		temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
 		temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
 		temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
+        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
+        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
+        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
+        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
+        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
+        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
+        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
+        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
+        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
+        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
+        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
+        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
+        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
+        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
+        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
+        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
+        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
+        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
+        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
+        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
+        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
+        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
+        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
+        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
 
 		return temp;
 	}
