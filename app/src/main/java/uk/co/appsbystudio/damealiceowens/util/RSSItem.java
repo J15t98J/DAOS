@@ -2,10 +2,10 @@ package uk.co.appsbystudio.damealiceowens.util;
 
 public class RSSItem extends Object {
 
-	public String title;
-	public String info;
-	public boolean isRead;
-	public boolean isFlagged;
+	public final String title;
+	public final String info;
+	public final boolean isRead;
+	public final boolean isFlagged;
 
 	public RSSItem(String title, String info, boolean isRead, boolean isFlagged) {
 		this.title = title;

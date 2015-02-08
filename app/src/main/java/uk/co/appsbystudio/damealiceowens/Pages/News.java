@@ -16,7 +16,7 @@ import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
 
 public class News extends Fragment {
 
-	public ClickListener listener = new ClickListener();
+	public final ClickListener listener = new ClickListener();
 
     public News() {
         // Required empty public constructor

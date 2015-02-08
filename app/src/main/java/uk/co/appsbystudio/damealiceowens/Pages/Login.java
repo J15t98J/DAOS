@@ -21,7 +21,7 @@ public class Login extends Fragment {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
-    public boolean validate(String uname, String pword) {
+    boolean validate(String uname, String pword) {
         /*
         DatabaseConnection db = new DatabaseConnection(pathToDB);
         ResultSet results = db.executeQuery("SELECT * FROM STUDENTS, STAFF WHERE USERNAME='" + uname + "'");

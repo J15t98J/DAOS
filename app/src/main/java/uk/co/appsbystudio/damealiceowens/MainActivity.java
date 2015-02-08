@@ -31,7 +31,7 @@ public class MainActivity extends ActionBarActivity  {
     private CharSequence title;
     private CharSequence drawerTitle;
 
-	private Map<Integer, Fragment> fragments = new HashMap<>();
+	private final Map<Integer, Fragment> fragments = new HashMap<>();
 	private Integer currentFragment = 0;
 	private Fragment fragment_login = new Login();
 
@@ -123,7 +123,7 @@ public class MainActivity extends ActionBarActivity  {
 		savedInstanceState.putInt("currentFragment", currentFragment);
 	}
 
-    public class DrawerItemCLickListener implements ListView.OnItemClickListener {
+    private class DrawerItemCLickListener implements ListView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

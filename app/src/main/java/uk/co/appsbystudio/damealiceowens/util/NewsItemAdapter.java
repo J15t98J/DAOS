@@ -14,8 +14,8 @@ import uk.co.appsbystudio.damealiceowens.R;
 
 public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 
-	private Context context;
-	private ArrayList<RSSItem> content;
+	private final Context context;
+	private final ArrayList<RSSItem> content;
 
 	public NewsItemAdapter(Context context, ArrayList<RSSItem> content) {
 		super(context, R.layout.news_list_item, content);

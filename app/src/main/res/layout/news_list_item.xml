@@ -41,8 +41,8 @@
         android:layout_column="3"
         android:layout_gravity="center_vertical|end"
         android:gravity="center_vertical"
+        android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingEnd="10dp"
         android:src="@drawable/ic_action_next_item"
         android:contentDescription="@string/ne_open_item_icon"/>
 </GridLayout>

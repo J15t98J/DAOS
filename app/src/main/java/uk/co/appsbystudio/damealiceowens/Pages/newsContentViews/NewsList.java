@@ -14,7 +14,7 @@ import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
 
 public class NewsList extends Fragment {
 
-	private RSSFeedParser parser = new RSSFeedParser();
+	private final RSSFeedParser parser = new RSSFeedParser();
 	private News parent;
 
 	public NewsList() {
