@@ -9,15 +9,15 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <ImageView
-            android:layout_width="150dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:paddingTop="50dp"
-            android:paddingBottom="50dp"
+            android:paddingTop="200dp"
+            android:paddingBottom="200dp"
             android:src="@drawable/logo"
             android:scaleType="centerCrop"
             android:contentDescription="@string/logo"/>
@@ -35,6 +35,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:hint="@string/login_username_hint"
+                android:textSize="40sp"
                 android:ems="10"/>
 
             <EditText
@@ -44,20 +45,25 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:inputType="textPassword"
+                android:textSize="40sp"
                 android:hint="@string/login_password_hint"
                 android:ems="10"/>
 
             <CheckBox
-                android:layout_width="140dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/login_remember_me"/>
+                android:layout_marginTop="20dp"
+                android:text="@string/login_remember_me"
+                android:textSize="30sp"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/login_submit"/>
+                android:layout_marginTop="20dp"
+                android:text="@string/login_submit"
+                android:textSize="20sp"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

@@ -4,24 +4,24 @@
     tools:context="uk.co.appsbystudio.damealiceowens.Pages.Login">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <ImageView
             android:layout_width="320dp"
             android:layout_height="fill_parent"
-            android:layout_gravity="left|center_vertical"
+            android:layout_gravity="center_vertical"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:layout_marginLeft="100dp"
             android:src="@drawable/logo"
             android:contentDescription="@string/logo"/>
         
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="60dp"
             android:orientation="vertical">
 
