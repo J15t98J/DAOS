@@ -1,50 +1,43 @@
 package uk.co.appsbystudio.damealiceowens.util;
 
+import android.os.AsyncTask;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class RSSFeedParser {
+public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
-	public ArrayList<RSSItem> get() {
-		try {
-			URL rssLoc = new URL("http", "appsbystudio.co.uk", 80, "test.rss");
-			String data = rssLoc.getFile();
-			// TODO: Parse XML file into RSSItem objects
-		} catch(MalformedURLException e) {
-			// TODO: Show a "News cannot be loaded." page
+	private ArrayList<RSSItem> array = new ArrayList<RSSItem>();
+
+	@Override
+	protected ArrayList<RSSItem> doInBackground(String... params) {
+		for(int i = 0; i < params.length; i++) {
+			try {
+				URL feed = new URL(params[i]);
+				BufferedReader in = new BufferedReader(new InputStreamReader(feed.openStream()));
+
+				String line;
+				String data = "";
+				while((line = in.readLine()) != null) {
+					data += line;
+				}
+
+				// Loop that creates a new RSSItem every time an <item> is found
+				// If following open tags are ones we want, format them and put them in the RSItem HashMap
+				// On </item> put the RSSItem into the ArrayList
+
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
 		}
+		return array;
+	}
 
-		ArrayList<RSSItem> temp = new ArrayList<RSSItem>();
-		// TODO: Remove these, they're just examples for testing
-		temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
-		temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
-		temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
-        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
-        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
-        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
-        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
-        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
-        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
-        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
-        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
-        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
-        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
-        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
-        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
-        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
-        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
-        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
-        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
-        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
-        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
-        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
-        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
-        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
-        temp.add(new RSSItem("DT SysCon deadline", "08/02/15 by DT Dept.", false, false));
-        temp.add(new RSSItem("Finish early next Friday", "07/02/15 by Office", false, false));
-        temp.add(new RSSItem("Something else", "06/02/15 by PE Dept.", true, false));
-
-		return temp;
+	public ArrayList<RSSItem> getResult() {
+		return array;
 	}
 }

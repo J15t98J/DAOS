@@ -1,16 +1,20 @@
 package uk.co.appsbystudio.damealiceowens.util;
 
+import java.util.HashMap;
+
 public class RSSItem extends Object {
 
-	public final String title;
-	public final String info;
-	public final boolean isRead;
-	public final boolean isFlagged;
+	public HashMap<String, String> parameters = new HashMap<String, String>();
 
-	public RSSItem(String title, String info, boolean isRead, boolean isFlagged) {
-		this.title = title;
-		this.info = info;
-		this.isRead = isRead;
-		this.isFlagged = isFlagged;
+	public void setValue(String key, String value) {
+		parameters.put(key, value);
+	}
+
+	public String getString(String key) {
+		return parameters.get(key);
+	}
+
+	public Boolean getBool(String key) {
+		return parameters.get(key) == "true";
 	}
 }

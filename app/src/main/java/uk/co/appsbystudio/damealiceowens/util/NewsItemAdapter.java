@@ -33,14 +33,14 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 			currentRow = inflater.inflate(R.layout.news_list_item, parent, false);
 		}
 
-		if(item.isRead) {
+		if(item.getBool("isRead")) {
 			((ImageView) currentRow.findViewById(R.id.item_readIcon)).setImageResource(R.drawable.ic_action_read);
 		} else {
 			((ImageView) currentRow.findViewById(R.id.item_readIcon)).setImageResource(R.drawable.ic_action_unread);
 		}
 
-		((TextView) currentRow.findViewById(R.id.item_title)).setText(item.title);
-		((TextView) currentRow.findViewById(R.id.item_info)).setText(item.info);
+		((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title"));
+		((TextView) currentRow.findViewById(R.id.item_info)).setText(item.getString("date") + " by " + item.getString("author"));
 
 		return currentRow;
 	}

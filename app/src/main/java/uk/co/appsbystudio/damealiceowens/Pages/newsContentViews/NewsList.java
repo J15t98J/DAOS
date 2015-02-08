@@ -24,9 +24,12 @@ public class NewsList extends Fragment {
 	// TODO: Call on RSSFeedParser to generate array
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	    RSSFeedParser parser = new RSSFeedParser();
+	    parser.execute("http://appsbystudio.co.uk/test.xml");
+
         View view = inflater.inflate(R.layout.fragment_news_list, container, false);
 	    ListView listView = ((ListView) view.findViewById(R.id.newsList));
-		listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), parser.get()));
+		listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), parser.getResult()));
 	    listView.setOnItemClickListener(parent.listener);
 
 	    return view;
