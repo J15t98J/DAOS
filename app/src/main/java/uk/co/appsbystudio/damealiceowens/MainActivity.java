@@ -1,6 +1,7 @@
 package uk.co.appsbystudio.damealiceowens;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +22,7 @@ import uk.co.appsbystudio.damealiceowens.Pages.Home;
 import uk.co.appsbystudio.damealiceowens.Pages.Login;
 import uk.co.appsbystudio.damealiceowens.Pages.News;
 import uk.co.appsbystudio.damealiceowens.Pages.Schedule;
+import uk.co.appsbystudio.damealiceowens.Pages.Settings;
 
 public class MainActivity extends ActionBarActivity  {
 
@@ -114,7 +116,19 @@ public class MainActivity extends ActionBarActivity  {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-	    return drawerToggle.onOptionsItemSelected(item) || item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
+	    //return drawerToggle.onOptionsItemSelected(item) || item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                settingsActivity();
+                return true;
+            default:
+                return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void settingsActivity() {
+        Intent intentSettings = new Intent(this, Settings.class);
+        startActivity(intentSettings);
     }
 
 	@Override
