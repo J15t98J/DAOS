@@ -46,9 +46,9 @@ public class MainActivity extends ActionBarActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-	    if(false) { // TODO: check storage for session key to see if logged in
-		    if(false) { // TODO: check with server that session key is valid
-			    currentFragment = 0;
+	    if(true) { // TODO: check storage for session key to see if logged in
+		    if(true) { // TODO: check with server that session key is valid
+			    currentFragment = 1;
 			    if(savedInstanceState != null) {
 				    currentFragment = savedInstanceState.getInt("currentFragment");
 			    }
@@ -88,8 +88,10 @@ public class MainActivity extends ActionBarActivity  {
 
         listView.setOnItemClickListener(new DrawerItemCLickListener());
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
     }
 
     @Override
