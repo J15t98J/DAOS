@@ -10,28 +10,40 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
+
 public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
-	private final ArrayList<RSSItem> array = new ArrayList<RSSItem>();
 	private final ArrayList<String> accepted_tags = new ArrayList<String>();
+	private final ArrayList<String> blacklisted_tags = new ArrayList<String>();
+	private final ArrayList<RSSItem> array = new ArrayList<RSSItem>();
+	private NewsList callback_instance;
 
-	public RSSFeedParser() {
+	public RSSFeedParser(NewsList callback_instance) {
+		this.callback_instance = callback_instance;
+
 		accepted_tags.add(0, "item");
 		accepted_tags.add(1, "title");
 		accepted_tags.add(2, "pubDate");
 		accepted_tags.add(3, "author");
 		accepted_tags.add(4, "description");
 		accepted_tags.add(5, "guid");
+
+		blacklisted_tags.add(0, "rss");
+		blacklisted_tags.add(1, "channel");
+		blacklisted_tags.add(2, "link");
 	}
 
 	@Override
 	protected ArrayList<RSSItem> doInBackground(String... params) {
 		for(int i = 0; i < params.length; i++) {
 			try {
-				URL feed = new URL(params[i]);
+				URL feed = new URI(params[i]).toURL();
 				BufferedReader in = new BufferedReader(new InputStreamReader(feed.openStream()));
 
 				String line;
@@ -50,39 +62,43 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 				RSSItem currentItem = new RSSItem();
 				String currentTag = "";
 				String currentValue = "";
-
 				while((event = parser.getEventType()) != XmlPullParser.END_DOCUMENT) {
 					if(event == XmlPullParser.START_TAG) {
-						if(currentTag.equals("") && accepted_tags.contains(parser.getName())) {
+						if(currentTag.equals("") && accepted_tags.contains(parser.getName()) && !blacklisted_tags.contains(parser.getName())) {
 							if(parser.getName().equals("item")) {
 								currentItem = new RSSItem();
+							} else {
+								currentTag = parser.getName();
 							}
-							currentTag = parser.getName();
-						} else {
+						} else if(!blacklisted_tags.contains(parser.getName())) {
 							currentValue += "<" + parser.getName() + ">";
 						}
 					} else if(event == XmlPullParser.END_TAG) {
-						if(currentTag.equals(parser.getName())) {
-							if(parser.getName().equals("item")) {
-								array.add(currentItem);
-							}
+						if(parser.getName().equals("item")) {
+							array.add(currentItem);
+						} else if(currentTag.equals(parser.getName())) {
 							currentItem.setValue(currentTag, currentValue);
 							currentTag = "";
 							currentValue = "";
-						} else {
+						} else if(!blacklisted_tags.contains(parser.getName())) {
 							currentValue += "</" + parser.getName() + ">";
 						}
+					} else if(event == XmlPullParser.TEXT) {
+						if(!currentTag.equals("")) {
+							currentValue += parser.getText();
+						}
 					}
+					parser.next();
 				}
-
-			} catch(IOException | XmlPullParserException e) {
+			} catch(IOException | XmlPullParserException | URISyntaxException e) {
 				e.printStackTrace();
 			}
 		}
 		return array;
 	}
 
-	public ArrayList<RSSItem> getResult() {
-		return array;
+	@Override
+	public void onPostExecute(ArrayList<RSSItem> result) {
+		this.callback_instance.rssParseCallback(result);
 	}
 }

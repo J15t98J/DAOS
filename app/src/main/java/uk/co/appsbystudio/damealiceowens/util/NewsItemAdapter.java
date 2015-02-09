@@ -29,6 +29,9 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		uk.co.appsbystudio.damealiceowens.util.RSSItem item = (uk.co.appsbystudio.damealiceowens.util.RSSItem) content.get(position);
 
+		// TODO: replace temp value w/ logic that gets isRead from local storage
+		item.setValue("isRead", "false");
+
 		if(currentRow == null) {
 			currentRow = inflater.inflate(R.layout.news_list_item, parent, false);
 		}
@@ -40,7 +43,7 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 		}
 
 		((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title"));
-		((TextView) currentRow.findViewById(R.id.item_info)).setText(item.getString("date") + " by " + item.getString("author"));
+		((TextView) currentRow.findViewById(R.id.item_info)).setText(item.getString("pubDate") + " by " + item.getString("author"));
 
 		return currentRow;
 	}

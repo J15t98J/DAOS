@@ -18,12 +18,32 @@
             android:src="@drawable/logo"
             android:contentDescription="@string/logo"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:text="@string/unsupported"
-            android:textColor="#000"/>
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/unsupported"
+                android:textColor="#000"/>
+
+            <EditText
+                android:id="@+id/uname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:hint="@string/login_username_hint"/>
+
+            <EditText
+                android:id="@+id/pword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:hint="@string/login_password_hint"/>
+
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>
