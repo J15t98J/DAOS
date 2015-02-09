@@ -13,6 +13,8 @@ FEATURES:
     - Actions - mark unread, flag, delete
 - Dev feed & sch feed (parser can take multiple feeds)
 - Notifications
+- Grouping of feed authors into items in sidebar
+- Custom ArrayAdapter for sidebar - number of new messages, group headers etc.
 - Background service that auto-checks for new messages?
 - Refactor parser to use new methods?
 - Support HTML in item body?
