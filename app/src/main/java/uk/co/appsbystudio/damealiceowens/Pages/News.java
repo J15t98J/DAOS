@@ -32,12 +32,6 @@ public class News extends Fragment {
 	    return view;
     }
 
-	@Override
-	public void onPause() {
-		super.onPause();
-		getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.content_frame)).commit();
-	}
-
 	public class ClickListener implements ListView.OnItemClickListener {
 
 		@Override

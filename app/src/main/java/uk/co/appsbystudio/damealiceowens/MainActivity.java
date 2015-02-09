@@ -84,14 +84,14 @@ public class MainActivity extends ActionBarActivity  {
 
         listView = (ListView) findViewById(R.id.left_drawer);
 
-	    // TODO: Custom ArrayAdapter to allow for custom list item layout
+	    // TODO: Custom ArrayAdapter to allow for custom list item layout (1.1)
         listView.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, items));
 	    listView.setItemChecked(currentFragment, true);
 
         listView.setOnItemClickListener(new DrawerItemCLickListener());
 
+	    // TODO: Remove LockMode and set both to true (1.1)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
     }
