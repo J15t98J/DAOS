@@ -23,6 +23,7 @@
     <string name="ne_open_item_icon">Open item</string>
     <string name="ne_loading_title">Just a moment…</string>
     <string name="ne_loading_subtitle">We\'re fetching the news for you.</string>
+    <string name="action_refresh">Refresh</string>
 
     <string-array name="main_items">
         <item>Home</item>

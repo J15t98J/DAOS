@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -36,7 +38,14 @@ public class NewsList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_news_list, container, false);
+
+        setHasOptionsMenu(true);
+
 	    return view;
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        getActivity().getMenuInflater().inflate(R.menu.menu_news_list, menu);
     }
 
 	public void setListenerContext(News parent) {
