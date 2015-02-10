@@ -2,13 +2,18 @@ package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 
@@ -46,9 +51,29 @@ public class NewsList extends Fragment {
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         getActivity().getMenuInflater().inflate(R.menu.menu_news_list, menu);
+
+        /*SearchManager searchManager =(SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+        return;*/
     }
 
-	public void setListenerContext(News parent) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                onSearchRequest();
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void onSearchRequest() {
+    }
+
+    public void setListenerContext(News parent) {
 		this.parent = parent;
 	}
 

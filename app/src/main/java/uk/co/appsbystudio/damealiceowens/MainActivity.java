@@ -1,6 +1,8 @@
 package uk.co.appsbystudio.damealiceowens;
 
 import android.app.Fragment;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
