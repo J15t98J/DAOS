@@ -37,7 +37,7 @@ public class NewsList extends Fragment {
 		super.onAttach(activity);
 
 		RSSFeedParser parser = new RSSFeedParser(this);
-		parser.execute("http://appsbystudio.co.uk/test.xml");
+		parser.execute("http://pastebin.com/raw.php?i=ZNcEAy7r");
 	}
 
     @Override
