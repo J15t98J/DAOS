@@ -8,13 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsContent;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
+import uk.co.appsbystudio.damealiceowens.util.RSSItem;
 
 public class News extends Fragment {
 
+	private View view;
+
 	public final ClickListener listener = new ClickListener();
+	public ArrayList<RSSItem> items;
+
+	private NewsList list;
+	private NewsContent detail;
 
     public News() {
         // Required empty public constructor
@@ -22,21 +33,27 @@ public class News extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	    View view = inflater.inflate(R.layout.fragment_news, container, false);
+	    view = inflater.inflate(R.layout.fragment_news, container, false);
 
-	    NewsList list = new NewsList();
+	    list = new NewsList();
 	    list.setListenerContext(this);
-	    // TODO: Switch Fragment system to Support library to support API 15/16
+	    detail = new NewsContent();
 	    getChildFragmentManager().beginTransaction().replace(R.id.list_frame, list).addToBackStack(null).commit();
+	    getChildFragmentManager().beginTransaction().replace(R.id.detail_frame, detail).addToBackStack(null).commit();
 
 	    return view;
     }
+
+	public void passArray(ArrayList<RSSItem> array) {
+		items = array;
+	}
 
 	public class ClickListener implements ListView.OnItemClickListener {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			// TODO: implement replacement of R.id.detail w/ relevant NewsContent; animation to slide News fragment over to reveal it
+			// TODO: does this even work?
+			detail.setContent(items.get(position).getString("description"));
 		}
 	}
 }

@@ -99,6 +99,6 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
 	@Override
 	public void onPostExecute(ArrayList<RSSItem> result) {
-		this.callback_instance.rssParseCallback(result);
+		callback_instance.rssParseCallback(result);
 	}
 }

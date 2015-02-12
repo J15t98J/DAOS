@@ -83,6 +83,7 @@ public class NewsList extends Fragment {
 			ListView listView = ((ListView) view.findViewById(R.id.newsList));
 			listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), array));
 			listView.setOnItemClickListener(parent.listener);
+			parent.passArray(array);
 		} else {
 			// Show "no news" page
 		}
