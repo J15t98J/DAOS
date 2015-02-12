@@ -36,10 +36,10 @@ public class MainActivity extends ActionBarActivity  {
     private CharSequence drawerTitle;
 
 	private final Map<Integer, Fragment> fragments = new HashMap<>();
-	private Integer currentFragment = -1;
+	private Integer currentFragment = 0;
 
 	public MainActivity() {
-		fragments.put(-1, new Login());
+		fragments.put(3, new Login());
 		fragments.put(0, new Home());
 		fragments.put(1, new News());
 		fragments.put(2, new Schedule());
@@ -50,8 +50,8 @@ public class MainActivity extends ActionBarActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-	    if(true) { // TODO: check storage for session key to see if logged in
-		    if(true) { // TODO: check with server that session key is valid
+	    if(false) { // TODO: check storage for session key to see if logged in
+		    if(false) { // TODO: check with server that session key is valid
 			    currentFragment = 1;
 			    if(savedInstanceState != null) {
 				    currentFragment = savedInstanceState.getInt("currentFragment");
@@ -93,9 +93,9 @@ public class MainActivity extends ActionBarActivity  {
         listView.setOnItemClickListener(new DrawerItemCLickListener());
 
 	    // TODO: Remove LockMode and set both to true (1.1)
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(false);
+        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override

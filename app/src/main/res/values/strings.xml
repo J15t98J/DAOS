@@ -29,6 +29,7 @@
         <item>Home</item>
         <item>News and Events</item>
         <item>Schedule</item>
+        <item>Login</item>
     </string-array>
 
     <string name="title_activity_settings">Settings</string>
