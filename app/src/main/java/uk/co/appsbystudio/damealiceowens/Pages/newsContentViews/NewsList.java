@@ -71,6 +71,7 @@ public class NewsList extends Fragment {
     }
 
     private void onSearchRequest() {
+
     }
 
     public void setListenerContext(News parent) {
