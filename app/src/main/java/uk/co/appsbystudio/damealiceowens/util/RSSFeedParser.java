@@ -15,16 +15,16 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
+import uk.co.appsbystudio.damealiceowens.Pages.News;
 
 public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
 	private final ArrayList<String> accepted_tags = new ArrayList<String>();
 	private final ArrayList<String> blacklisted_tags = new ArrayList<String>();
 	private final ArrayList<RSSItem> array = new ArrayList<RSSItem>();
-	private NewsList callback_instance;
+	private final News callback_instance;
 
-	public RSSFeedParser(NewsList callback_instance) {
+	public RSSFeedParser(News callback_instance) {
 		this.callback_instance = callback_instance;
 
 		accepted_tags.add(0, "item");
@@ -41,9 +41,9 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
 	@Override
 	protected ArrayList<RSSItem> doInBackground(String... params) {
-		for(int i = 0; i < params.length; i++) {
+		for(String loc : params) {
 			try {
-				URL feed = new URI(params[i]).toURL();
+				URL feed = new URI(loc).toURL();
 				BufferedReader in = new BufferedReader(new InputStreamReader(feed.openStream()));
 
 				String line;

@@ -1,11 +1,7 @@
 package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,14 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import java.util.ArrayList;
 
 import uk.co.appsbystudio.damealiceowens.Pages.News;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.NewsItemAdapter;
-import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
 import uk.co.appsbystudio.damealiceowens.util.RSSItem;
 
 public class NewsList extends Fragment {
@@ -31,14 +25,6 @@ public class NewsList extends Fragment {
 	public NewsList() {
         // Required empty public constructor
     }
-
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-
-		RSSFeedParser parser = new RSSFeedParser(this);
-		parser.execute("http://pastebin.com/raw.php?i=ZNcEAy7r");
-	}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,13 +63,12 @@ public class NewsList extends Fragment {
 		this.parent = parent;
 	}
 
-	public void rssParseCallback(ArrayList<RSSItem> array) {
+	public void onRSSParse(ArrayList<RSSItem> array) {
 		if(!array.isEmpty()) {
 			view.findViewById(R.id.newListLoading).setVisibility(View.GONE);
 			ListView listView = ((ListView) view.findViewById(R.id.newsList));
 			listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), array));
 			listView.setOnItemClickListener(parent.listener);
-			parent.passArray(array);
 		} else {
 			// Show "no news" page
 		}

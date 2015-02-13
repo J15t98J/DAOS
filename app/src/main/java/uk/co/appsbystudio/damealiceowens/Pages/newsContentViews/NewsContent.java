@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import uk.co.appsbystudio.damealiceowens.R;
-import uk.co.appsbystudio.damealiceowens.util.RSSItem;
 
 public class NewsContent extends Fragment {
 

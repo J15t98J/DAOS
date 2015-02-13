@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class RSSItem extends Object {
 
-	private HashMap<String, String> parameters = new HashMap<String, String>();
+	private final HashMap<String, String> parameters = new HashMap<String, String>();
 
 	public void setValue(String key, String value) {
 		parameters.put(key, value);
