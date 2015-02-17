@@ -35,6 +35,7 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 		accepted_tags.add(5, "guid");
         accepted_tags.add(6, "image");
         accepted_tags.add(7, "url");
+        accepted_tags.add(8, "short_title");
 
 		blacklisted_tags.add(0, "rss");
 		blacklisted_tags.add(1, "channel");

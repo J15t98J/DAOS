@@ -47,7 +47,12 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
             ((TextView) currentRow.findViewById(R.id.item_info)).setTypeface(null, Typeface.BOLD);
 		}
 
-		((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title"));
+        if (item.getString("title").length() > 20) {
+            ((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title").substring(0, 25) + "...");
+        } else {
+            ((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title"));
+        }
+
 		((TextView) currentRow.findViewById(R.id.item_info)).setText(item.getString("pubDate") + " by " + item.getString("author"));
 
 		return currentRow;
