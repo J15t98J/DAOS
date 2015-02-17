@@ -1,6 +1,9 @@
 package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -70,7 +74,23 @@ public class NewsList extends Fragment {
 			listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), array));
 			listView.setOnItemClickListener(parent.listener);
 		} else {
-			// Show "no news" page
-		}
+            boolean connected = false;
+            Context context = getActivity();
+            ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+
+                view.findViewById(R.id.newListLoading).setVisibility(View.GONE);
+                Toast.makeText(getActivity(), "No news available, please check back later", Toast.LENGTH_LONG).show();
+
+                connected = true;
+
+            } else {
+                view.findViewById(R.id.newListLoading).setVisibility(View.GONE);
+                Toast.makeText(getActivity(), "No news available, please check your network connection.", Toast.LENGTH_LONG).show();
+
+                connected = false;
+            }
+        }
 	}
 }

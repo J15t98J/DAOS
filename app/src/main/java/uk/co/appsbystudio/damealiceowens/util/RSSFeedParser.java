@@ -33,13 +33,15 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 		accepted_tags.add(3, "author");
 		accepted_tags.add(4, "description");
 		accepted_tags.add(5, "guid");
+        accepted_tags.add(6, "image");
+        accepted_tags.add(7, "url");
 
 		blacklisted_tags.add(0, "rss");
 		blacklisted_tags.add(1, "channel");
 		blacklisted_tags.add(2, "link");
 	}
 
-	@Override
+    @Override
 	protected ArrayList<RSSItem> doInBackground(String... params) {
 		for(String loc : params) {
 			try {

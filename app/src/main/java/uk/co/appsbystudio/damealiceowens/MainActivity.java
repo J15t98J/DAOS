@@ -7,9 +7,17 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import uk.co.appsbystudio.damealiceowens.Pages.News;
 import uk.co.appsbystudio.damealiceowens.Pages.Settings;
+import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
+import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
+import uk.co.appsbystudio.damealiceowens.util.RSSItem;
 
 public class MainActivity extends ActionBarActivity  {
 
@@ -50,6 +58,11 @@ public class MainActivity extends ActionBarActivity  {
             case R.id.action_settings:
                 settingsActivity();
                 return true;
+            case R.id.action_refresh:
+               //new NewsList().onRSSParse();
+                System.out.println("Refreshing");
+                Toast.makeText(this, "Refreshing", Toast.LENGTH_LONG).show();
+
             default:
                 super.onOptionsItemSelected(item);
         }

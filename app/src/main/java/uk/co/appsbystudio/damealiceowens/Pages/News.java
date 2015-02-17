@@ -6,16 +6,22 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import uk.co.appsbystudio.damealiceowens.MainActivity;
@@ -66,18 +72,32 @@ public class News extends Fragment {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			// TODO: animate this to slide in
+            /*try {
+                URL imageUrl = new URL(items.get(position).getString("image"));
+                Bitmap imageBit = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream());
+                intentDetail.putExtra("image", imageUrl);
 
-            String itemPosition = items.get(position).getString("description");
-            /*Bundle bundle = new Bundle();
-            bundle.putString("contentDetail", itemPosition);*/
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*/
+
+            String itemTitle = items.get(position).getString("title");
+            String itemContent = items.get(position).getString("description");
+            String itemImage = items.get(position).getString("url");
 
             intentDetail = new Intent(getActivity(), NewsContentSlider.class);
-            intentDetail.putExtra("content", itemPosition);
+            intentDetail.putExtra("title", itemTitle);
+            intentDetail.putExtra("content", itemContent);
+            if (itemImage != null && !itemImage.isEmpty()) {
+                intentDetail.putExtra("image", itemImage);
+            } else {
+                intentDetail.putExtra("image", "NO IMAGE");
+            }
+
             startActivity(intentDetail);
 
-            //((TextView) getActivity().findViewById(R.id.item_content)).setText(items.get(position).getString("description"));
-
-			//detail.setContent(items.get(position).getString("description"));
 			//list.getView().findViewById(R.id.newsList).setVisibility(View.GONE);
 		}
 	}
