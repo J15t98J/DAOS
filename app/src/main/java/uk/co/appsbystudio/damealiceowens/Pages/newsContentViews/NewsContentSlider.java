@@ -35,6 +35,7 @@ public class NewsContentSlider extends ActionBarActivity {
         ((TextView) findViewById(R.id.item_title)).setText(getIntent().getStringExtra("title"));
 
         System.out.println(getIntent().getStringExtra("image"));
+        setTitle(getIntent().getStringExtra("title"));
 
         if (getIntent().getStringExtra("image").startsWith("http://")) {
             GetXMLTask task = new GetXMLTask();
