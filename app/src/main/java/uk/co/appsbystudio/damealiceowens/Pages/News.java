@@ -1,35 +1,24 @@
 package uk.co.appsbystudio.damealiceowens.Pages;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
-import uk.co.appsbystudio.damealiceowens.MainActivity;
 import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsContentSlider;
 import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
 import uk.co.appsbystudio.damealiceowens.util.RSSItem;
+import uk.co.appsbystudio.damealiceowens.util.db.databaseHelper;
 
 public class News extends Fragment {
 
@@ -71,17 +60,7 @@ public class News extends Fragment {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			// TODO: animate this to slide in
-            /*try {
-                URL imageUrl = new URL(items.get(position).getString("image"));
-                Bitmap imageBit = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream());
-                intentDetail.putExtra("image", imageUrl);
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
+            // TODO: put guid of selected into the database and set read to true
 
             String itemTitle = items.get(position).getString("title");
             String itemContent = items.get(position).getString("description");
@@ -97,8 +76,6 @@ public class News extends Fragment {
             }
 
             startActivity(intentDetail);
-
-			//list.getView().findViewById(R.id.newsList).setVisibility(View.GONE);
 		}
 	}
 }

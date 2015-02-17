@@ -1,6 +1,9 @@
 package uk.co.appsbystudio.damealiceowens.util;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import uk.co.appsbystudio.damealiceowens.R;
+import uk.co.appsbystudio.damealiceowens.util.db.databaseFile;
+import uk.co.appsbystudio.damealiceowens.util.db.databaseHelper;
 
 public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 
@@ -30,8 +36,26 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		uk.co.appsbystudio.damealiceowens.util.RSSItem item = (uk.co.appsbystudio.damealiceowens.util.RSSItem) content.get(position);
 
+        String[] sectionArgs = { item.getString("guid") };
+
 		// TODO: replace temp value w/ logic that gets isRead from local storage
-		item.setValue("isRead", "false");
+        //*
+        databaseHelper dbHelper = new databaseHelper(getContext());
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] projection = {databaseFile.itemReadSchema.COLUMN_NAME_READ};
+
+        Cursor cursor = db.query(databaseFile.itemReadSchema.TABLE_NAME, projection, null, null, null, null, null);
+        System.out.println(cursor);
+        //*/
+
+        if (cursor == null) {
+            item.setValue("isRead", "true");
+        } else {
+            item.setValue("isRead", "false");
+        }
+
+
 
 		if(currentRow == null) {
 			currentRow = inflater.inflate(R.layout.news_list_item, parent, false);
