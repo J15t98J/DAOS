@@ -13,9 +13,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.security.KeyStore;
 import java.util.ArrayList;
 
 import uk.co.appsbystudio.damealiceowens.Pages.News;
@@ -23,11 +25,13 @@ import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.NewsItemAdapter;
 import uk.co.appsbystudio.damealiceowens.util.RSSItem;
 
-public class NewsList extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class NewsList extends Fragment {
 
 	private News parent;
 	private View view;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ListView listView;
+    private Handler handler = new Handler();
 
 
 	public NewsList() {
@@ -38,8 +42,34 @@ public class NewsList extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_news_list, container, false);
 
+        listView = (ListView) view.findViewById(R.id.newsList);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
-        swipeRefreshLayout.setOnRefreshListener(this);
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                boolean enable = false;
+                if (listView != null && listView.getChildCount() > 0) {
+                    boolean firstItemVisible = listView.getFirstVisiblePosition() == 0;
+                    boolean topOfFirstItemVisible = listView.getChildAt(0).getTop() == 0;
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                swipeRefreshLayout.setEnabled(enable);
+            }
+
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                handler.post(refreshing);
+            }
+        });
+
         swipeRefreshLayout.setColorScheme(android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_blue_bright);
 
         setHasOptionsMenu(true);
@@ -102,13 +132,18 @@ public class NewsList extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         }
 	}
 
-    @Override
-    public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        }, 5000);
-    }
+    private final Runnable refreshing = new Runnable() {
+        @Override
+        public void run() {
+            /*try {
+                if (isRefreshing()) {
+                    handler.postDelayed(this, 1000);
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }*/
+        }
+    };
 }

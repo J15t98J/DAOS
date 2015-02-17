@@ -90,7 +90,7 @@ public class News extends Fragment {
             intentDetail = new Intent(getActivity(), NewsContentSlider.class);
             intentDetail.putExtra("title", itemTitle);
             intentDetail.putExtra("content", itemContent);
-            if (itemImage != null && !itemImage.isEmpty()) {
+            if (itemImage != null && !itemImage.isEmpty() && itemImage.startsWith("http://")) {
                 intentDetail.putExtra("image", itemImage);
             } else {
                 intentDetail.putExtra("image", "NO IMAGE");

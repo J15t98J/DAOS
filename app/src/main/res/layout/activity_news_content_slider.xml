@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -7,35 +7,41 @@
     tools:context="uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsContentSlider"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:id="@+id/item_title"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:textSize="30sp"/>
-
-    <Space
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/image"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:id="@+id/item_title"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="30sp"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:id="@+id/item_content"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:textSize="20sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/image"/>
 
-</LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:id="@+id/item_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+</ScrollView>
