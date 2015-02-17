@@ -48,7 +48,7 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 		}
 
         if (item.getString("title").length() > 20) {
-            ((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title").substring(0, 25) + "...");
+            ((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title").substring(0, 23) + "...");
         } else {
             ((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title"));
         }

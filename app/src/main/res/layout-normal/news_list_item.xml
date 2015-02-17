@@ -23,14 +23,9 @@
         android:layout_row="1"
         android:layout_column="2"
         android:gravity="bottom"
-        android:paddingTop="10dp"
         android:textSize="20sp"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        android:layout_marginRight="20dp"
-        android:scrollHorizontally="true"
-        android:ellipsize="marquee"
-        android:marqueeRepeatLimit ="marquee_forever"
-        android:singleLine="false" />
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:id="@+id/item_info"
@@ -49,7 +44,6 @@
         android:layout_column="3"
         android:layout_gravity="center_vertical|end"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:src="@drawable/ic_action_next_item"
         android:contentDescription="@string/ne_open_item_icon"/>
