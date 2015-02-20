@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity  {
         setContentView(R.layout.activity_main);
 
         ActionBar actionBar = getSupportActionBar();
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FF0001"));
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#B20000"));
         actionBar.setBackgroundDrawable(colorDrawable);
 
         Fragment news = new News();
