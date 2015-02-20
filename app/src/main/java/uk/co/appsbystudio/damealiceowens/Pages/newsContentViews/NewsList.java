@@ -119,14 +119,11 @@ public class NewsList extends Fragment {
                     connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
 
                 view.findViewById(R.id.newListLoading).setVisibility(View.GONE);
-                Toast.makeText(getActivity(), "No news available, please check back later", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(getActivity(), "No news available, please check back later.", Toast.LENGTH_LONG).show();
                 connected = true;
-
             } else {
                 view.findViewById(R.id.newListLoading).setVisibility(View.GONE);
-                Toast.makeText(getActivity(), "No news available, please check your network connection.", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(getActivity(), "No news available, please check your network connection then refresh the content.", Toast.LENGTH_LONG).show();
                 connected = false;
             }
         }
