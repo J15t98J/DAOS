@@ -27,7 +27,7 @@ import uk.co.appsbystudio.damealiceowens.util.RSSItem;
 public class NewsList extends Fragment {
 
 	private News parent;
-	private View view;
+	public View view;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private final Handler handler = new Handler();
@@ -76,12 +76,6 @@ public class NewsList extends Fragment {
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         getActivity().getMenuInflater().inflate(R.menu.menu_news_list, menu);
-
-        /*SearchManager searchManager =(SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-
-        return;*/
     }
 
     @Override
@@ -103,8 +97,12 @@ public class NewsList extends Fragment {
 	}
 
 	public void onRSSParse(ArrayList<RSSItem> array) {
+		System.out.println(array.toString());
 		if(!array.isEmpty()) {
-			view.findViewById(R.id.newListLoading).setVisibility(View.GONE);
+			View load = view.findViewById(R.id.newsListLoading);
+			if(load != null) {
+				load.setVisibility(View.GONE);
+			}
 			ListView listView = ((ListView) view.findViewById(R.id.newsList));
 			listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), array));
 			listView.setOnItemClickListener(parent.listener);
@@ -114,10 +112,10 @@ public class NewsList extends Fragment {
             if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                     connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
 
-                view.findViewById(R.id.newListLoading).setVisibility(View.GONE);
+                view.findViewById(R.id.newsListLoading).setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "No news available, please check back later.", Toast.LENGTH_LONG).show();
             } else {
-                view.findViewById(R.id.newListLoading).setVisibility(View.GONE);
+                view.findViewById(R.id.newsListLoading).setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "No news available, please check your network connection then refresh the content.", Toast.LENGTH_LONG).show();
             }
         }

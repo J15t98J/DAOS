@@ -1,8 +1,6 @@
 package uk.co.appsbystudio.damealiceowens.util;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +12,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import uk.co.appsbystudio.damealiceowens.R;
-import uk.co.appsbystudio.damealiceowens.util.db.databaseFile;
-import uk.co.appsbystudio.damealiceowens.util.db.databaseHelper;
 
 public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 
@@ -38,20 +34,7 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 		uk.co.appsbystudio.damealiceowens.util.RSSItem item = (uk.co.appsbystudio.damealiceowens.util.RSSItem) content.get(position);
 
 		// TODO: complete local storage
-        //*
-        databaseHelper dbHelper = new databaseHelper(getContext());
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        String[] projection = {databaseFile.itemReadSchema.COLUMN_NAME_READ};
-
-        Cursor cursor = db.query(databaseFile.itemReadSchema.TABLE_NAME, projection, null, null, null, null, null);
-        //*/
-
-        if (cursor == null) {
-            item.setValue("isRead", "true");
-        } else {
-            item.setValue("isRead", "false");
-        }
+		item.setValue("isRead", "true");
 
 		currentRow.findViewById(R.id.item_title).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 200;
 		currentRow.findViewById(R.id.item_info).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 200;

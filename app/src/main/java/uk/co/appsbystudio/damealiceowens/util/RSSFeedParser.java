@@ -15,6 +15,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import uk.co.appsbystudio.damealiceowens.MainActivity;
 import uk.co.appsbystudio.damealiceowens.Pages.News;
 
 public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
@@ -23,9 +24,11 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 	private final ArrayList<String> blacklisted_tags = new ArrayList<String>();
 	private final ArrayList<RSSItem> array = new ArrayList<RSSItem>();
 	private final News callback_instance;
+	private final MainActivity activity;
 
 	public RSSFeedParser(News callback_instance) {
 		this.callback_instance = callback_instance;
+		this.activity = (MainActivity)callback_instance.getActivity();
 
 		accepted_tags.add(0, "item");
 		accepted_tags.add(1, "title");
@@ -78,7 +81,20 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 						}
 					} else if(event == XmlPullParser.END_TAG) {
 						if(parser.getName().equals("item")) {
-							array.add(currentItem);
+							currentItem.setValue("isRead", "false");
+							currentItem.setValue("isFlagged", "false");
+							currentItem.setValue("isHidden", "false");
+							RSSItem storedItem = activity.dbHelper.getItem(activity.db, currentItem.getString("guid"));
+							if(storedItem == null) {
+								System.out.println("Not stored");
+								activity.dbHelper.addItem(activity.db, currentItem);
+								storedItem = currentItem;
+							} else {
+								System.out.println("Stored");
+							}
+							if(!storedItem.getBool("isHidden")) {
+								array.add(currentItem);
+							}
 						} else if(currentTag.equals(parser.getName())) {
 							currentItem.setValue(currentTag, currentValue);
 							currentTag = "";

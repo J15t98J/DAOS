@@ -19,7 +19,6 @@
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -31,11 +30,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="uk.co.appsbystudio.damealiceowens.MainActivity" />
         </activity>
-
-        <meta-data
-            android:name="android.app.searchable"
-            android:resource="@xml/search_config" />
-
         <activity
             android:name=".Pages.newsContentViews.NewsContentSlider"
             android:label="@string/title_activity_news_content_slider"
@@ -44,6 +38,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="uk.co.appsbystudio.damealiceowens.MainActivity" />
         </activity>
+        <meta-data
+            android:name="android.app.searchable"
+            android:resource="@xml/search_config" />
     </application>
 
 </manifest>
