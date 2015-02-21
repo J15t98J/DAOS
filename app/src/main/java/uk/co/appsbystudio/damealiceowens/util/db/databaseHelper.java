@@ -10,8 +10,7 @@ public class databaseHelper extends SQLiteOpenHelper{
     public static final String DATABASE_NAME = "itemread.db";
 
     private static final String TEXT_TYPE = " TEXT";
-    private static final String COMMA_SEP = ",";
-    private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + databaseFile.itemReadSchema.TABLE_NAME + " (" + databaseFile.itemReadSchema.COLUMN_NAME_GUID + " INTEGER PRIMARY KEY," + COMMA_SEP + databaseFile.itemReadSchema.COLUMN_NAME_READ + TEXT_TYPE + " )";
+    private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + databaseFile.itemReadSchema.TABLE_NAME + " (" + databaseFile.itemReadSchema.COLUMN_NAME_GUID + " INTEGER PRIMARY KEY," + databaseFile.itemReadSchema.COLUMN_NAME_READ + TEXT_TYPE + " )";
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " +databaseFile.itemReadSchema.TABLE_NAME;
 
     public databaseHelper(Context context) {

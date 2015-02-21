@@ -1,9 +1,7 @@
 package uk.co.appsbystudio.damealiceowens.Pages;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
 import uk.co.appsbystudio.damealiceowens.util.RSSItem;
-import uk.co.appsbystudio.damealiceowens.util.db.databaseHelper;
 
 public class News extends Fragment {
 
@@ -27,8 +24,6 @@ public class News extends Fragment {
 	public final ClickListener listener = new ClickListener();
 
 	private NewsList list;
-	private NewsContentSlider detail;
-    private Intent intentDetail;
 
     public News() {
         // Required empty public constructor
@@ -43,10 +38,8 @@ public class News extends Fragment {
 
 	    list = new NewsList();
 	    list.setListenerContext(this);
-	    detail = new NewsContentSlider();
 	    getChildFragmentManager().beginTransaction().replace(R.id.list_frame, list).addToBackStack(null).commit();
 	    //getChildFragmentManager().beginTransaction().replace(R.id.detail_frame, detail).addToBackStack(null).commit();
-
 
 	    return view;
     }
@@ -66,7 +59,7 @@ public class News extends Fragment {
             String itemContent = items.get(position).getString("description");
             String itemImage = items.get(position).getString("url");
 
-            intentDetail = new Intent(getActivity(), NewsContentSlider.class);
+            Intent intentDetail = new Intent(getActivity(), NewsContentSlider.class);
             intentDetail.putExtra("title", itemTitle);
             intentDetail.putExtra("content", itemContent);
             if (itemImage != null && !itemImage.isEmpty() && itemImage.startsWith("http://")) {
