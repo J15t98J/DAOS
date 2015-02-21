@@ -83,6 +83,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/uk/co/appsbystudio/damealiceowens/Pages/newsContentViews/NewsContentSlider.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/uk/co/appsbystudio/damealiceowens/Pages/pagecontentviews/NewsContent.java">
           <value>
             <set />
@@ -144,6 +149,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/uk/co/appsbystudio/damealiceowens/util/db/databaseHelper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_news_content_slider.xml">
           <value>
             <set />
           </value>

@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import uk.co.appsbystudio.damealiceowens.MainActivity;
 import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsContentSlider;
 import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
 import uk.co.appsbystudio.damealiceowens.R;
@@ -33,8 +34,7 @@ public class News extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.fragment_news, container, false);
 
-	    RSSFeedParser parser = new RSSFeedParser(this);
-	    parser.execute("http://pastebin.com/raw.php?i=ZNcEAy7r");
+	    new RSSFeedParser(this).execute(((MainActivity)getActivity()).url);
 
 	    list = new NewsList();
 	    list.setListenerContext(this);

@@ -1,16 +1,10 @@
 package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,8 +32,7 @@ public class NewsContentSlider extends ActionBarActivity {
         setTitle(getIntent().getStringExtra("title"));
 
         if (getIntent().getStringExtra("image").startsWith("http://")) {
-            GetXMLTask task = new GetXMLTask();
-            task.execute(new String[] { getIntent().getStringExtra("image") });
+            new GetXMLTask().execute(getIntent().getStringExtra("image"));
         } else {
             (findViewById(R.id.image)).setVisibility(View.INVISIBLE);
         }

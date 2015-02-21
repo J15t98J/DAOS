@@ -1,6 +1,5 @@
 package uk.co.appsbystudio.damealiceowens;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,8 +12,12 @@ import android.widget.Toast;
 
 import uk.co.appsbystudio.damealiceowens.Pages.News;
 import uk.co.appsbystudio.damealiceowens.Pages.Settings;
+import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
 
 public class MainActivity extends ActionBarActivity  {
+
+	private News news = new News();
+	public final String url = "http://pastebin.com/raw.php?i=riX1ughz";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +28,7 @@ public class MainActivity extends ActionBarActivity  {
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#B20000"));
         actionBar.setBackgroundDrawable(colorDrawable);
 
-        Fragment news = new News();
-
 		getFragmentManager().beginTransaction().replace(R.id.content_frame, news).commit();
-
     }
 
     @Override
@@ -45,9 +45,9 @@ public class MainActivity extends ActionBarActivity  {
                 settingsActivity();
                 return true;
             case R.id.action_refresh:
-               //new NewsList().onRSSParse();
+                new RSSFeedParser(news).execute(url);
                 Toast.makeText(this, "Refreshing", Toast.LENGTH_LONG).show();
-
+				return true;
             default:
                 super.onOptionsItemSelected(item);
         }
