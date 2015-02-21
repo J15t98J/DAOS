@@ -17,7 +17,7 @@ import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
 public class MainActivity extends ActionBarActivity  {
 
 	private final News news = new News();
-	public final String url = "http://pastebin.com/raw.php?i=riX1ughz";
+	public final String[] urls = new String[]{"http://pastebin.com/raw.php?i=riX1ughz"};
 
 	public DatabaseHelper dbHelper;
 	public SQLiteDatabase db;
@@ -48,7 +48,7 @@ public class MainActivity extends ActionBarActivity  {
                 settingsActivity();
                 return true;
             case R.id.action_refresh:
-                new RSSFeedParser(news).execute(url);
+                new RSSFeedParser(news).execute(urls);
                 Toast.makeText(this, "Refreshing", Toast.LENGTH_LONG).show();
 				return true;
             default:

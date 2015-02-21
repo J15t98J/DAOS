@@ -86,14 +86,10 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 							currentItem.setValue("isHidden", "false");
 							RSSItem storedItem = activity.dbHelper.getItem(activity.db, currentItem.getString("guid"));
 							if(storedItem == null) {
-								System.out.println("Not stored");
 								activity.dbHelper.addItem(activity.db, currentItem);
-								storedItem = currentItem;
-							} else {
-								System.out.println("Stored");
-							}
-							if(!storedItem.getBool("isHidden")) {
 								array.add(currentItem);
+							} else if(!storedItem.getBool("isHidden")) {
+								array.add(storedItem);
 							}
 						} else if(currentTag.equals(parser.getName())) {
 							currentItem.setValue(currentTag, currentValue);

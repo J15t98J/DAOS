@@ -33,9 +33,6 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 
 		uk.co.appsbystudio.damealiceowens.util.RSSItem item = (uk.co.appsbystudio.damealiceowens.util.RSSItem) content.get(position);
 
-		// TODO: complete local storage
-		item.setValue("isRead", "true");
-
 		currentRow.findViewById(R.id.item_title).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 200;
 		currentRow.findViewById(R.id.item_info).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 200;
 

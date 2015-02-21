@@ -32,32 +32,30 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
 	public void addItem(SQLiteDatabase db, RSSItem item) {
-		db.execSQL("INSERT INTO ITEMS VALUES('" + item.getString("guid") + "','" + item.getString("title") + "','" + item.getString("pubDate") + "','" + item.getString("author") + "','" + item.getString("description") + "','" + item.getBool("isRead") + "','" + item.getBool("isFlagged") + "','" + item.getBool("isHidden") + "')");
+		db.execSQL("INSERT INTO ITEMS VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{ item.getString("guid"), item.getString("title"), item.getString("pubDate"), item.getString("author"), item.getString("description"), item.getString("isRead"), item.getString("isFlagged"), item.getString("isHidden") });
 	}
 
-	public void editItem(SQLiteDatabase db, Integer guid, String attribute, String value) {
-		db.execSQL("UPDATE ITEMS SET " + attribute + "=" + value + " WHERE guid=" + guid);
+	public void editItem(SQLiteDatabase db, String guid, String attribute, String value) {
+		db.execSQL("UPDATE ITEMS SET ?=? WHERE guid=?", new String[]{attribute, value, guid});
 	}
 
 	public RSSItem getItem(SQLiteDatabase db, String guid) {
 		RSSItem item = new RSSItem();
 
-		System.out.println(guid);
-		Cursor results = db.rawQuery("SELECT * FROM ITEMS WHERE guid='" + guid + "'", null);
+		Cursor results = db.rawQuery("SELECT * FROM ITEMS WHERE guid=?", new String[]{ guid });
 		results.moveToFirst();
 		if(results.getCount() < 1) {
 			return null;
 		}
 		for(String field : results.getColumnNames()) {
-			System.out.println(field);
-
 			item.setValue(field, results.getString(results.getColumnIndex(field)));
 		}
+
 		results.close();
 		return item;
 	}
 
-	public ArrayList<RSSItem> getVisibleitems(SQLiteDatabase db) {
+	public ArrayList<RSSItem> getVisibleItems(SQLiteDatabase db) {
 		ArrayList<RSSItem> array = new ArrayList<RSSItem>();
 
 		Cursor results = db.rawQuery("SELECT * FROM ITEMS WHERE isHidden='false'", null);

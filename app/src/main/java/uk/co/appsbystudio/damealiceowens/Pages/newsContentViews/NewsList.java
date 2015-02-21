@@ -18,11 +18,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import uk.co.appsbystudio.damealiceowens.Pages.News;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.NewsItemAdapter;
 import uk.co.appsbystudio.damealiceowens.util.RSSItem;
+import uk.co.appsbystudio.damealiceowens.util.RSSItemComparator;
 
 public class NewsList extends Fragment {
 
@@ -31,7 +33,6 @@ public class NewsList extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private final Handler handler = new Handler();
-
 
 	public NewsList() {
         // Required empty public constructor
@@ -71,6 +72,10 @@ public class NewsList extends Fragment {
         swipeRefreshLayout.setColorSchemeResources(R.color.daos_red);
         setHasOptionsMenu(true);
 
+	    ArrayList<RSSItem> local = parent.activity.dbHelper.getVisibleItems(parent.activity.db);
+	    Collections.sort(local, new RSSItemComparator());
+	    parent.rssParseCallback(local);
+
 	    return view;
     }
 
@@ -97,7 +102,6 @@ public class NewsList extends Fragment {
 	}
 
 	public void onRSSParse(ArrayList<RSSItem> array) {
-		System.out.println(array.toString());
 		if(!array.isEmpty()) {
 			View load = view.findViewById(R.id.newsListLoading);
 			if(load != null) {
