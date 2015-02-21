@@ -20,10 +20,8 @@ import uk.co.appsbystudio.damealiceowens.util.RSSItem;
 
 public class News extends Fragment {
 
-	private ArrayList<RSSItem> items;
-
 	public final ClickListener listener = new ClickListener();
-
+	private ArrayList<RSSItem> items;
 	private NewsList list;
 
     public News() {

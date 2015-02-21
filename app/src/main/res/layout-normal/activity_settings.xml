@@ -5,7 +5,4 @@
     android:layout_height="match_parent"
     tools:context="uk.co.appsbystudio.damealiceowens.Pages.Settings">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
 </RelativeLayout>

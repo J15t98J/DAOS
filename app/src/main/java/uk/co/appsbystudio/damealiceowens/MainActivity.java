@@ -1,10 +1,8 @@
 package uk.co.appsbystudio.damealiceowens;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,18 +14,15 @@ import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
 
 public class MainActivity extends ActionBarActivity  {
 
-	private News news = new News();
+	private final News news = new News();
 	public final String url = "http://pastebin.com/raw.php?i=riX1ughz";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-
-        ActionBar actionBar = getSupportActionBar();
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#B20000"));
-        actionBar.setBackgroundDrawable(colorDrawable);
-
+	    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.daos_red)));
 		getFragmentManager().beginTransaction().replace(R.id.content_frame, news).commit();
     }
 
@@ -39,7 +34,6 @@ public class MainActivity extends ActionBarActivity  {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-	    //return drawerToggle.onOptionsItemSelected(item) || item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_settings:
                 settingsActivity();
@@ -55,7 +49,6 @@ public class MainActivity extends ActionBarActivity  {
     }
 
     private void settingsActivity() {
-        Intent intentSettings = new Intent(this, Settings.class);
-        startActivity(intentSettings);
+        startActivity(new Intent(this, Settings.class));
     }
 }

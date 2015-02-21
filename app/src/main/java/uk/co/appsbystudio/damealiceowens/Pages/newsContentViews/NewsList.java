@@ -17,7 +17,6 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.security.KeyStore;
 import java.util.ArrayList;
 
 import uk.co.appsbystudio.damealiceowens.Pages.News;
@@ -31,7 +30,7 @@ public class NewsList extends Fragment {
 	private View view;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
 
 
 	public NewsList() {
@@ -60,7 +59,6 @@ public class NewsList extends Fragment {
                 }
                 swipeRefreshLayout.setEnabled(enable);
             }
-
         });
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -70,8 +68,7 @@ public class NewsList extends Fragment {
             }
         });
 
-        swipeRefreshLayout.setColorScheme(android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_blue_bright);
-
+        swipeRefreshLayout.setColorSchemeResources(R.color.daos_red);
         setHasOptionsMenu(true);
 
 	    return view;
@@ -112,7 +109,6 @@ public class NewsList extends Fragment {
 			listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), array));
 			listView.setOnItemClickListener(parent.listener);
 		} else {
-            boolean connected = false;
             Context context = getActivity();
             ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
             if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
@@ -120,11 +116,9 @@ public class NewsList extends Fragment {
 
                 view.findViewById(R.id.newListLoading).setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "No news available, please check back later.", Toast.LENGTH_LONG).show();
-                connected = true;
             } else {
                 view.findViewById(R.id.newListLoading).setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "No news available, please check your network connection then refresh the content.", Toast.LENGTH_LONG).show();
-                connected = false;
             }
         }
 	}

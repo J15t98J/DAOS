@@ -14,7 +14,7 @@
         android:gravity="center_vertical"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:contentDescription="@string/ne_unread_item_icon"/>
+        android:contentDescription="@string/unread_item_icon"/>
 
     <TextView
         android:id="@+id/item_title"
@@ -46,8 +46,9 @@
         android:layout_column="3"
         android:layout_gravity="center_vertical|end"
         android:gravity="center_vertical"
+        android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:src="@drawable/ic_action_next_item"
-        android:contentDescription="@string/ne_open_item_icon"/>
+        android:contentDescription="@string/open_item_icon"/>
 
 </GridLayout>
