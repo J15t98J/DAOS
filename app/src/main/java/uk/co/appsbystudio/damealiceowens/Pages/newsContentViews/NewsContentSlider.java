@@ -20,7 +20,7 @@ import java.net.URLConnection;
 import uk.co.appsbystudio.damealiceowens.R;
 
 
-// TODO: clean this class up!
+// TODO: clean this class up! Rename to something more appropriate & perhaps convert to an embedded Fragment + transition
 public class NewsContentSlider extends ActionBarActivity {
 
     ImageView imageView;

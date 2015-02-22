@@ -106,24 +106,21 @@ public class NewsList extends Fragment {
 	public void onRSSParse(ArrayList<RSSItem> array) {
 		// TODO: last RSSItem in local storage isn't loaded? (see how it appears after a couple of seconds, when the parser returns)
 		// TODO: swap Toasts out for background images, similar to loading screen
+		View load = view.findViewById(R.id.newsListLoading);
+		if(load != null) {
+			load.setVisibility(View.GONE);
+		}
 		if(!array.isEmpty()) {
-			View load = view.findViewById(R.id.newsListLoading);
-			if(load != null) {
-				load.setVisibility(View.GONE);
-			}
 			ListView listView = ((ListView) view.findViewById(R.id.newsList));
 			listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), array));
 			listView.setOnItemClickListener(parent.listener);
 		} else {
-            Context context = getActivity();
-            ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+            ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+            // TODO: investigate random error Toasts that occur when network is fine
+			if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                     connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-
-                view.findViewById(R.id.newsListLoading).setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "No news available, please check back later.", Toast.LENGTH_LONG).show();
             } else {
-                view.findViewById(R.id.newsListLoading).setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "No news available, please check your network connection then refresh the content.", Toast.LENGTH_LONG).show();
             }
         }

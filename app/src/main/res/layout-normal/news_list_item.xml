@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!-- TODO: fix inconsistent dimension warnings in console that are seemingly caused by this GridLayout -->
+
     <ImageView
         android:id="@+id/item_readIcon"
         android:layout_width="wrap_content"

@@ -17,7 +17,7 @@ import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
 public class MainActivity extends ActionBarActivity  {
 
 	private final News news = new News();
-	public final String[] urls = new String[]{"http://pastebin.com/raw.php?i=riX1ughz"};
+	public final String[] urls = new String[]{"http://pastebin.com/raw.php?i=riX1ughz", "http://pastebin.com/raw.php?i=7UqLYJLt"};
 
 	public DatabaseHelper dbHelper;
 	public SQLiteDatabase db;
