@@ -33,10 +33,13 @@
         <activity
             android:name=".Pages.newsContentViews.NewsContentSlider"
             android:label="@string/title_activity_news_content_slider"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:uiOptions="splitActionBarWhenNarrow">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="uk.co.appsbystudio.damealiceowens.MainActivity" />
+            <meta-data android:name="android.support.UI_OPTIONS"
+                       android:value="splitActionBarWhenNarrow" />
         </activity>
         <meta-data
             android:name="android.app.searchable"

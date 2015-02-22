@@ -86,7 +86,7 @@ public class NewsList extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch(item.getItemId()) {
             case R.id.action_search:
                 onSearchRequest();
                 return true;
