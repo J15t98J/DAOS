@@ -73,13 +73,19 @@ public class NewsList extends Fragment {
         swipeRefreshLayout.setColorSchemeResources(R.color.daos_red);
         setHasOptionsMenu(true);
 
-	    ArrayList<RSSItem> local = parent.activity.dbHelper.getVisibleItems(parent.activity.db);
-	    Collections.sort(local, new RSSItemComparator());
-	    parent.rssParseCallback(local);
-
 	    return view;
     }
 
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		ArrayList<RSSItem> local = parent.activity.dbHelper.getVisibleItems(parent.activity.db);
+		Collections.sort(local, new RSSItemComparator());
+		parent.rssParseCallback(local);
+	}
+
+	@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         menuInflater.inflate(R.menu.menu_news_list, menu);
     }
@@ -104,7 +110,7 @@ public class NewsList extends Fragment {
 	}
 
 	public void onRSSParse(ArrayList<RSSItem> array) {
-		// TODO: last RSSItem in local storage isn't loaded? (see how it appears after a couple of seconds, when the parser returns)
+		// TODO: RSSItems >= dev-10 aren't cached/loaded (see how they appear after a couple of seconds, when the parser returns)
 		// TODO: swap Toasts out for background images, similar to loading screen
 		View load = view.findViewById(R.id.newsListLoading);
 		if(load != null) {
