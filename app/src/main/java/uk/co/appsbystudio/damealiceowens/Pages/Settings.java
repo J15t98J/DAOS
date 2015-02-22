@@ -12,4 +12,6 @@ public class Settings extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
     }
+
+	// TODO: populate settings menu
 }

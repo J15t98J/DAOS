@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +19,8 @@ import java.net.URLConnection;
 
 import uk.co.appsbystudio.damealiceowens.R;
 
+
+// TODO: clean this class up!
 public class NewsContentSlider extends ActionBarActivity {
 
     ImageView imageView;
@@ -36,6 +40,18 @@ public class NewsContentSlider extends ActionBarActivity {
             (findViewById(R.id.image)).setVisibility(View.INVISIBLE);
         }
     }
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_news_item, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO: implement mark unread, (un)flag, hide icons
+		return false;
+	}
 
     private class GetXMLTask extends AsyncTask<String, Void, Bitmap> {
         @Override

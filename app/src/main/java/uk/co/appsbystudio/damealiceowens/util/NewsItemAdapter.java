@@ -27,6 +27,7 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 
 	@Override
 	public View getView(int position, View currentRow, ViewGroup parent) {
+		// TODO: paragraphing, images and perhaps text decoration support (programatically add TextViews per paragraph etc.)
 		if(currentRow == null) {
 			currentRow = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.news_list_item, parent, false);
 		}
@@ -43,7 +44,7 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 		} else {
 			((ImageView) currentRow.findViewById(R.id.item_readIcon)).setImageResource(R.drawable.ic_action_unread);
             ((TextView) currentRow.findViewById(R.id.item_title)).setTypeface(null, Typeface.BOLD);
-            ((TextView) currentRow.findViewById(R.id.item_info)).setTypeface(null, Typeface.BOLD);
+            //((TextView) currentRow.findViewById(R.id.item_info)).setTypeface(null, Typeface.BOLD);
 		}
 
         ((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title"));

@@ -62,6 +62,7 @@ public class NewsList extends Fragment {
             }
         });
 
+	    // TODO: fully-implement or remove swipe-to-refresh
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -80,7 +81,7 @@ public class NewsList extends Fragment {
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
-        getActivity().getMenuInflater().inflate(R.menu.menu_news_list, menu);
+        menuInflater.inflate(R.menu.menu_news_list, menu);
     }
 
     @Override
@@ -94,6 +95,7 @@ public class NewsList extends Fragment {
         }
     }
 
+	// TODO: searching of NewsList
     private void onSearchRequest() {
     }
 
@@ -102,6 +104,8 @@ public class NewsList extends Fragment {
 	}
 
 	public void onRSSParse(ArrayList<RSSItem> array) {
+		// TODO: last RSSItem in local storage isn't loaded? (see how it appears after a couple of seconds, when the parser returns)
+		// TODO: swap Toasts out for background images, similar to loading screen
 		if(!array.isEmpty()) {
 			View load = view.findViewById(R.id.newsListLoading);
 			if(load != null) {

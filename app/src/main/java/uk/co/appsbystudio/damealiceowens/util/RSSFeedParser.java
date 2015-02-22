@@ -45,6 +45,7 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 		blacklisted_tags.add(2, "link");
 	}
 
+	// TODO: editing / deleting posts in the feed's XML should update / remove locally-cached items
     @Override
 	protected ArrayList<RSSItem> doInBackground(String... params) {
 		for(String loc : params) {

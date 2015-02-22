@@ -56,7 +56,7 @@ public class News extends Fragment {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            // TODO: put guid of selected into the database and set read to true
+            activity.dbHelper.editItem(activity.db, items.get(position).getString("guid"), "isRead", "true");
 
             String itemTitle = items.get(position).getString("title");
             String itemContent = items.get(position).getString("description");

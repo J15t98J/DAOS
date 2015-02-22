@@ -36,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	}
 
 	public void editItem(SQLiteDatabase db, String guid, String attribute, String value) {
-		db.execSQL("UPDATE ITEMS SET ?=? WHERE guid=?", new String[]{attribute, value, guid});
+		db.execSQL("UPDATE ITEMS SET " + attribute + "=? WHERE guid=?", new String[]{ value, guid });
 	}
 
 	public RSSItem getItem(SQLiteDatabase db, String guid) {
