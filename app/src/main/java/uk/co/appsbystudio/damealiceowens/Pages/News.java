@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import uk.co.appsbystudio.damealiceowens.MainActivity;
-import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsContentSlider;
+import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsItem;
 import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
@@ -62,7 +62,7 @@ public class News extends Fragment {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             activity.dbHelper.editItem(activity.db, items.get(position).getString("guid"), "isRead", "true");
 
-            Intent intentDetail = new Intent(getActivity(), NewsContentSlider.class);
+            Intent intentDetail = new Intent(getActivity(), NewsItem.class);
             intentDetail.putExtra("title", items.get(position).getString("title"));
             intentDetail.putExtra("content", items.get(position).getString("description"));
 			intentDetail.putExtra("guid", items.get(position).getString("guid"));

@@ -40,11 +40,9 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 		if(item.getBool("isRead")) {
 			((ImageView) currentRow.findViewById(R.id.item_readIcon)).setImageResource(R.drawable.ic_action_read);
             ((TextView) currentRow.findViewById(R.id.item_title)).setTypeface(null, Typeface.NORMAL);
-            ((TextView) currentRow.findViewById(R.id.item_info)).setTypeface(null, Typeface.NORMAL);
 		} else {
 			((ImageView) currentRow.findViewById(R.id.item_readIcon)).setImageResource(R.drawable.ic_action_unread);
             ((TextView) currentRow.findViewById(R.id.item_title)).setTypeface(null, Typeface.BOLD);
-            //((TextView) currentRow.findViewById(R.id.item_info)).setTypeface(null, Typeface.BOLD);
 		}
 
         ((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title"));

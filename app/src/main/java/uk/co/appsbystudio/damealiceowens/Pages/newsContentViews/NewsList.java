@@ -110,7 +110,7 @@ public class NewsList extends Fragment {
 	}
 
 	public void onRSSParse(ArrayList<RSSItem> array) {
-		// TODO: RSSItems >= dev-10 aren't cached/loaded (see how they appear after a couple of seconds, when the parser returns)
+		// TODO: penultimate RSSItem cached/loaded (see how it appears after a couple of seconds, when the parser returns) -> check by adding another item
 		// TODO: swap Toasts out for background images, similar to loading screen
 		View load = view.findViewById(R.id.newsListLoading);
 		if(load != null) {
@@ -135,7 +135,8 @@ public class NewsList extends Fragment {
     private final Runnable refreshing = new Runnable() {
         @Override
         public void run() {
-            /*try {
+            /*
+            try {
                 if (isRefreshing()) {
                     handler.postDelayed(this, 1000);
                 } else {
@@ -143,7 +144,8 @@ public class NewsList extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            }*/
+            }
+            //*/
         }
     };
 }

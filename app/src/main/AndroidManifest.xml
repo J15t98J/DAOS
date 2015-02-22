@@ -31,7 +31,7 @@
                 android:value="uk.co.appsbystudio.damealiceowens.MainActivity" />
         </activity>
         <activity
-            android:name=".Pages.newsContentViews.NewsContentSlider"
+            android:name=".Pages.newsContentViews.NewsItem"
             android:label="@string/title_activity_news_content_slider"
             android:parentActivityName=".MainActivity"
             android:uiOptions="splitActionBarWhenNarrow">
