@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
-import uk.co.appsbystudio.damealiceowens.pages.newsContentViews.NewsItem;
+import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsItem;
 import uk.co.appsbystudio.damealiceowens.R;
 
 public class ImageDownloader extends AsyncTask<String, Void, ArrayList<Bitmap>> {

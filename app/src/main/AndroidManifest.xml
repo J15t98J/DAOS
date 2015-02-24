@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".pages.Settings"
+            android:name=".Pages.Settings"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -27,7 +27,7 @@
                 android:value="uk.co.appsbystudio.damealiceowens.MainActivity" />
         </activity>
         <activity
-            android:name=".pages.newsContentViews.NewsItem"
+            android:name=".Pages.newsContentViews.NewsItem"
             android:label="@string/title_activity_news_content_slider"
             android:parentActivityName=".MainActivity"
             android:uiOptions="splitActionBarWhenNarrow">

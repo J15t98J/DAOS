@@ -1,4 +1,4 @@
-package uk.co.appsbystudio.damealiceowens.pages.newsContentViews;
+package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;

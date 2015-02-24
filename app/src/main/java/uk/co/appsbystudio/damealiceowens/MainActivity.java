@@ -9,8 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import uk.co.appsbystudio.damealiceowens.pages.News;
-import uk.co.appsbystudio.damealiceowens.pages.Settings;
+import uk.co.appsbystudio.damealiceowens.Pages.News;
+import uk.co.appsbystudio.damealiceowens.Pages.Settings;
 import uk.co.appsbystudio.damealiceowens.util.DatabaseHelper;
 import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
 

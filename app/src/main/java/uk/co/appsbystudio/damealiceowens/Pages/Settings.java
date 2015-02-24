@@ -1,4 +1,4 @@
-package uk.co.appsbystudio.damealiceowens.pages;
+package uk.co.appsbystudio.damealiceowens.Pages;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;

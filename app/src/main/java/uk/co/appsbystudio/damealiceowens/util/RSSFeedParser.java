@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import uk.co.appsbystudio.damealiceowens.MainActivity;
-import uk.co.appsbystudio.damealiceowens.pages.News;
+import uk.co.appsbystudio.damealiceowens.Pages.News;
 
 public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
