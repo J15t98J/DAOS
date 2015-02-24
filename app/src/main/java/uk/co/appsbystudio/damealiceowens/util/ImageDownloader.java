@@ -14,7 +14,7 @@ import uk.co.appsbystudio.damealiceowens.R;
 
 public class ImageDownloader extends AsyncTask<String, Void, ArrayList<Bitmap>> {
 
-	private NewsItem activity;
+	private final NewsItem activity;
 
 	public ImageDownloader(NewsItem activity) {
 		this.activity = activity;

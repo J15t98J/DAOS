@@ -28,7 +28,7 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
 	public RSSFeedParser(News callback_instance) {
 		this.callback_instance = callback_instance;
-		this.activity = (MainActivity)callback_instance.getActivity();
+		this.activity = (MainActivity) callback_instance.getActivity();
 
 		accepted_tags.add(0, "item");
 		accepted_tags.add(1, "title");

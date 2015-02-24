@@ -23,7 +23,7 @@ import uk.co.appsbystudio.damealiceowens.util.RSSItemComparator;
 public class News extends Fragment {
 
 	public final ClickListener listener = new ClickListener();
-	public ArrayList<RSSItem> items;
+	private ArrayList<RSSItem> items = new ArrayList<RSSItem>();
 	private NewsList list;
 	public MainActivity activity;
 
@@ -50,10 +50,8 @@ public class News extends Fragment {
 		if(!array.isEmpty()) {
 			Collections.sort(array, new RSSItemComparator());
 			items = array;
-			list.onRSSParse(items);
-		} else {
-			// TODO: display network error
 		}
+		list.onRSSParse(items);
 	}
 
 	public class ClickListener implements ListView.OnItemClickListener {

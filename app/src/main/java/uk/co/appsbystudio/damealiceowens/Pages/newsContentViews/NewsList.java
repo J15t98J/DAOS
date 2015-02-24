@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +28,7 @@ import uk.co.appsbystudio.damealiceowens.util.RSSItemComparator;
 public class NewsList extends Fragment {
 
 	private News parent;
-	public View view;
+	private View view;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private final Handler handler = new Handler();
@@ -101,8 +100,8 @@ public class NewsList extends Fragment {
         }
     }
 
-	// TODO: searching of NewsList
     private void onSearchRequest() {
+	    // TODO: searching of NewsList
     }
 
     public void setListenerContext(News parent) {
@@ -111,25 +110,25 @@ public class NewsList extends Fragment {
 
 	public void onRSSParse(ArrayList<RSSItem> array) {
 		// TODO: penultimate RSSItem cached/loaded (see how it appears after a couple of seconds, when the parser returns) -> check by adding another item
-		// TODO: swap Toasts out for background images, similar to loading screen
-		View load = view.findViewById(R.id.newsListLoading);
-		if(load != null) {
-			load.setVisibility(View.GONE);
+		// TODO: investigate random error messages that occur when network is fine (not seen since migration to bg messages!)
+
+		ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+		boolean networkAvailable = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+				                   connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+
+		View loadingView = view.findViewById(R.id.newsListLoading);
+		if(loadingView != null) {
+			loadingView.setVisibility(View.GONE);
 		}
+
+		view.findViewById(R.id.newsListEmpty).setVisibility(array.isEmpty() && networkAvailable ? View.VISIBLE : View.GONE);
+		view.findViewById(R.id.newsListError).setVisibility(array.isEmpty() && !networkAvailable ? View.VISIBLE : View.GONE);
+
 		if(!array.isEmpty()) {
 			ListView listView = ((ListView) view.findViewById(R.id.newsList));
 			listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), array));
 			listView.setOnItemClickListener(parent.listener);
-		} else {
-            ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-            // TODO: investigate random error Toasts that occur when network is fine
-			if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-                Toast.makeText(getActivity(), "No news available, please check back later.", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getActivity(), "No news available, please check your network connection then refresh the content.", Toast.LENGTH_LONG).show();
-            }
-        }
+		}
 	}
 
     private final Runnable refreshing = new Runnable() {

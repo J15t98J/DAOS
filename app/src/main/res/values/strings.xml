@@ -18,6 +18,12 @@
     <string name="loading_title">Just a moment…</string>
     <string name="loading_subtitle">We\'re fetching the news for you.</string>
 
+    <string name="empty_title">Nothing to see here!</string>
+    <string name="empty_subtitle">No news available - try again later.</string>
+
+    <string name="error_title">Can\'t connect…</string>
+    <string name="error_subtitle">Check your connection and try again.</string>
+
     <string name="read_item_icon">Read item</string>
     <string name="unread_item_icon">Unread item</string>
     <string name="flagged_item_icon">Flagged item</string>

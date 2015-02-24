@@ -22,7 +22,6 @@ public class MainActivity extends ActionBarActivity  {
 	public DatabaseHelper dbHelper;
 	public SQLiteDatabase db;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
