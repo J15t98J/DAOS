@@ -20,9 +20,9 @@ import uk.co.appsbystudio.damealiceowens.Pages.News;
 
 public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
-	private final ArrayList<String> accepted_tags = new ArrayList<String>();
-	private final ArrayList<String> blacklisted_tags = new ArrayList<String>();
-	private final ArrayList<RSSItem> array = new ArrayList<RSSItem>();
+	private final ArrayList<String> accepted_tags = new ArrayList<>();
+	private final ArrayList<String> blacklisted_tags = new ArrayList<>();
+	private final ArrayList<RSSItem> array = new ArrayList<>();
 	private final News callback_instance;
 	private final MainActivity activity;
 

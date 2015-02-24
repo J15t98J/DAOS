@@ -27,5 +27,6 @@
     <string name="read_item_icon">Read item</string>
     <string name="unread_item_icon">Unread item</string>
     <string name="flagged_item_icon">Flagged item</string>
+
     <string name="open_item_icon">Open item</string>
 </resources>

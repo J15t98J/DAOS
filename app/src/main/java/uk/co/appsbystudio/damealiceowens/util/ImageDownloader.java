@@ -23,7 +23,7 @@ public class ImageDownloader extends AsyncTask<String, Void, ArrayList<Bitmap>> 
 	@Override
 	protected ArrayList<Bitmap> doInBackground(String... params) {
 		Integer imageCount = 0;
-		ArrayList<Bitmap> images = new ArrayList<Bitmap>();
+		ArrayList<Bitmap> images = new ArrayList<>();
 
 		for(String item : params) {
 			Bitmap image;

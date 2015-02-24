@@ -23,7 +23,7 @@ import uk.co.appsbystudio.damealiceowens.util.RSSItemComparator;
 public class News extends Fragment {
 
 	public final ClickListener listener = new ClickListener();
-	private ArrayList<RSSItem> items = new ArrayList<RSSItem>();
+	private ArrayList<RSSItem> items = new ArrayList<>();
 	private NewsList list;
 	public MainActivity activity;
 
@@ -34,7 +34,7 @@ public class News extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	    View view = inflater.inflate(R.layout.fragment_news, container, false);
-	    activity = ((MainActivity)getActivity());
+	    activity = ((MainActivity) getActivity());
 
 	    new RSSFeedParser(this).execute(activity.urls);
 
@@ -64,15 +64,6 @@ public class News extends Fragment {
             intentDetail.putExtra("title", items.get(position).getString("title"));
             intentDetail.putExtra("content", items.get(position).getString("description"));
 			intentDetail.putExtra("guid", items.get(position).getString("guid"));
-
-			//String itemImage = items.get(position).getString("url");
-			/*
-            if (itemImage != null && !itemImage.isEmpty() && itemImage.startsWith("http://")) {
-                intentDetail.putExtra("image", itemImage);
-            } else {
-                intentDetail.putExtra("image", "NO IMAGE");
-            }
-            */
 
             startActivity(intentDetail);
 		}

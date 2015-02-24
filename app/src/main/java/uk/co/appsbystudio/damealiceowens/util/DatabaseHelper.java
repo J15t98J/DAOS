@@ -56,7 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	}
 
 	public ArrayList<RSSItem> getVisibleItems(SQLiteDatabase db) {
-		ArrayList<RSSItem> array = new ArrayList<RSSItem>();
+		ArrayList<RSSItem> array = new ArrayList<>();
 
 		Cursor results = db.rawQuery("SELECT * FROM ITEMS WHERE isHidden='false'", null);
 		results.moveToFirst();
