@@ -1,4 +1,4 @@
-package uk.co.appsbystudio.damealiceowens.Pages;
+package uk.co.appsbystudio.damealiceowens.pages;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import uk.co.appsbystudio.damealiceowens.MainActivity;
-import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsItem;
-import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
+import uk.co.appsbystudio.damealiceowens.pages.newsContentViews.NewsItem;
+import uk.co.appsbystudio.damealiceowens.pages.newsContentViews.NewsList;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.RSSFeedParser;
 import uk.co.appsbystudio.damealiceowens.util.RSSItem;

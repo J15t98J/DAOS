@@ -4,7 +4,7 @@
     android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList">
+    tools:context="uk.co.appsbystudio.damealiceowens.pages.newsContentViews.NewsList">
 
     <!-- TODO: source 150dp x 150dp images for no news & connection error -->
 

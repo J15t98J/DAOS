@@ -1,4 +1,4 @@
-package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
+package uk.co.appsbystudio.damealiceowens.pages.newsContentViews;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -19,7 +19,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import uk.co.appsbystudio.damealiceowens.Pages.News;
+import uk.co.appsbystudio.damealiceowens.pages.News;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.NewsItemAdapter;
 import uk.co.appsbystudio.damealiceowens.util.RSSItem;
