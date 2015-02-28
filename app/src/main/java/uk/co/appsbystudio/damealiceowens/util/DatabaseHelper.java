@@ -12,6 +12,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	private static final String DATABASE_NAME = "cache.db";
 	private static final Integer DATABASE_VERSION = 1;
 
+	String[] fields = new String[]{ "title", "pubDate", "author", "description", "isRead", "isFlagged", "isHidden" };
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -37,6 +39,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 	public void editItem(SQLiteDatabase db, String guid, String attribute, String value) {
 		db.execSQL("UPDATE ITEMS SET " + attribute + "=? WHERE guid=?", new String[]{ value, guid });
+	}
+
+	public void updateItem(SQLiteDatabase db, String guid, RSSItem item) {
+		for(String field : fields) {
+			db.execSQL("UPDATE ITEMS SET " + field + "=? WHERE guid=?", new String[]{ item.getString(field), guid });
+		}
 	}
 
 	public RSSItem getItem(SQLiteDatabase db, String guid) {

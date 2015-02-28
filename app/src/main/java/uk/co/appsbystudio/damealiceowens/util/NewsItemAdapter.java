@@ -27,7 +27,6 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 
 	@Override
 	public View getView(int position, View currentRow, ViewGroup parent) {
-		// TODO: paragraphing, images and perhaps text decoration support (programatically add TextViews per paragraph etc.)
 		if(currentRow == null) {
 			currentRow = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.news_list_item, parent, false);
 		}

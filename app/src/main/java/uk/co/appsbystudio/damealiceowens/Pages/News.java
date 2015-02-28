@@ -46,12 +46,14 @@ public class News extends Fragment {
 	    return view;
     }
 
-	public void rssParseCallback(ArrayList<RSSItem> array) {
+	public void rssParseCallback(ArrayList<RSSItem> array, boolean isCached) {
 		if(!array.isEmpty()) {
 			Collections.sort(array, new RSSItemComparator());
 			items = array;
 		}
-		list.onRSSParse(items);
+		if(!(array.isEmpty() && isCached)) {
+			list.onRSSParse(items);
+		}
 	}
 
 	public class ClickListener implements ListView.OnItemClickListener {
@@ -60,7 +62,7 @@ public class News extends Fragment {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             activity.dbHelper.editItem(activity.db, items.get(position).getString("guid"), "isRead", "true");
 
-            Intent intentDetail = new Intent(getActivity(), NewsItem.class);
+			Intent intentDetail = new Intent(getActivity(), NewsItem.class);
             intentDetail.putExtra("title", items.get(position).getString("title"));
             intentDetail.putExtra("content", items.get(position).getString("description"));
 			intentDetail.putExtra("guid", items.get(position).getString("guid"));

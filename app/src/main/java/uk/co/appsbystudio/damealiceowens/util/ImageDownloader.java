@@ -7,12 +7,12 @@ import android.os.AsyncTask;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsItem;
 import uk.co.appsbystudio.damealiceowens.R;
 
-public class ImageDownloader extends AsyncTask<String, Void, ArrayList<Bitmap>> {
+public class ImageDownloader extends AsyncTask<String, Void, HashMap<String, Bitmap>> {
 
 	private final NewsItem activity;
 
@@ -21,18 +21,15 @@ public class ImageDownloader extends AsyncTask<String, Void, ArrayList<Bitmap>> 
 	}
 
 	@Override
-	protected ArrayList<Bitmap> doInBackground(String... params) {
-		Integer imageCount = 0;
-		ArrayList<Bitmap> images = new ArrayList<>();
+	protected HashMap<String, Bitmap> doInBackground(String... params) {
+		HashMap<String, Bitmap> images = new HashMap<>();
 
 		for(String item : params) {
 			Bitmap image;
 
 			InputStream stream = getInputStream(item);
-			// TODO: source "item not yet downloaded" image
 			image = (stream != null ? BitmapFactory.decodeStream(stream) : BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_action_discard));
-			images.add(imageCount, image);
-			imageCount += 1;
+			images.put(item, image);
 		}
 
 		return images;
@@ -42,13 +39,14 @@ public class ImageDownloader extends AsyncTask<String, Void, ArrayList<Bitmap>> 
 		try {
 			return new URL(url).openStream();
 		} catch(IOException e) {
+			System.err.println("For URL " + url + ":");
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
-	public void onPostExecute(ArrayList<Bitmap> images) {
-		// TODO: update NewsItem LinearLayout with downloaded pictures (callback func?)
+	public void onPostExecute(HashMap<String, Bitmap> images) {
+		activity.onImagesDownloaded(images);
 	}
 }

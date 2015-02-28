@@ -37,6 +37,7 @@ public class NewsList extends Fragment {
         // Required empty public constructor
     }
 
+	// TODO: add drop-down refresh notification when there are already items in the list (i.e. when bg loading icon is unsuitable)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_news_list, container, false);
@@ -81,7 +82,7 @@ public class NewsList extends Fragment {
 
 		ArrayList<RSSItem> local = parent.activity.dbHelper.getVisibleItems(parent.activity.db);
 		Collections.sort(local, new RSSItemComparator());
-		parent.rssParseCallback(local);
+		parent.rssParseCallback(local, true);
 	}
 
 	@Override
@@ -109,7 +110,7 @@ public class NewsList extends Fragment {
 	}
 
 	public void onRSSParse(ArrayList<RSSItem> array) {
-		// TODO: penultimate RSSItem cached/loaded (see how it appears after a couple of seconds, when the parser returns) -> check by adding another item
+		// TODO: issues with last RSSItem in dev feed - definitely cached as it appears even with aeroplane mode on - test to see if it is related to being penultimate item (add another sch feed item), to being the last item in dev feed (add another dev feed item), or to it having a guid >=10
 		// TODO: investigate random error messages that occur when network is fine (not seen since migration to bg messages!)
 
 		ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

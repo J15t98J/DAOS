@@ -1,15 +1,27 @@
 package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.DatabaseHelper;
+import uk.co.appsbystudio.damealiceowens.util.ImageDownloader;
 import uk.co.appsbystudio.damealiceowens.util.RSSItem;
 
 // TODO: convert to an embedded Fragment + transition?
@@ -19,6 +31,8 @@ public class NewsItem extends ActionBarActivity {
 	private SQLiteDatabase db;
 
 	private String guid;
+	private String title;
+	private String content;
 	private RSSItem feedItem;
 
     @Override
@@ -26,10 +40,8 @@ public class NewsItem extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_item);
 
-	    setTitle(getIntent().getStringExtra("title"));
-        ((TextView) findViewById(R.id.item_title)).setText(getIntent().getStringExtra("title"));
-
 	    guid = getIntent().getStringExtra("guid");
+	    parseInput(getIntent().getStringExtra("title"), getIntent().getStringExtra("content"));
 
 	    dbHelper = new DatabaseHelper(this);
 	    db = dbHelper.getWritableDatabase();
@@ -75,5 +87,42 @@ public class NewsItem extends ActionBarActivity {
 			default:
 				return false;
 		}
+	}
+
+	public void parseInput(String title, String content) {
+		setTitle(title);
+		((TextView)findViewById(R.id.item_title)).setText(title);
+
+		this.title = title;
+		this.content = content;
+
+		System.out.println(content);
+
+		ArrayList<String> sections = new ArrayList<>();
+		String contentCopy = content;
+		Matcher pattern = Pattern.compile("<img src=\"(.*?)\"/>").matcher(contentCopy);
+		while(pattern.find()) {
+			System.out.println(pattern.group(1));
+			new ImageDownloader(this).execute(pattern.group(1));
+
+			String[] split = contentCopy.split(Pattern.quote(pattern.group()));
+			sections.add(split[0]);
+			contentCopy = split[1];
+		}
+		sections.add(contentCopy);
+
+		for(String section : sections) {
+			TextView item = new TextView(this);
+			item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+			item.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
+			item.setTextColor(Color.parseColor("#000000"));
+			item.setText(Html.fromHtml(section));
+			((LinearLayout)findViewById(R.id.content_frame)).addView(item);
+		}
+	}
+
+	public void onImagesDownloaded(HashMap<String, Bitmap> images) {
+		// TODO: update layout to show pics (i.e. implement image support)
+
 	}
 }

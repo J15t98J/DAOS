@@ -45,7 +45,7 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 		blacklisted_tags.add(2, "link");
 	}
 
-	// TODO: editing / deleting posts in the feed's XML should update / remove locally-cached items
+	// TODO: deleting posts in the feed's XML should remove locally-cached items (unless they are flagged)
     @Override
 	protected ArrayList<RSSItem> doInBackground(String... params) {
 		for(String loc : params) {
@@ -77,21 +77,25 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 							} else {
 								currentTag = parser.getName();
 							}
+							currentValue = "";
 						} else if(!blacklisted_tags.contains(parser.getName())) {
 							currentValue += "<" + parser.getName() + ">";
 						}
 					} else if(event == XmlPullParser.END_TAG) {
 						if(parser.getName().equals("item")) {
-							currentItem.setValue("isRead", "false");
-							currentItem.setValue("isFlagged", "false");
-							currentItem.setValue("isHidden", "false");
 							RSSItem storedItem = activity.dbHelper.getItem(activity.db, currentItem.getString("guid"));
+
+							currentItem.setValue("isRead", storedItem != null && storedItem.getBool("isRead") ? "true" : "false");
+							currentItem.setValue("isFlagged", storedItem != null && storedItem.getBool("isFlagged") ? "true" : "false");
+							currentItem.setValue("isHidden", storedItem != null && storedItem.getBool("isHidden") ? "true" : "false");
+
 							if(storedItem == null) {
 								activity.dbHelper.addItem(activity.db, currentItem);
-								array.add(currentItem);
 							} else if(!storedItem.getBool("isHidden")) {
-								array.add(storedItem);
+								activity.dbHelper.updateItem(activity.db, currentItem.getString("guid"), currentItem);
 							}
+
+							array.add(currentItem);
 						} else if(currentTag.equals(parser.getName())) {
 							currentItem.setValue(currentTag, currentValue);
 							currentTag = "";
@@ -115,6 +119,6 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
 	@Override
 	public void onPostExecute(ArrayList<RSSItem> result) {
-		callback_instance.rssParseCallback(result);
+		callback_instance.rssParseCallback(result, false);
 	}
 }
