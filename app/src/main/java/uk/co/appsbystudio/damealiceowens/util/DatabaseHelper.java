@@ -12,7 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	private static final String DATABASE_NAME = "cache.db";
 	private static final Integer DATABASE_VERSION = 1;
 
-	String[] fields = new String[]{ "title", "pubDate", "author", "description", "isRead", "isFlagged", "isHidden" };
+	private final String[] fields = new String[]{ "title", "pubDate", "author", "description", "isRead", "isFlagged", "isHidden" };
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

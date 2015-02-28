@@ -89,7 +89,7 @@ public class NewsItem extends ActionBarActivity {
 		}
 	}
 
-	public void parseInput(String title, String content) {
+	private void parseInput(String title, String content) {
 		setTitle(title);
 		((TextView)findViewById(R.id.item_title)).setText(title);
 

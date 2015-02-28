@@ -5,15 +5,12 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -29,48 +26,15 @@ public class NewsList extends Fragment {
 
 	private News parent;
 	private View view;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private ListView listView;
-    private final Handler handler = new Handler();
 
 	public NewsList() {
         // Required empty public constructor
     }
 
-	// TODO: add drop-down refresh notification when there are already items in the list (i.e. when bg loading icon is unsuitable)
+	// TODO: add drop-down refresh notification when there are already items in the list (i.e. when b/g loading icon is unsuitable)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_news_list, container, false);
-
-        listView = (ListView) view.findViewById(R.id.newsList);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
-
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                boolean enable = false;
-                if (listView != null && listView.getChildCount() > 0) {
-                    boolean firstItemVisible = listView.getFirstVisiblePosition() == 0;
-                    boolean topOfFirstItemVisible = listView.getChildAt(0).getTop() == 0;
-                    enable = firstItemVisible && topOfFirstItemVisible;
-                }
-                swipeRefreshLayout.setEnabled(enable);
-            }
-        });
-
-	    // TODO: fully-implement or remove swipe-to-refresh
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                handler.post(refreshing);
-            }
-        });
-
-        swipeRefreshLayout.setColorSchemeResources(R.color.daos_red);
         setHasOptionsMenu(true);
 
 	    return view;
@@ -131,21 +95,4 @@ public class NewsList extends Fragment {
 			listView.setOnItemClickListener(parent.listener);
 		}
 	}
-
-    private final Runnable refreshing = new Runnable() {
-        @Override
-        public void run() {
-            /*
-            try {
-                if (isRefreshing()) {
-                    handler.postDelayed(this, 1000);
-                } else {
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            //*/
-        }
-    };
 }
