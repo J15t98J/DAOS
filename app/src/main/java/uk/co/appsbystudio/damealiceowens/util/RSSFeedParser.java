@@ -78,6 +78,8 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 								currentTag = parser.getName();
 							}
 							currentValue = "";
+						} else if(parser.getName().equals("img")) {
+							currentValue += "<img src=\"" + parser.getAttributeValue("", "src") + "\"/>";
 						} else if(!blacklisted_tags.contains(parser.getName())) {
 							currentValue += "<" + parser.getName() + ">";
 						}

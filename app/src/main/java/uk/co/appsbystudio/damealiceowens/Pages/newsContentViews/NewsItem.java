@@ -10,11 +10,11 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,13 +35,15 @@ public class NewsItem extends ActionBarActivity {
 	private String content;
 	private RSSItem feedItem;
 
+	private final HashMap<String, Bitmap> images = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_item);
 
 	    guid = getIntent().getStringExtra("guid");
-	    parseInput(getIntent().getStringExtra("title"), getIntent().getStringExtra("content"));
+	    parseInput(getIntent().getStringExtra("title"), getIntent().getStringExtra("content"), false);
 
 	    dbHelper = new DatabaseHelper(this);
 	    db = dbHelper.getWritableDatabase();
@@ -89,40 +91,56 @@ public class NewsItem extends ActionBarActivity {
 		}
 	}
 
-	private void parseInput(String title, String content) {
+	// TODO: fix spacing issues caused by HTML paragraphs using negative margins?
+
+	private void parseInput(String title, String content, boolean picturesAvailable) {
 		setTitle(title);
 		((TextView)findViewById(R.id.item_title)).setText(title);
 
 		this.title = title;
 		this.content = content;
 
-		System.out.println(content);
-
-		ArrayList<String> sections = new ArrayList<>();
 		String contentCopy = content;
 		Matcher pattern = Pattern.compile("<img src=\"(.*?)\"/>").matcher(contentCopy);
 		while(pattern.find()) {
-			System.out.println(pattern.group(1));
-			new ImageDownloader(this).execute(pattern.group(1));
-
 			String[] split = contentCopy.split(Pattern.quote(pattern.group()));
-			sections.add(split[0]);
+			addNewTextView(split[0]);
 			contentCopy = split[1];
-		}
-		sections.add(contentCopy);
 
-		for(String section : sections) {
-			TextView item = new TextView(this);
-			item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-			item.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
-			item.setTextColor(Color.parseColor("#000000"));
-			item.setText(Html.fromHtml(section));
-			((LinearLayout)findViewById(R.id.content_frame)).addView(item);
+			if(picturesAvailable) {
+				addNewImageView(images.get(pattern.group(1)));
+			} else {
+				new ImageDownloader(this).execute(pattern.group(1));
+			}
 		}
+		addNewTextView(contentCopy);
+	}
+
+	private void addNewTextView(String text) {
+		TextView item = new TextView(this);
+
+		item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+		item.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
+		item.setTextColor(Color.parseColor("#000000"));
+		item.setText(Html.fromHtml(text));
+		//item.setBackgroundColor(Color.parseColor("#FF0000"));
+
+		((LinearLayout)findViewById(R.id.item_frame)).addView(item);
+	}
+
+	private void addNewImageView(Bitmap image) {
+		ImageView item = new ImageView(this);
+
+		item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+		item.setImageBitmap(image);
+		//item.setBackgroundColor(Color.parseColor("#00FF00"));
+
+		((LinearLayout)findViewById(R.id.item_frame)).addView(item);
 	}
 
 	public void onImagesDownloaded(HashMap<String, Bitmap> images) {
-		// TODO: update layout to show pics (i.e. implement image support)
-
+		this.images.putAll(images);
+		((LinearLayout)findViewById(R.id.item_frame)).removeAllViews();
+		parseInput(title, content, true);
 	}
 }

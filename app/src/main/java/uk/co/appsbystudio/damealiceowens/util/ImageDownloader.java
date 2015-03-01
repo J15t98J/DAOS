@@ -27,9 +27,13 @@ public class ImageDownloader extends AsyncTask<String, Void, HashMap<String, Bit
 		for(String item : params) {
 			Bitmap image;
 
+			// TODO: image already in local storage?
+
 			InputStream stream = getInputStream(item);
 			image = (stream != null ? BitmapFactory.decodeStream(stream) : BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_action_discard));
 			images.put(item, image);
+
+			//TODO: put image in local storage if it isn't already there
 		}
 
 		return images;
