@@ -1,10 +1,10 @@
 package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +16,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import uk.co.appsbystudio.damealiceowens.Pages.News;
+import uk.co.appsbystudio.damealiceowens.MainActivity;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.NewsItemAdapter;
 import uk.co.appsbystudio.damealiceowens.util.RSSItem;
@@ -24,7 +24,7 @@ import uk.co.appsbystudio.damealiceowens.util.RSSItemComparator;
 
 public class NewsList extends Fragment {
 
-	private News parent;
+	private MainActivity parent;
 	private View view;
 
 	public NewsList() {
@@ -44,7 +44,7 @@ public class NewsList extends Fragment {
 	public void onResume() {
 		super.onResume();
 
-		ArrayList<RSSItem> local = parent.activity.dbHelper.getVisibleItems(parent.activity.db);
+		ArrayList<RSSItem> local = parent.dbHelper.getVisibleItems(parent.db);
 		Collections.sort(local, new RSSItemComparator());
 		parent.rssParseCallback(local, true);
 	}
@@ -69,7 +69,7 @@ public class NewsList extends Fragment {
 	    // TODO: searching of NewsList
     }
 
-    public void setListenerContext(News parent) {
+    public void setListenerContext(MainActivity parent) {
 		this.parent = parent;
 	}
 
@@ -77,6 +77,7 @@ public class NewsList extends Fragment {
 		// TODO: issues with last RSSItem in dev feed - definitely cached as it appears even with aeroplane mode on - test to see if it is related to being penultimate item (add another sch feed item), to being the last item in dev feed (add another dev feed item), or to it having a guid >=10
 		// TODO: investigate random error messages that occur when network is fine (not seen since migration to bg messages!)
 
+		// TODO: fix NPE here
 		ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 		boolean networkAvailable = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
 				                   connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;

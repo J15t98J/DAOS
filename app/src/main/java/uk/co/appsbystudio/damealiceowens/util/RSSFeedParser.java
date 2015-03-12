@@ -16,19 +16,16 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import uk.co.appsbystudio.damealiceowens.MainActivity;
-import uk.co.appsbystudio.damealiceowens.Pages.News;
 
 public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
 	private final ArrayList<String> accepted_tags = new ArrayList<>();
 	private final ArrayList<String> blacklisted_tags = new ArrayList<>();
 	private final ArrayList<RSSItem> array = new ArrayList<>();
-	private final News callback_instance;
 	private final MainActivity activity;
 
-	public RSSFeedParser(News callback_instance) {
-		this.callback_instance = callback_instance;
-		this.activity = (MainActivity) callback_instance.getActivity();
+	public RSSFeedParser(MainActivity activity) {
+		this.activity = activity;
 
 		accepted_tags.add(0, "item");
 		accepted_tags.add(1, "title");
@@ -121,6 +118,6 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 
 	@Override
 	public void onPostExecute(ArrayList<RSSItem> result) {
-		callback_instance.rssParseCallback(result, false);
+		activity.rssParseCallback(result, false);
 	}
 }
