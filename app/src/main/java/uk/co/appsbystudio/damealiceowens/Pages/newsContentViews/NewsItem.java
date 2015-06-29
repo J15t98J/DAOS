@@ -4,8 +4,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -111,7 +112,10 @@ public class NewsItem extends ActionBarActivity {
 			if(picturesAvailable) {
 				addNewImageView(images.get(pattern.group(1)));
 			} else {
-				new ImageDownloader(this).execute(pattern.group(1));
+				if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_key_download_pictures", true)) {
+					new ImageDownloader(this).execute(pattern.group(1));
+				}
+				// TODO: placeholder image
 			}
 		}
 		addNewTextView(contentCopy);

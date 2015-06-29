@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -45,7 +45,9 @@ public class MainActivity extends ActionBarActivity  {
 	    dbHelper = new DatabaseHelper(this);
 	    db = dbHelper.getWritableDatabase();
 
-	    new RSSFeedParser(this).execute(urls);
+	    if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_key_auto_refresh", true)) {
+		    new RSSFeedParser(this).execute(urls);
+	    }
 
 	    list = new NewsList();
 	    list.setListenerContext(this);

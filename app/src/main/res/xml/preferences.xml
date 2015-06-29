@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="Storage"
-        android:key="pref_key_storage_settings">
+        android:title="@string/settings_connectivity_title"
+        android:key="pref_key_connectivity">
         <CheckBoxPreference
-            android:key="pref_key_auto_delete"
-            android:title="Clear old messages"
-            android:summary="Clear old news items as set limits are reached"
+            android:key="pref_key_auto_refresh"
+            android:title="@string/settings_connectivity_autorefresh_title"
+            android:summary="@string/settings_connectivity_autorefresh_subtitle"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="pref_key_download_pictures"
+            android:title="@string/settings_connectivity_images_title"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/settings_storage_title"
+        android:key="pref_key_storage">
+        <CheckBoxPreference
+            android:key="pref_key_limit_cache"
+            android:title="@string/settings_storage_cachelimit_title"
+            android:summary="@string/settings_storage_cachelimit_subtitle"
             android:defaultValue="false"/>
         <Preference
-            android:key="pref_key_item_clear_limit"
-            android:dependency="pref_key_auto_delete"
-            android:summary="20 news items"
-            android:title="News item clear"
-            />
+            android:key="pref_key_max_cached_posts"
+            android:dependency="pref_key_limit_cache"
+            android:title="@string/settings_storage_max_posts_title"
+            android:summary=""/>
+        <Preference
+            android:key="pref_key_max_cached_images"
+            android:dependency="pref_key_limit_cache"
+            android:title="@string/settings_storage_max_images_title"
+            android:summary=""/>
     </PreferenceCategory>
 </PreferenceScreen>
