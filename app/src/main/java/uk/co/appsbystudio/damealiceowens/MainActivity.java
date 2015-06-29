@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -32,8 +33,10 @@ public class MainActivity extends ActionBarActivity  {
 
 	public final ClickListener listener = new ClickListener();
 
-	private ArrayList<RSSItem> items = new ArrayList<>();
+	public ArrayList<RSSItem> items = new ArrayList<>();
 	private NewsList list;
+
+	boolean hasTried = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +70,9 @@ public class MainActivity extends ActionBarActivity  {
 	            startActivity(new Intent(this, Settings.class));
                 return true;
             case R.id.action_refresh:
-                new RSSFeedParser(this).execute(urls);
-                Toast.makeText(this, "Refreshing...", Toast.LENGTH_LONG).show();
-				return true;
+	            new RSSFeedParser(this).execute(urls);
+	            Toast.makeText(this, "Refreshing...", Toast.LENGTH_LONG).show();
+	            return true;
             default:
                 super.onOptionsItemSelected(item);
         }
@@ -82,14 +85,24 @@ public class MainActivity extends ActionBarActivity  {
 	}
 
 	public void rssParseCallback(ArrayList<RSSItem> array, boolean isCached) {
-		// TODO: fix refresh un-hiding deleted posts
 		if(!array.isEmpty()) {
-			Collections.sort(array, new RSSItemComparator());
-			items = array;
+			if(items.isEmpty() || !isCached) {
+				Collections.sort(array, new RSSItemComparator());
+				items = array;
+			}
+			if(isCached) {
+				for(RSSItem item : items) {
+					RSSItem cachedItem = dbHelper.getItem(db, item.getString("guid"));
+					item.setValue("isRead", cachedItem.getString("isRead"));
+					item.setValue("isFlagged", cachedItem.getString("isFlagged"));
+					item.setValue("isHidden", cachedItem.getString("isHidden"));
+				}
+			}
+		} else if(!isCached && (hasTried || !items.isEmpty())) {
+			Toast.makeText(this, "Failed to update news.", Toast.LENGTH_LONG).show();
 		}
-		if(!(array.isEmpty() && isCached)) {
-			list.onRSSParse(items);
-		}
+		list.onRSSParse(items);
+		hasTried = !isCached || hasTried;
 	}
 
 	public class ClickListener implements ListView.OnItemClickListener {

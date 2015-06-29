@@ -94,8 +94,6 @@ public class NewsItem extends ActionBarActivity {
 		}
 	}
 
-	// TODO: fix spacing issues caused by HTML paragraphs using negative margins?
-
 	private void parseInput(String title, String content, boolean picturesAvailable) {
 		setTitle(title);
 		((TextView)findViewById(R.id.item_title)).setText(title);
