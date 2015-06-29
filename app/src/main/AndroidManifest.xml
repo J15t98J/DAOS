@@ -17,6 +17,12 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/search_config" />
         </activity>
         <activity
             android:name=".Pages.Settings"
@@ -37,9 +43,6 @@
             <meta-data android:name="android.support.UI_OPTIONS"
                        android:value="splitActionBarWhenNarrow" />
         </activity>
-        <meta-data
-            android:name="android.app.searchable"
-            android:resource="@xml/search_config" />
     </application>
 
 </manifest>
