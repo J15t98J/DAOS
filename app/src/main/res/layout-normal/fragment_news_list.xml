@@ -49,6 +49,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_icon_inbox_empty"
+            android:contentDescription="@string/image_no_news"
             android:layout_gravity="center"/>
 
         <TextView
@@ -82,6 +83,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_icon_refresh_error"
+            android:contentDescription="@string/image_news_error"
             android:layout_gravity="center"/>
 
         <TextView

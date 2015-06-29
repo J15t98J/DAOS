@@ -26,17 +26,17 @@ import uk.co.appsbystudio.damealiceowens.util.RSSItemComparator;
 
 public class MainActivity extends ActionBarActivity  {
 
-	public final String[] urls = new String[]{"http://pastebin.com/raw.php?i=riX1ughz", "http://pastebin.com/raw.php?i=7UqLYJLt"};
+	private final String[] urls = new String[]{"http://pastebin.com/raw.php?i=riX1ughz", "http://pastebin.com/raw.php?i=7UqLYJLt"};
 
 	public DatabaseHelper dbHelper;
 	public SQLiteDatabase db;
 
 	public final ClickListener listener = new ClickListener();
 
-	public ArrayList<RSSItem> items = new ArrayList<>();
+	private ArrayList<RSSItem> items = new ArrayList<>();
 	private NewsList list;
 
-	boolean hasTried = false;
+	private boolean hasTried = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

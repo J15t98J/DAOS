@@ -30,6 +30,10 @@
 
     <string name="open_item_icon">Open item</string>
 
+    <!-- IMAGES -->
+    <string name="image_no_news">No content available</string>
+    <string name="image_news_error">Couldn\'t download content</string>
+
     <!-- SETTINGS -->
     <string name="settings_connectivity_title">Connectivity</string>
     <string name="settings_connectivity_autorefresh_title">Refresh automatically</string>
