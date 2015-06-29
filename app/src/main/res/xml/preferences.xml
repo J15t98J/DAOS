@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Storage"
+        android:key="pref_key_storage_settings">
+        <CheckBoxPreference
+            android:key="pref_key_auto_delete"
+            android:title="Clear old messages"
+            android:summary="Clear old news items as set limits are reached"
+            android:defaultValue="false"/>
+        <Preference
+            android:key="pref_key_item_clear_limit"
+            android:dependency="pref_key_auto_delete"
+            android:summary="20 news items"
+            android:title="News item clear"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>
