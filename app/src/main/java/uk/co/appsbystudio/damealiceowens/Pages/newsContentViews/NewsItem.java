@@ -3,6 +3,7 @@ package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -47,6 +48,8 @@ public class NewsItem extends ActionBarActivity {
 
 	    dbHelper = new DatabaseHelper(this);
 	    db = dbHelper.getWritableDatabase();
+
+	    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.daos_red)));
     }
 
 	@Override

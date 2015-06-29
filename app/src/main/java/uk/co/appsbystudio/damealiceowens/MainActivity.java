@@ -68,7 +68,7 @@ public class MainActivity extends ActionBarActivity  {
                 return true;
             case R.id.action_refresh:
                 new RSSFeedParser(this).execute(urls);
-                Toast.makeText(this, "Refreshing", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Refreshing...", Toast.LENGTH_LONG).show();
 				return true;
             default:
                 super.onOptionsItemSelected(item);

@@ -15,8 +15,8 @@
         android:orientation="vertical">
 
         <ProgressBar
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:indeterminate="true"
             android:indeterminateDrawable="@drawable/loading"/>
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="@string/loading_title"
             android:textColor="#333"
             android:textSize="35sp"/>
@@ -46,6 +46,12 @@
         android:layout_gravity="center"
         android:visibility="gone"
         android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_icon_inbox_empty"
+            android:layout_gravity="center"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,11 +80,17 @@
         android:visibility="gone"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_icon_refresh_error"
+            android:layout_gravity="center"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="@string/error_title"
             android:textColor="#333"
             android:textSize="35sp"/>
@@ -102,6 +114,6 @@
         android:choiceMode="singleChoice"
         android:smoothScrollbar="true"
         android:fastScrollEnabled="false"
-        android:fastScrollAlwaysVisible="false" />
+        android:fastScrollAlwaysVisible="false"/>
 
 </FrameLayout>

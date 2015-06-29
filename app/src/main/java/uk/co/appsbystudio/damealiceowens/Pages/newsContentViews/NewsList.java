@@ -77,7 +77,6 @@ public class NewsList extends Fragment {
 		// TODO: issues with last RSSItem in dev feed - definitely cached as it appears even with aeroplane mode on - test to see if it is related to being penultimate item (add another sch feed item), to being the last item in dev feed (add another dev feed item), or to it having a guid >=10
 		// TODO: investigate random error messages that occur when network is fine (not seen since migration to bg messages!)
 
-		// TODO: fix NPE here
 		ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 		boolean networkAvailable = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
 				                   connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
