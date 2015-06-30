@@ -18,6 +18,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/uk/co/appsbystudio/damealiceowens/Pages/newsContentViews/NewsItem.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/uk/co/appsbystudio/damealiceowens/Pages/newsContentViews/NewsList.java">
           <value>
             <set />
@@ -29,6 +34,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/uk/co/appsbystudio/damealiceowens/util/RSSFeedParser.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout-normal/activity_news_item.xml">
           <value>
             <set />
           </value>
