@@ -33,6 +33,7 @@
     <!-- IMAGES -->
     <string name="image_no_news">No content available</string>
     <string name="image_news_error">Couldn\'t download content</string>
+    <string name="starred_post">Starred post</string>
 
     <!-- SETTINGS -->
     <string name="settings_connectivity_title">Connectivity</string>

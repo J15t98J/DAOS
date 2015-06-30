@@ -45,6 +45,8 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
             ((TextView) currentRow.findViewById(R.id.item_title)).setTypeface(null, Typeface.BOLD);
 		}
 
+		currentRow.findViewById(R.id.item_star).setVisibility(item.getBool("isFlagged") ? View.VISIBLE : View.GONE);
+
         ((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title"));
 		((TextView) currentRow.findViewById(R.id.item_info)).setText(item.getString("pubDate") + " by " + item.getString("author"));
 
