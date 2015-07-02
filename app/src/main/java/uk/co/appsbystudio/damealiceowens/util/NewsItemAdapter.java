@@ -33,8 +33,8 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 
 		uk.co.appsbystudio.damealiceowens.util.RSSItem item = (uk.co.appsbystudio.damealiceowens.util.RSSItem) content.get(position);
 
-		currentRow.findViewById(R.id.item_title).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 200;
-		currentRow.findViewById(R.id.item_info).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 200;
+		currentRow.findViewById(R.id.item_title).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 250;
+		currentRow.findViewById(R.id.item_info).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 250;
 
 		if(item.getBool("isRead")) {
 			((ImageView) currentRow.findViewById(R.id.item_readIcon)).setImageResource(R.drawable.ic_icon_read);
