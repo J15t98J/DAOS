@@ -59,6 +59,13 @@ public class MainActivity extends ActionBarActivity  {
 	    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.daos_red)));
     }
 
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		rssParseCallback(dbHelper.getVisibleItems(db), true);
+	}
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -119,6 +126,8 @@ public class MainActivity extends ActionBarActivity  {
 			intentDetail.putExtra("title", items.get(position).getString("title"));
 			intentDetail.putExtra("content", items.get(position).getString("description"));
 			intentDetail.putExtra("guid", items.get(position).getString("guid"));
+
+			items = new ArrayList<>();
 
 			startActivity(intentDetail);
 		}

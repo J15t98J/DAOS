@@ -14,13 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import uk.co.appsbystudio.damealiceowens.MainActivity;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.NewsItemAdapter;
 import uk.co.appsbystudio.damealiceowens.util.RSSItem;
-import uk.co.appsbystudio.damealiceowens.util.RSSItemComparator;
 
 public class NewsList extends Fragment {
 
@@ -38,15 +36,6 @@ public class NewsList extends Fragment {
 
 	    return view;
     }
-
-	@Override
-	public void onResume() {
-		super.onResume();
-
-		ArrayList<RSSItem> local = parent.dbHelper.getVisibleItems(parent.db);
-		Collections.sort(local, new RSSItemComparator());
-		parent.rssParseCallback(local, true);
-	}
 
 	@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
@@ -86,10 +75,8 @@ public class NewsList extends Fragment {
 		view.findViewById(R.id.newsListEmpty).setVisibility(array.isEmpty() && networkAvailable ? View.VISIBLE : View.GONE);
 		view.findViewById(R.id.newsListError).setVisibility(array.isEmpty() && !networkAvailable ? View.VISIBLE : View.GONE);
 
-		if(!array.isEmpty()) {
-			ListView listView = ((ListView) view.findViewById(R.id.newsList));
-			listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), array));
-			listView.setOnItemClickListener(parent.listener);
-		}
+		ListView listView = ((ListView) view.findViewById(R.id.newsList));
+		listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), array));
+		listView.setOnItemClickListener(parent.listener);
 	}
 }

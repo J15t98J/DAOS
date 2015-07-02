@@ -49,14 +49,17 @@ public class NewsItem extends ActionBarActivity {
 
 	    dbHelper = new DatabaseHelper(this);
 	    db = dbHelper.getWritableDatabase();
+	    db.beginTransaction();
 
 	    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.daos_red)));
     }
 
 	@Override
-	protected void onStop() {
-		super.onStop();
+	protected void onPause() {
+		super.onPause();
 
+		db.setTransactionSuccessful();
+		db.endTransaction();
 		db.close();
 		dbHelper.close();
 	}
