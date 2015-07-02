@@ -118,8 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		results.moveToFirst();
 
 		while(!results.isAfterLast()) {
-			String temp = results.getString(results.getColumnIndex("guid"));
-			array.add(getItem(db, temp));
+			array.add(getItem(db, results.getString(results.getColumnIndex("guid"))));
 			results.moveToNext();
 		}
 		results.close();
