@@ -20,7 +20,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS ITEMS(guid TEXT PRIMARY KEY, title TEXT, pubDate TEXT, author TEXT, description TEXT, isRead INTEGER, isFlagged INTEGER, isHidden INTEGER)");
+	    db.beginTransaction();
+	    try {
+		    db.execSQL("CREATE TABLE IF NOT EXISTS ITEMS(guid TEXT PRIMARY KEY, title TEXT, pubDate TEXT, author TEXT, description TEXT, isRead TEXT, isFlagged TEXT, isHidden TEXT)");
+		    db.setTransactionSuccessful();
+	    } finally {
+		    db.endTransaction();
+	    }
     }
 
     @Override
@@ -34,16 +40,34 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
 	public void addItem(SQLiteDatabase db, RSSItem item) {
-		db.execSQL("INSERT INTO ITEMS VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{ item.getString("guid"), item.getString("title"), item.getString("pubDate"), item.getString("author"), item.getString("description"), item.getString("isRead"), item.getString("isFlagged"), item.getString("isHidden") });
+		db.beginTransaction();
+		try {
+			db.execSQL("INSERT INTO ITEMS VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{item.getString("guid"), item.getString("title"), item.getString("pubDate"), item.getString("author"), item.getString("description"), item.getString("isRead"), item.getString("isFlagged"), item.getString("isHidden")});
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
 	}
 
 	public void editItem(SQLiteDatabase db, String guid, String attribute, String value) {
-		db.execSQL("UPDATE ITEMS SET " + attribute + "=? WHERE guid=?", new String[]{ value, guid });
+		db.beginTransaction();
+		try {
+			db.execSQL("UPDATE ITEMS SET " + attribute + "=? WHERE guid=?", new String[]{value, guid});
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
 	}
 
 	public void updateItem(SQLiteDatabase db, String guid, RSSItem item) {
-		for(String field : fields) {
-			db.execSQL("UPDATE ITEMS SET " + field + "=? WHERE guid=?", new String[]{ item.getString(field), guid });
+		db.beginTransaction();
+		try {
+			for(String field : fields) {
+				db.execSQL("UPDATE ITEMS SET " + field + "=? WHERE guid=?", new String[]{item.getString(field), guid});
+			}
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
 		}
 	}
 
@@ -66,11 +90,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	public ArrayList<RSSItem> getVisibleItems(SQLiteDatabase db) {
 		ArrayList<RSSItem> array = new ArrayList<>();
 
-		Cursor results = db.rawQuery("SELECT * FROM ITEMS WHERE isHidden='false'", null);
+		Cursor results = db.rawQuery("SELECT * FROM ITEMS WHERE isHidden=?", new String[]{ "false" });
 		results.moveToFirst();
 
-		while(results.moveToNext()) {
-			array.add(getItem(db, results.getString(results.getColumnIndex("guid"))));
+		while(!results.isAfterLast()) {
+			String temp = results.getString(results.getColumnIndex("guid"));
+			array.add(getItem(db, temp));
+			results.moveToNext();
 		}
 
 		results.close();

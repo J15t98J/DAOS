@@ -81,24 +81,24 @@ public class MainActivity extends ActionBarActivity  {
         return false;
     }
 
-	@Override
-	public void onSaveInstanceState(Bundle savedInstanceState) {
-
-	}
-
 	public void rssParseCallback(ArrayList<RSSItem> array, boolean isCached) {
 		if(!array.isEmpty()) {
+			if(!isCached) {
+				ArrayList<RSSItem> arrayCopy = array;
+				array = new ArrayList<>();
+				for(RSSItem item : arrayCopy) {
+					RSSItem cachedItem = dbHelper.getItem(db, item.getString("guid"));
+					if(!cachedItem.getBool("isHidden")) {
+						item.setValue("isRead", cachedItem.getString("isRead"));
+						item.setValue("isFlagged", cachedItem.getString("isFlagged"));
+						item.setValue("isHidden", cachedItem.getString("isHidden"));
+						array.add(item);
+					}
+				}
+			}
 			if(items.isEmpty() || !isCached) {
 				Collections.sort(array, new RSSItemComparator());
 				items = array;
-			}
-			if(isCached) {
-				for(RSSItem item : items) {
-					RSSItem cachedItem = dbHelper.getItem(db, item.getString("guid"));
-					item.setValue("isRead", cachedItem.getString("isRead"));
-					item.setValue("isFlagged", cachedItem.getString("isFlagged"));
-					item.setValue("isHidden", cachedItem.getString("isHidden"));
-				}
 			}
 		} else if(!isCached && (hasTried || !items.isEmpty())) {
 			Toast.makeText(this, "Failed to update news.", Toast.LENGTH_LONG).show();

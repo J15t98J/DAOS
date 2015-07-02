@@ -54,6 +54,14 @@ public class NewsItem extends ActionBarActivity {
     }
 
 	@Override
+	protected void onStop() {
+		super.onStop();
+
+		db.close();
+		dbHelper.close();
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_news_item, menu);
 		return true;
