@@ -22,7 +22,10 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 	private final ArrayList<String> accepted_tags = new ArrayList<>();
 	private final ArrayList<String> blacklisted_tags = new ArrayList<>();
 	private final ArrayList<RSSItem> array = new ArrayList<>();
+	private final ArrayList<String> parsedGUIDs = new ArrayList<>();
 	private final MainActivity activity;
+
+	ArrayList<String> test;
 
 	public RSSFeedParser(MainActivity activity) {
 		this.activity = activity;
@@ -94,6 +97,7 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 							}
 
 							array.add(currentItem);
+							parsedGUIDs.add(currentItem.getString("guid"));
 						} else if(currentTag.equals(parser.getName())) {
 							currentItem.setValue(currentTag, currentValue);
 							currentTag = "";
@@ -112,6 +116,15 @@ public class RSSFeedParser extends AsyncTask<String, Void, ArrayList<RSSItem>> {
 				e.printStackTrace();
 			}
 		}
+	    this.test = activity.dbHelper.getAllItems(activity.db);
+		for(String guid : activity.dbHelper.getAllItems(activity.db)) {
+			System.out.println("Searching for removed items");
+			if(!parsedGUIDs.contains(guid)) {
+				System.out.println("Removing " + guid);
+				activity.dbHelper.removeItem(activity.db, guid);
+			}
+		}
+
 		return array;
 	}
 

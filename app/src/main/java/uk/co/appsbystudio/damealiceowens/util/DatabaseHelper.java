@@ -42,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	public void addItem(SQLiteDatabase db, RSSItem item) {
 		db.beginTransaction();
 		try {
-			db.execSQL("INSERT INTO ITEMS VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{item.getString("guid"), item.getString("title"), item.getString("pubDate"), item.getString("author"), item.getString("description"), item.getString("isRead"), item.getString("isFlagged"), item.getString("isHidden")});
+			db.execSQL("INSERT INTO ITEMS VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{ item.getString("guid"), item.getString("title"), item.getString("pubDate"), item.getString("author"), item.getString("description"), item.getString("isRead"), item.getString("isFlagged"), item.getString("isHidden") });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -52,7 +52,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	public void editItem(SQLiteDatabase db, String guid, String attribute, String value) {
 		db.beginTransaction();
 		try {
-			db.execSQL("UPDATE ITEMS SET " + attribute + "=? WHERE guid=?", new String[]{value, guid});
+			db.execSQL("UPDATE ITEMS SET " + attribute + "=? WHERE guid=?", new String[]{ value, guid });
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+	}
+
+	public void removeItem(SQLiteDatabase db, String guid) {
+		db.beginTransaction();
+		try {
+			db.execSQL("DELETE FROM ITEMS WHERE guid=?", new String[]{ guid });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -63,7 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		db.beginTransaction();
 		try {
 			for(String field : fields) {
-				db.execSQL("UPDATE ITEMS SET " + field + "=? WHERE guid=?", new String[]{item.getString(field), guid});
+				db.execSQL("UPDATE ITEMS SET " + field + "=? WHERE guid=?", new String[]{ item.getString(field), guid });
 			}
 			db.setTransactionSuccessful();
 		} finally {
@@ -82,9 +92,23 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		for(String field : results.getColumnNames()) {
 			item.setValue(field, results.getString(results.getColumnIndex(field)));
 		}
-
 		results.close();
+
 		return item;
+	}
+
+	public ArrayList<String> getAllItems(SQLiteDatabase db) {
+		ArrayList<String> array = new ArrayList<>();
+
+		Cursor results = db.rawQuery("SELECT * FROM ITEMS", null);
+		results.moveToFirst();
+		while(!results.isAfterLast()) {
+			array.add(results.getString(results.getColumnIndex("guid")));
+			results.moveToNext();
+		}
+		results.close();
+
+		return array;
 	}
 
 	public ArrayList<RSSItem> getVisibleItems(SQLiteDatabase db) {
@@ -98,8 +122,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 			array.add(getItem(db, temp));
 			results.moveToNext();
 		}
-
 		results.close();
+
 		return array;
 	}
 }
