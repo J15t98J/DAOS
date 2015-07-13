@@ -2,7 +2,9 @@ package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,7 +40,7 @@ public class NewsItem extends ActionBarActivity {
 	private String content;
 	private RSSItem feedItem;
 
-	private final HashMap<String, Bitmap> images = new HashMap<>();
+	private final HashMap<String, ImageView> imageViews = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class NewsItem extends ActionBarActivity {
         setContentView(R.layout.activity_news_item);
 
 	    guid = getIntent().getStringExtra("guid");
-	    parseInput(getIntent().getStringExtra("title"), getIntent().getStringExtra("content"), false);
+	    parseInput(getIntent().getStringExtra("title"), getIntent().getStringExtra("content"));
 
 	    dbHelper = new DatabaseHelper(this);
 	    db = dbHelper.getWritableDatabase();
@@ -106,9 +109,9 @@ public class NewsItem extends ActionBarActivity {
 		}
 	}
 
-	private void parseInput(String title, String content, boolean picturesAvailable) {
+	private void parseInput(String title, String content) {
 		setTitle(title);
-		((TextView)findViewById(R.id.item_title)).setText(title);
+		((TextView) findViewById(R.id.item_title)).setText(title);
 
 		this.title = title;
 		this.content = content;
@@ -120,13 +123,9 @@ public class NewsItem extends ActionBarActivity {
 			addNewTextView(split[0]);
 			contentCopy = split[1];
 
-			if(picturesAvailable) {
-				addNewImageView(images.get(pattern.group(1)));
-			} else {
-				if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_key_download_pictures", true)) {
-					new ImageDownloader(this).execute(pattern.group(1));
-				}
-				// TODO: placeholder image
+			imageViews.put(pattern.group(1), addNewImageView(BitmapFactory.decodeResource(getResources(), R.drawable.ic_icon_loading_image)));
+			if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_key_download_pictures", true)) {
+				new ImageDownloader(this).execute(pattern.group(1));
 			}
 		}
 		addNewTextView(contentCopy);
@@ -139,24 +138,28 @@ public class NewsItem extends ActionBarActivity {
 		item.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
 		item.setTextColor(Color.parseColor("#000000"));
 		item.setText(Html.fromHtml(text));
-		//item.setBackgroundColor(Color.parseColor("#FF0000"));
+		item.setBackgroundColor(Color.parseColor("#FF0000"));
 
 		((LinearLayout)findViewById(R.id.item_frame)).addView(item);
 	}
 
-	private void addNewImageView(Bitmap image) {
+	private ImageView addNewImageView(Bitmap image) {
 		ImageView item = new ImageView(this);
 
 		item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		item.setImageBitmap(image);
-		//item.setBackgroundColor(Color.parseColor("#00FF00"));
+		item.setBackgroundColor(Color.parseColor("#00FF00"));
 
 		((LinearLayout)findViewById(R.id.item_frame)).addView(item);
+		return item;
 	}
 
 	public void onImagesDownloaded(HashMap<String, Bitmap> images) {
-		this.images.putAll(images);
-		((LinearLayout)findViewById(R.id.item_frame)).removeAllViews();
-		parseInput(title, content, true);
+		Iterator iterator = images.entrySet().iterator();
+		while(iterator.hasNext()) {
+			HashMap.Entry pair = (HashMap.Entry) iterator.next();
+			imageViews.get(pair.getKey()).setImageDrawable(new BitmapDrawable(getResources(), (Bitmap) pair.getValue()));
+		}
+		// TODO: scroll view if past pic so that reading is not interrupted
 	}
 }
