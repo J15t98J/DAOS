@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.DatabaseHelper;
 import uk.co.appsbystudio.damealiceowens.util.ImageDownloader;
-import uk.co.appsbystudio.damealiceowens.util.RSSItem;
+import uk.co.appsbystudio.damealiceowens.util.json.JSONItem;
 
 // TODO: convert to an embedded Fragment + transition?
 public class NewsItem extends ActionBarActivity {
@@ -36,9 +36,7 @@ public class NewsItem extends ActionBarActivity {
 	private SQLiteDatabase db;
 
 	private String guid;
-	private String title;
-	private String content;
-	private RSSItem feedItem;
+	private JSONItem feedItem;
 
 	private final HashMap<String, ImageView> imageViews = new HashMap<>();
 
@@ -113,9 +111,6 @@ public class NewsItem extends ActionBarActivity {
 		setTitle(title);
 		((TextView) findViewById(R.id.item_title)).setText(title);
 
-		this.title = title;
-		this.content = content;
-
 		String contentCopy = content;
 		Matcher pattern = Pattern.compile("<img src=\"(.*?)\"/>").matcher(contentCopy);
 		while(pattern.find()) {
@@ -138,7 +133,7 @@ public class NewsItem extends ActionBarActivity {
 		item.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
 		item.setTextColor(Color.parseColor("#000000"));
 		item.setText(Html.fromHtml(text));
-		item.setBackgroundColor(Color.parseColor("#FF0000"));
+		//item.setBackgroundColor(Color.parseColor("#FF0000"));
 
 		((LinearLayout)findViewById(R.id.item_frame)).addView(item);
 	}
@@ -148,7 +143,7 @@ public class NewsItem extends ActionBarActivity {
 
 		item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		item.setImageBitmap(image);
-		item.setBackgroundColor(Color.parseColor("#00FF00"));
+		//item.setBackgroundColor(Color.parseColor("#00FF00"));
 
 		((LinearLayout)findViewById(R.id.item_frame)).addView(item);
 		return item;

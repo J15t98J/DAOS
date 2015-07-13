@@ -7,12 +7,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+import uk.co.appsbystudio.damealiceowens.util.json.JSONItem;
+
 public class DatabaseHelper extends SQLiteOpenHelper{
 
 	private static final String DATABASE_NAME = "cache.db";
 	private static final Integer DATABASE_VERSION = 1;
 
-	private final String[] fields = new String[]{ "title", "pubDate", "author", "description", "isRead", "isFlagged", "isHidden" };
+	private final String[] fields = new String[]{ "title", "datetime", "author", "content", "isRead", "isFlagged", "isHidden" };
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -22,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
 	    db.beginTransaction();
 	    try {
-		    db.execSQL("CREATE TABLE IF NOT EXISTS ITEMS(guid TEXT PRIMARY KEY, title TEXT, pubDate TEXT, author TEXT, description TEXT, isRead TEXT, isFlagged TEXT, isHidden TEXT)");
+		    db.execSQL("CREATE TABLE IF NOT EXISTS ITEMS(guid TEXT PRIMARY KEY, title TEXT, datetime TEXT, author TEXT, content TEXT, isRead TEXT, isFlagged TEXT, isHidden TEXT)");
 		    db.setTransactionSuccessful();
 	    } finally {
 		    db.endTransaction();
@@ -39,13 +41,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onUpgrade(db, oldVersion, newVersion);
     }
 
-	public void addItem(SQLiteDatabase db, RSSItem item) {
-		db.beginTransaction();
-		try {
-			db.execSQL("INSERT INTO ITEMS VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{ item.getString("guid"), item.getString("title"), item.getString("pubDate"), item.getString("author"), item.getString("description"), item.getString("isRead"), item.getString("isFlagged"), item.getString("isHidden") });
-			db.setTransactionSuccessful();
-		} finally {
-			db.endTransaction();
+	public void addOrUpdateItem(SQLiteDatabase db, JSONItem item) {
+		if(getItem(db, item.getString("guid")) != null) {
+			updateItem(db, item.getString("guid"), item);
+		} else {
+			db.beginTransaction();
+			try {
+				db.execSQL("INSERT INTO ITEMS VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{item.getString("guid"), item.getString("title"), item.getString("datetime"), item.getString("author"), item.getString("content"), "false", "false", "false"});
+				db.setTransactionSuccessful();
+			} finally {
+				db.endTransaction();
+			}
 		}
 	}
 
@@ -69,11 +75,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		}
 	}
 
-	public void updateItem(SQLiteDatabase db, String guid, RSSItem item) {
+	public void updateItem(SQLiteDatabase db, String guid, JSONItem item) {
 		db.beginTransaction();
 		try {
 			for(String field : fields) {
-				db.execSQL("UPDATE ITEMS SET " + field + "=? WHERE guid=?", new String[]{ item.getString(field), guid });
+				if(item.getString(field) != null) {
+					db.execSQL("UPDATE ITEMS SET " + field + "=? WHERE guid=?", new String[]{item.getString(field), guid});
+				}
 			}
 			db.setTransactionSuccessful();
 		} finally {
@@ -81,8 +89,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		}
 	}
 
-	public RSSItem getItem(SQLiteDatabase db, String guid) {
-		RSSItem item = new RSSItem();
+	public JSONItem getItem(SQLiteDatabase db, String guid) {
+		JSONItem item = new JSONItem();
 
 		Cursor results = db.rawQuery("SELECT * FROM ITEMS WHERE guid=?", new String[]{ guid });
 		results.moveToFirst();
@@ -111,8 +119,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		return array;
 	}
 
-	public ArrayList<RSSItem> getVisibleItems(SQLiteDatabase db) {
-		ArrayList<RSSItem> array = new ArrayList<>();
+	public ArrayList<JSONItem> getVisibleItems(SQLiteDatabase db) {
+		ArrayList<JSONItem> array = new ArrayList<>();
 
 		Cursor results = db.rawQuery("SELECT * FROM ITEMS WHERE isHidden=?", new String[]{ "false" });
 		results.moveToFirst();
