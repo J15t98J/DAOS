@@ -48,11 +48,10 @@
         android:layout_row="0"
         android:layout_rowSpan="2"
         android:layout_column="2"
-        android:layout_gravity="center_vertical|end"
-        android:padding="5dp"
+        android:layout_gravity="center_vertical|end|right"
         android:src="@drawable/ic_icon_starred"
         android:contentDescription="@string/starred_post"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -62,8 +61,8 @@
         android:layout_column="3"
         android:layout_gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:src="@drawable/ic_action_next_item"
-        android:contentDescription="@string/open_item_icon"/>
+        android:contentDescription="@string/open_item_icon"
+        android:paddingRight="10dp" />
 
 </GridLayout>
