@@ -1,20 +1,8 @@
 ICONS & IMAGES:
 - Higher-res logo (& adapt for each density so we can get rid of /drawable/
-- Proper icons for (un)read messages
-- Image for news being empty
-- Image for not being able to connect to internet
 
 FEATURES:
-- Local storage of news
-- Search local & remote news
-- Refresh action
+- Local storage of images
 - Settings - what do we need in here atm? A way to un-hide deleted messages
-- Item content view
-    - Actions - mark unread, flag, delete
-- Dev feed & sch feed (parser can take multiple feeds)
 - Notifications
-- Grouping of feed authors into items in sidebar
-- Custom ArrayAdapter for sidebar - number of new messages, group headers etc.
-- Background service that auto-checks for new messages?
-- Refactor parser to use new methods?
-- Support HTML in item body?
+- Background service that auto-checks for new messages

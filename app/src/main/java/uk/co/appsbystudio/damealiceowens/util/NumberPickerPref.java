@@ -11,18 +11,18 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 
-public class PostsNumberPickerPref extends DialogPreference {
+public class NumberPickerPref extends DialogPreference {
     public static final int MAX_VALUE = 1000;
     public static final int MIN_VALUE = 1;
 
     private NumberPicker picker;
     private int value;
 
-    public PostsNumberPickerPref(Context context, AttributeSet attrs) {
+    public NumberPickerPref(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public PostsNumberPickerPref(Context context, AttributeSet attrs, int defStyleAttr) {
+    public NumberPickerPref(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

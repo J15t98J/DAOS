@@ -43,7 +43,7 @@
     <string name="settings_connectivity_images_title">Download images</string>
 
     <string name="settings_storage_title">Storage</string>
-    <string name="settings_storage_cachelimit_title">Limit number of cached posts</string>
+    <string name="settings_storage_cachelimit_title">Limit number of saved posts</string>
     <string name="settings_storage_cachelimit_subtitle">Delete older posts to save storage space</string>
     <string name="settings_storage_max_posts_title">Number of posts to keep</string>
     <string name="settings_storage_max_images_title">Number of images to keep</string>

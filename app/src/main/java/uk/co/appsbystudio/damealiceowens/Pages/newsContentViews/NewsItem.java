@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -132,7 +134,9 @@ public class NewsItem extends ActionBarActivity {
 		item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		item.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
 		item.setTextColor(Color.parseColor("#000000"));
+		item.setMovementMethod(LinkMovementMethod.getInstance());
 		item.setText(Html.fromHtml(text));
+		item.setTextIsSelectable(true);
 		//item.setBackgroundColor(Color.parseColor("#FF0000"));
 
 		((LinearLayout)findViewById(R.id.item_frame)).addView(item);
