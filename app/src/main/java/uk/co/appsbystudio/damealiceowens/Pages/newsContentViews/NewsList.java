@@ -116,7 +116,7 @@ public class NewsList extends Fragment {
 
 	public class ClickListener implements ListView.OnItemClickListener {
 
-		private MainActivity activity;
+		private final MainActivity activity;
 
 		public ClickListener(MainActivity activity) {
 			this.activity = activity;

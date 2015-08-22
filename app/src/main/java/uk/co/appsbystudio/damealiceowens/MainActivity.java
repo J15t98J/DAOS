@@ -3,12 +3,12 @@ package uk.co.appsbystudio.damealiceowens;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
 import uk.co.appsbystudio.damealiceowens.util.DatabaseHelper;
 
-public class MainActivity extends ActionBarActivity  {
+public class MainActivity extends AppCompatActivity {
 
 	public DatabaseHelper dbHelper;
 	public SQLiteDatabase db;

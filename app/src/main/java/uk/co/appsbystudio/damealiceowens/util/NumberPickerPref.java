@@ -12,8 +12,8 @@ import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 
 public class NumberPickerPref extends DialogPreference {
-    public static final int MAX_VALUE = 1000;
-    public static final int MIN_VALUE = 1;
+    private static final int MAX_VALUE = 1000;
+    private static final int MIN_VALUE = 1;
 
     private NumberPicker picker;
     private int value;
@@ -28,8 +28,7 @@ public class NumberPickerPref extends DialogPreference {
 
     @Override
     protected View onCreateDialogView() {
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.CENTER;
 
         picker = new NumberPicker(getContext());

@@ -1,12 +1,12 @@
 package uk.co.appsbystudio.damealiceowens.Pages;
 
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import uk.co.appsbystudio.damealiceowens.R;
 
-public class Settings extends ActionBarActivity {
+public class Settings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,10 +17,10 @@ import uk.co.appsbystudio.damealiceowens.util.json.JSONLocs;
 
 public class FeedDownloader extends AsyncTask<String, Void, ArrayList<JSONItem>> {
 
-	private NewsList caller;
+	private final NewsList caller;
 
-	private DatabaseHelper dbHelper;
-	private SQLiteDatabase db;
+	private final DatabaseHelper dbHelper;
+	private final SQLiteDatabase db;
 
 	public FeedDownloader(NewsList caller) {
 		this.caller = caller;

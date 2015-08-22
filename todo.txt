@@ -1,8 +1,0 @@
-ICONS & IMAGES:
-- Higher-res logo (& adapt for each density so we can get rid of /drawable/
-
-FEATURES:
-- Local storage of images
-- Settings - what do we need in here atm? A way to un-hide deleted messages
-- Notifications
-- Background service that auto-checks for new messages

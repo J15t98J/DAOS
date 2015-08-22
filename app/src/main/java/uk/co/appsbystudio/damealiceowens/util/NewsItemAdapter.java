@@ -47,6 +47,9 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 		}
 
 		currentRow.findViewById(R.id.item_star).setVisibility(item.getBool("isFlagged") ? View.VISIBLE : View.GONE);
+		if(item.getBool("isFlagged")) {
+			currentRow.findViewById(R.id.item_star).setContentDescription(parent.getResources().getString(R.string.flagged_item_icon));
+		}
 
         ((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title"));
 		((TextView) currentRow.findViewById(R.id.item_info)).setText(item.getString("datetime") + " by " + item.getString("author"));

@@ -75,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		}
 	}
 
-	public void updateItem(SQLiteDatabase db, String guid, JSONItem item) {
+	private void updateItem(SQLiteDatabase db, String guid, JSONItem item) {
 		db.beginTransaction();
 		try {
 			for(String field : fields) {
