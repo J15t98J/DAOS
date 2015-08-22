@@ -8,8 +8,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,18 +30,16 @@ import java.util.regex.Pattern;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.DatabaseHelper;
 import uk.co.appsbystudio.damealiceowens.util.ImageDownloader;
-import uk.co.appsbystudio.damealiceowens.util.RSSItem;
+import uk.co.appsbystudio.damealiceowens.util.json.JSONItem;
 
 // TODO: convert to an embedded Fragment + transition?
-public class NewsItem extends ActionBarActivity {
+public class NewsItem extends AppCompatActivity {
 
 	private DatabaseHelper dbHelper;
 	private SQLiteDatabase db;
 
 	private String guid;
-	private String title;
-	private String content;
-	private RSSItem feedItem;
+	private JSONItem feedItem;
 
 	private final HashMap<String, ImageView> imageViews = new HashMap<>();
 
@@ -54,7 +55,10 @@ public class NewsItem extends ActionBarActivity {
 	    db = dbHelper.getWritableDatabase();
 	    db.beginTransaction();
 
-	    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.daos_red)));
+	    ActionBar bar = getSupportActionBar();
+		if(bar != null) {
+			bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.daos_red)));
+		}
     }
 
 	@Override
@@ -113,19 +117,17 @@ public class NewsItem extends ActionBarActivity {
 		setTitle(title);
 		((TextView) findViewById(R.id.item_title)).setText(title);
 
-		this.title = title;
-		this.content = content;
-
 		String contentCopy = content;
-		Matcher pattern = Pattern.compile("<img src=\"(.*?)\"/>").matcher(contentCopy);
+		Matcher pattern = Pattern.compile("<img src=\"(.*?)\" />").matcher(contentCopy);
 		while(pattern.find()) {
 			String[] split = contentCopy.split(Pattern.quote(pattern.group()));
 			addNewTextView(split[0]);
 			contentCopy = split[1];
-
+			System.out.println("Nearly");
 			imageViews.put(pattern.group(1), addNewImageView(BitmapFactory.decodeResource(getResources(), R.drawable.ic_icon_loading_image)));
 			if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_key_download_pictures", true)) {
 				new ImageDownloader(this).execute(pattern.group(1));
+				System.out.println("Downloading");
 			}
 		}
 		addNewTextView(contentCopy);
@@ -137,8 +139,10 @@ public class NewsItem extends ActionBarActivity {
 		item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		item.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
 		item.setTextColor(Color.parseColor("#000000"));
+		item.setMovementMethod(LinkMovementMethod.getInstance());
 		item.setText(Html.fromHtml(text));
-		item.setBackgroundColor(Color.parseColor("#FF0000"));
+		item.setTextIsSelectable(true);
+		//item.setBackgroundColor(Color.parseColor("#FF0000"));
 
 		((LinearLayout)findViewById(R.id.item_frame)).addView(item);
 	}
@@ -148,7 +152,7 @@ public class NewsItem extends ActionBarActivity {
 
 		item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		item.setImageBitmap(image);
-		item.setBackgroundColor(Color.parseColor("#00FF00"));
+		//item.setBackgroundColor(Color.parseColor("#00FF00"));
 
 		((LinearLayout)findViewById(R.id.item_frame)).addView(item);
 		return item;

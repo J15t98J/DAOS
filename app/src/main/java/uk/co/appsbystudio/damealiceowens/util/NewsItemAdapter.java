@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import uk.co.appsbystudio.damealiceowens.R;
+import uk.co.appsbystudio.damealiceowens.util.json.JSONItem;
 
 public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 
@@ -31,10 +32,10 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 			currentRow = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.news_list_item, parent, false);
 		}
 
-		uk.co.appsbystudio.damealiceowens.util.RSSItem item = (uk.co.appsbystudio.damealiceowens.util.RSSItem) content.get(position);
+		JSONItem item = (JSONItem) content.get(position);
 
-		currentRow.findViewById(R.id.item_title).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 250;
-		currentRow.findViewById(R.id.item_info).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 250;
+		currentRow.findViewById(R.id.item_title).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 200;
+		currentRow.findViewById(R.id.item_info).getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels - 200;
 
 		if(item.getBool("isRead")) {
 			((ImageView) currentRow.findViewById(R.id.item_readIcon)).setImageResource(R.drawable.ic_icon_read);
@@ -48,7 +49,7 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
 		currentRow.findViewById(R.id.item_star).setVisibility(item.getBool("isFlagged") ? View.VISIBLE : View.GONE);
 
         ((TextView) currentRow.findViewById(R.id.item_title)).setText(item.getString("title"));
-		((TextView) currentRow.findViewById(R.id.item_info)).setText(item.getString("pubDate") + " by " + item.getString("author"));
+		((TextView) currentRow.findViewById(R.id.item_info)).setText(item.getString("datetime") + " by " + item.getString("author"));
 
 		return currentRow;
 	}

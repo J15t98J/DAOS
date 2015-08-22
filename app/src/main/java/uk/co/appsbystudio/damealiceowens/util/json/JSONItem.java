@@ -1,8 +1,8 @@
-package uk.co.appsbystudio.damealiceowens.util;
+package uk.co.appsbystudio.damealiceowens.util.json;
 
 import java.util.HashMap;
 
-public class RSSItem {
+public class JSONItem {
 
 	private final HashMap<String, String> parameters = new HashMap<>();
 

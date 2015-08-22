@@ -22,7 +22,7 @@
             android:title="@string/settings_storage_cachelimit_title"
             android:summary="@string/settings_storage_cachelimit_subtitle"
             android:defaultValue="false"/>
-        <uk.co.appsbystudio.damealiceowens.util.PostsNumberPickerPref
+        <uk.co.appsbystudio.damealiceowens.util.NumberPickerPref
             android:key="pref_key_max_cached_posts"
             android:dependency="pref_key_limit_cache"
             android:title="@string/settings_storage_max_posts_title"
