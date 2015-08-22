@@ -8,10 +8,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +33,7 @@ import uk.co.appsbystudio.damealiceowens.util.ImageDownloader;
 import uk.co.appsbystudio.damealiceowens.util.json.JSONItem;
 
 // TODO: convert to an embedded Fragment + transition?
-public class NewsItem extends ActionBarActivity {
+public class NewsItem extends AppCompatActivity {
 
 	private DatabaseHelper dbHelper;
 	private SQLiteDatabase db;
@@ -54,7 +55,10 @@ public class NewsItem extends ActionBarActivity {
 	    db = dbHelper.getWritableDatabase();
 	    db.beginTransaction();
 
-	    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.daos_red)));
+	    ActionBar bar = getSupportActionBar();
+		if(bar != null) {
+			bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.daos_red)));
+		}
     }
 
 	@Override
@@ -114,15 +118,16 @@ public class NewsItem extends ActionBarActivity {
 		((TextView) findViewById(R.id.item_title)).setText(title);
 
 		String contentCopy = content;
-		Matcher pattern = Pattern.compile("<img src=\"(.*?)\"/>").matcher(contentCopy);
+		Matcher pattern = Pattern.compile("<img src=\"(.*?)\" />").matcher(contentCopy);
 		while(pattern.find()) {
 			String[] split = contentCopy.split(Pattern.quote(pattern.group()));
 			addNewTextView(split[0]);
 			contentCopy = split[1];
-
+			System.out.println("Nearly");
 			imageViews.put(pattern.group(1), addNewImageView(BitmapFactory.decodeResource(getResources(), R.drawable.ic_icon_loading_image)));
 			if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_key_download_pictures", true)) {
 				new ImageDownloader(this).execute(pattern.group(1));
+				System.out.println("Downloading");
 			}
 		}
 		addNewTextView(contentCopy);

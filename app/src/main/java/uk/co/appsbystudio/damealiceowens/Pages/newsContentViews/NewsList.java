@@ -36,7 +36,7 @@ public class NewsList extends Fragment {
 
 	private ArrayList<JSONItem> items = new ArrayList<>();
 
-	private final String[] locations = new String[] { "http://tylerjonesj.mynetgear.com/school.json" };
+	private final String[] locations = new String[] { "http://j15t98j.appsbystudio.co.uk/school.json" };
 
 	public NewsList() {
         // Required empty public constructor
