@@ -7,8 +7,8 @@ import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsItem;
 
 public class ManualDownloadClickListener implements View.OnClickListener {
 
-    private NewsItem activity;
-    private String URL;
+    private final NewsItem activity;
+    private final String URL;
 
     public ManualDownloadClickListener(NewsItem activity, String URL) {
         this.activity = activity;
