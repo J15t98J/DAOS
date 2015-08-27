@@ -15,6 +15,7 @@ import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +30,7 @@ import java.util.regex.Pattern;
 import uk.co.appsbystudio.damealiceowens.R;
 import uk.co.appsbystudio.damealiceowens.util.DatabaseHelper;
 import uk.co.appsbystudio.damealiceowens.util.ImageDownloader;
+import uk.co.appsbystudio.damealiceowens.util.ManualDownloadClickListener;
 import uk.co.appsbystudio.damealiceowens.util.json.JSONItem;
 
 // TODO: convert to an embedded Fragment + transition?
@@ -113,20 +115,24 @@ public class NewsItem extends AppCompatActivity {
 	}
 
 	private void parseInput(String title, String content) {
+		final NewsItem activity = this;
 		setTitle(title);
 		((TextView) findViewById(R.id.item_title)).setText(title);
 
 		String contentCopy = content;
-		Matcher pattern = Pattern.compile("<img src=\"(.*?)\" />").matcher(contentCopy);
+		final Matcher pattern = Pattern.compile("<img src=\"(.*?)\" />").matcher(contentCopy);
 		while(pattern.find()) {
 			String[] split = contentCopy.split(Pattern.quote(pattern.group()));
 			addNewTextView(split[0]);
 			contentCopy = split[1];
-			System.out.println("Nearly");
-			imageViews.put(pattern.group(1), addNewImageView(BitmapFactory.decodeResource(getResources(), R.drawable.ic_icon_loading_image)));
 			if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_key_download_pictures", true)) {
+				imageViews.put(pattern.group(1), addNewImageView(BitmapFactory.decodeResource(getResources(), R.drawable.ic_icon_loading_image)));
 				new ImageDownloader(this).execute(pattern.group(1));
-				System.out.println("Downloading");
+			} else {
+				ImageView newImage = addNewImageView(BitmapFactory.decodeResource(getResources(), R.drawable.manual_download));
+				newImage.setClickable(true);
+				newImage.setOnClickListener(new ManualDownloadClickListener(this, pattern.group(1)));
+				imageViews.put(pattern.group(1), newImage);
 			}
 		}
 		addNewTextView(contentCopy);
