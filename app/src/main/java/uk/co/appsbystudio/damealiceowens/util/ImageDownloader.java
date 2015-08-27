@@ -26,7 +26,7 @@ public class ImageDownloader extends AsyncTask<String, Void, HashMap<String, Bit
 
 		for(String item : params) {
 			Bitmap image;
-			System.out.println("Downloading " + item + "...");
+
 			// TODO: image already in local storage?
 
 			InputStream stream = getInputStream(item);

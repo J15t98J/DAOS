@@ -124,6 +124,7 @@ public class NewsList extends Fragment {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			System.out.println(items.size());
 			activity.dbHelper.editItem(activity.db, items.get(position).getString("guid"), "isRead", "true");
 
 			Intent intentDetail = new Intent(activity, NewsItem.class);

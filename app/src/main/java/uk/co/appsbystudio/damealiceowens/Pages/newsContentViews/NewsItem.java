@@ -15,7 +15,6 @@ import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -115,7 +113,6 @@ public class NewsItem extends AppCompatActivity {
 	}
 
 	private void parseInput(String title, String content) {
-		final NewsItem activity = this;
 		setTitle(title);
 		((TextView) findViewById(R.id.item_title)).setText(title);
 
@@ -142,7 +139,7 @@ public class NewsItem extends AppCompatActivity {
 		TextView item = new TextView(this);
 
 		item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-		item.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
+		item.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15F);
 		item.setTextColor(Color.parseColor("#000000"));
 		item.setMovementMethod(LinkMovementMethod.getInstance());
 		item.setText(Html.fromHtml(text));
@@ -164,10 +161,8 @@ public class NewsItem extends AppCompatActivity {
 	}
 
 	public void onImagesDownloaded(HashMap<String, Bitmap> images) {
-		Iterator iterator = images.entrySet().iterator();
-		while(iterator.hasNext()) {
-			HashMap.Entry pair = (HashMap.Entry) iterator.next();
-			imageViews.get(pair.getKey()).setImageDrawable(new BitmapDrawable(getResources(), (Bitmap) pair.getValue()));
+		for( String image : images.keySet() ) {
+			imageViews.get(image).setImageDrawable(new BitmapDrawable(getResources(), images.get(image)));
 		}
 		// TODO: scroll view if past pic so that reading is not interrupted
 	}
