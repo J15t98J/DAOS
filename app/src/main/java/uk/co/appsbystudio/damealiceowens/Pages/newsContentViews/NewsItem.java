@@ -1,13 +1,17 @@
 package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.net.ConnectivityManagerCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -64,10 +68,12 @@ public class NewsItem extends AppCompatActivity {
 	protected void onPause() {
 		super.onPause();
 
-		db.setTransactionSuccessful();
-		db.endTransaction();
-		db.close();
-		dbHelper.close();
+		if(db.isOpen()) {
+			db.setTransactionSuccessful();
+			db.endTransaction();
+			db.close();
+			dbHelper.close();
+		}
 	}
 
 	@Override
@@ -78,41 +84,51 @@ public class NewsItem extends AppCompatActivity {
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		feedItem = dbHelper.getItem(db, guid);
-		menu.findItem(R.id.action_toggleReadStatus).setIcon(feedItem.getBool("isRead") ? R.drawable.ic_action_mark_unread : R.drawable.ic_action_mark_read)
-				.setTitle(feedItem.getBool("isRead") ? R.string.action_mark_unread : R.string.action_mark_read);
-		menu.findItem(R.id.action_toggleFlaggedStatus).setIcon(feedItem.getBool("isFlagged") ? R.drawable.ic_action_important : R.drawable.ic_action_not_important)
-				.setTitle(feedItem.getBool("isFlagged") ? R.string.action_unflag : R.string.action_flag);
-		return true;
+		if(db.isOpen()) {
+			feedItem = dbHelper.getItem(db, guid);
+			menu.findItem(R.id.action_toggleReadStatus).setIcon(feedItem.getBool("isRead") ? R.drawable.ic_action_mark_unread : R.drawable.ic_action_mark_read)
+					.setTitle(feedItem.getBool("isRead") ? R.string.action_mark_unread : R.string.action_mark_read);
+			menu.findItem(R.id.action_toggleFlaggedStatus).setIcon(feedItem.getBool("isFlagged") ? R.drawable.ic_action_important : R.drawable.ic_action_not_important)
+					.setTitle(feedItem.getBool("isFlagged") ? R.string.action_unflag : R.string.action_flag);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		feedItem = dbHelper.getItem(db, guid);
-		switch(item.getItemId()) {
-			case R.id.action_toggleReadStatus:
-				boolean wasRead = feedItem.getBool("isRead");
-				dbHelper.editItem(db, guid, "isRead", !wasRead ? "true" : "false");
-				invalidateOptionsMenu();
-				Toast.makeText(this, wasRead ? "Marked as unread" : "Marked as read", Toast.LENGTH_SHORT).show();
-				return true;
-			case R.id.action_toggleFlaggedStatus:
-				boolean wasFlagged = feedItem.getBool("isFlagged");
-				dbHelper.editItem(db, guid, "isFlagged", !wasFlagged ? "true" : "false");
-				invalidateOptionsMenu();
-				Toast.makeText(this, wasFlagged ? "Unflagged" : "Flagged", Toast.LENGTH_SHORT).show();
-				return true;
-			case R.id.action_delete:
-				dbHelper.editItem(db, guid, "isHidden", "true");
-				Toast.makeText(this, "Post hidden", Toast.LENGTH_SHORT).show();
-				this.finish();
-				return true;
-			default:
-				return false;
+		if(db.isOpen()) {
+			feedItem = dbHelper.getItem(db, guid);
+			switch (item.getItemId()) {
+				case R.id.action_toggleReadStatus:
+					boolean wasRead = feedItem.getBool("isRead");
+					dbHelper.editItem(db, guid, "isRead", !wasRead ? "true" : "false");
+					invalidateOptionsMenu();
+					Toast.makeText(this, wasRead ? "Marked as unread" : "Marked as read", Toast.LENGTH_SHORT).show();
+					return true;
+				case R.id.action_toggleFlaggedStatus:
+					boolean wasFlagged = feedItem.getBool("isFlagged");
+					dbHelper.editItem(db, guid, "isFlagged", !wasFlagged ? "true" : "false");
+					invalidateOptionsMenu();
+					Toast.makeText(this, wasFlagged ? "Unflagged" : "Flagged", Toast.LENGTH_SHORT).show();
+					return true;
+				case R.id.action_delete:
+					dbHelper.editItem(db, guid, "isHidden", "true");
+					Toast.makeText(this, "Post hidden", Toast.LENGTH_SHORT).show();
+					this.finish();
+					return true;
+				default:
+					return false;
+			}
 		}
+		return false;
 	}
 
 	private void parseInput(String title, String content) {
+		String shouldDownload = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_download_images", "Never");
+		NetworkInfo network = ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+		boolean wifiConnected = network != null && network.getType() == ConnectivityManager.TYPE_WIFI;
 		setTitle(title);
 		((TextView) findViewById(R.id.item_title)).setText(title);
 
@@ -122,7 +138,7 @@ public class NewsItem extends AppCompatActivity {
 			String[] split = contentCopy.split(Pattern.quote(pattern.group()));
 			addNewTextView(split[0]);
 			contentCopy = split[1];
-			if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_key_download_pictures", true)) {
+			if(shouldDownload.equals("Always") || (shouldDownload.equals("Only via Wi-Fi") && wifiConnected)) {
 				imageViews.put(pattern.group(1), addNewImageView(BitmapFactory.decodeResource(getResources(), R.drawable.ic_icon_loading_image)));
 				new ImageDownloader(this).execute(pattern.group(1));
 			} else {
@@ -162,7 +178,9 @@ public class NewsItem extends AppCompatActivity {
 
 	public void onImagesDownloaded(HashMap<String, Bitmap> images) {
 		for( String image : images.keySet() ) {
-			imageViews.get(image).setImageDrawable(new BitmapDrawable(getResources(), images.get(image)));
+			if(images.get(image) != null) {
+				imageViews.get(image).setImageDrawable(new BitmapDrawable(getResources(), images.get(image)));
+			}
 		}
 		// TODO: scroll view if past pic so that reading is not interrupted
 	}

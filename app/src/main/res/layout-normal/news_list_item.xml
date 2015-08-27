@@ -5,8 +5,6 @@
     android:rowCount="2"
     android:columnCount="4">
 
-    <!-- TODO: fix inconsistent dimension warnings in console that are seemingly caused by this GridLayout -->
-
     <ImageView
         android:id="@+id/item_readIcon"
         android:layout_width="wrap_content"

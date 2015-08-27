@@ -37,14 +37,42 @@
     <string name="starred_post">Starred post</string>
 
     <!-- SETTINGS -->
-    <string name="settings_connectivity_title">Connectivity</string>
-    <string name="settings_connectivity_autorefresh_title">Refresh automatically</string>
-    <string name="settings_connectivity_autorefresh_subtitle">Check for new posts when you return to the app</string>
-    <string name="settings_connectivity_images_title">Download images</string>
+    <string name="settings_general_title">General</string>
+    <string name="settings_general_notifications_title">Display notifications</string>
+    <string name="settings_general_notifications_subtitle">Requires \"Refresh periodically\"</string>
+
+    <string name="settings_download_title">Download</string>
+    <string name="settings_download_autorefresh_title">Refresh automatically</string>
+    <string name="settings_download_autorefresh_subtitle">Check for new posts when you return to the app</string>
+    <string name="settings_download_backgroundrefresh_title">Refresh periodically</string>
+    <string name="settings_download_backgroundrefresh_subtitle">Check for new posts in the background</string>
+    <string name="settings_download_refreshfrequency_title">Refresh frequency</string>
+    <string-array name="settings_download_refreshfrequency_options">
+        <item>Every 15 minutes</item>
+        <item>Every 30 minutes</item>
+        <item>Hourly</item>
+        <item>Twice daily</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+    </string-array>
+    <string name="settings_download_refreshfrequency_default">Twice daily</string>
+    <string name="settings_download_images_title">Download images</string>
+    <string-array name="settings_download_images_options">
+        <item>Always</item>
+        <item>Only via Wi-Fi</item>
+        <item>Never</item>
+    </string-array>
+    <string name="settings_download_images_default">Always</string>
 
     <string name="settings_storage_title">Storage</string>
-    <string name="settings_storage_cachelimit_title">Limit number of saved posts</string>
-    <string name="settings_storage_cachelimit_subtitle">Delete older posts to save storage space</string>
-    <string name="settings_storage_max_posts_title">Number of posts to keep</string>
-    <string name="settings_storage_max_images_title">Number of images to keep</string>
+    <string name="settings_storage_oldposts_title">Delete posts</string>
+    <string-array name="settings_storage_oldposts_options">
+        <item>After 1 week</item>
+        <item>After 2 weeks</item>
+        <item>After 1 month</item>
+        <item>At the end of each term</item>
+    </string-array>
+    <string name="settings_storage_oldposts_default">At the end of each term</string>
+    <string name="settings_storage_images_title">Save images to device</string>
+    <string name="settings_storage_images_subtitle">Saves data at the expense of disk space</string>
 </resources>
