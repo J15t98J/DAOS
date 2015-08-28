@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import uk.co.appsbystudio.damealiceowens.R;

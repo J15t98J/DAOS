@@ -46,8 +46,8 @@ public class NewsList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_news_list, container, false);
         setHasOptionsMenu(true);
-
-	    return view;
+		System.out.println("Creating view");
+		return view;
     }
 
 	@Override
@@ -59,6 +59,7 @@ public class NewsList extends Fragment {
 			items = new ArrayList<>();
 			new FeedDownloader(this).execute(locations);
 		}
+		System.out.println("Resuming");
 	}
 
 	@Override
@@ -94,6 +95,7 @@ public class NewsList extends Fragment {
 	}
 
 	public void onJSONParse() {
+		System.out.println("Loaded");
 		items = parent.dbHelper.getVisibleItems(parent.db);
 		Collections.sort(items, new JSONItemComparator());
 
@@ -124,14 +126,16 @@ public class NewsList extends Fragment {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			activity.dbHelper.editItem(activity.db, items.get(position).getString("guid"), "isRead", "true");
+			if(!items.isEmpty()) {
+				activity.dbHelper.editItem(activity.db, items.get(position).getString("guid"), "isRead", "true");
 
-			Intent intentDetail = new Intent(activity, NewsItem.class);
-			intentDetail.putExtra("title", items.get(position).getString("title"));
-			intentDetail.putExtra("content", items.get(position).getString("content"));
-			intentDetail.putExtra("guid", items.get(position).getString("guid"));
+				Intent intentDetail = new Intent(activity, NewsItem.class);
+				intentDetail.putExtra("title", items.get(position).getString("title"));
+				intentDetail.putExtra("content", items.get(position).getString("content"));
+				intentDetail.putExtra("guid", items.get(position).getString("guid"));
 
-			startActivity(intentDetail);
+				startActivity(intentDetail);
+			}
 		}
 	}
 }
