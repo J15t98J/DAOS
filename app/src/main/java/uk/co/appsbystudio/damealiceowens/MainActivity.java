@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 	    getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, list).commit();
 
-	    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.daos_red)));
 	    getSupportActionBar().setTitle(R.string.title_activity_main);
     }
 }

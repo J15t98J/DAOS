@@ -141,6 +141,7 @@ public class FeedDownloader extends AsyncTask<String, Void, ArrayList<JSONItem>>
 		for(JSONItem item : result) {
 			dbHelper.addOrUpdateItem(db, item);
 		}
+		caller.setHasDownloaded();
 		caller.onJSONParse();
 	}
 }

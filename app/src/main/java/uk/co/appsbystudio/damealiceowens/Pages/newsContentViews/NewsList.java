@@ -35,6 +35,7 @@ public class NewsList extends Fragment {
 	private ClickListener listener;
 
 	private ArrayList<JSONItem> items = new ArrayList<>();
+	private boolean hasDownloaded = false;
 
 	private final String[] locations = new String[] { "http://j15t98j.appsbystudio.co.uk/school.json" };
 
@@ -94,22 +95,23 @@ public class NewsList extends Fragment {
 	    listener = new ClickListener(parent);
 	}
 
+	public void setHasDownloaded() {
+		hasDownloaded = true;
+	}
+
 	public void onJSONParse() {
-		System.out.println("Loaded");
 		items = parent.dbHelper.getVisibleItems(parent.db);
 		Collections.sort(items, new JSONItemComparator());
 
-		ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-		boolean networkAvailable = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-				                   connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+		NetworkInfo network = ((ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+		boolean networkAvailable = network != null && network.isConnected();
 
 		View loadingView = view.findViewById(R.id.newsListLoading);
-		if(loadingView != null) {
+		if(hasDownloaded || !networkAvailable || !items.isEmpty()) {
 			loadingView.setVisibility(View.GONE);
+			view.findViewById(R.id.newsListEmpty).setVisibility(items.isEmpty() && networkAvailable ? View.VISIBLE : View.GONE);
+			view.findViewById(R.id.newsListError).setVisibility(items.isEmpty() && !networkAvailable ? View.VISIBLE : View.GONE);
 		}
-
-		view.findViewById(R.id.newsListEmpty).setVisibility(items.isEmpty() && networkAvailable ? View.VISIBLE : View.GONE);
-		view.findViewById(R.id.newsListError).setVisibility(items.isEmpty() && !networkAvailable ? View.VISIBLE : View.GONE);
 
 		ListView listView = ((ListView) view.findViewById(R.id.newsList));
 		listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), items));
