@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -128,15 +129,27 @@ public class NewsItem extends AppCompatActivity {
 		final Matcher pattern = Pattern.compile("<img src=\"(.*?)\" />").matcher(contentCopy);
 		while(pattern.find()) {
 			String[] split = contentCopy.split(Pattern.quote(pattern.group()));
-			addNewTextView(split[0]);
+			if(!split[0].equals("")) {
+				addNewTextView(split[0]);
+			}
 			contentCopy = split[1];
+
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			params.gravity = Gravity.CENTER_HORIZONTAL;
+			params.bottomMargin = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
+
 			if(shouldDownload.equals("Always") || (shouldDownload.equals("Only via Wi-Fi") && wifiConnected)) {
-				imageViews.put(pattern.group(1), addNewImageView(BitmapFactory.decodeResource(getResources(), R.drawable.ic_icon_loading_image)));
+				ImageView newImage = addNewImageView(BitmapFactory.decodeResource(getResources(), R.drawable.ic_icon_loading_image));
+				newImage.setLayoutParams(params);
+				imageViews.put(pattern.group(1), newImage);
 				new ImageDownloader(this).execute(pattern.group(1));
 			} else {
 				ImageView newImage = addNewImageView(BitmapFactory.decodeResource(getResources(), R.drawable.manual_download));
+				newImage.setLayoutParams(params);
 				newImage.setClickable(true);
-				newImage.setOnClickListener(new ManualDownloadClickListener(this, pattern.group(1)));
+				newImage.setOnClickListener(new ManualDownloadClickListener(this, newImage, pattern.group(1)));
+				newImage.setAdjustViewBounds(true);
+				newImage.setMaxWidth(Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics())));
 				imageViews.put(pattern.group(1), newImage);
 			}
 		}
@@ -146,13 +159,15 @@ public class NewsItem extends AppCompatActivity {
 	private void addNewTextView(String text) {
 		TextView item = new TextView(this);
 
-		item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		params.bottomMargin = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
+		item.setLayoutParams(params);
 		item.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15F);
 		item.setTextColor(Color.parseColor("#000000"));
 		item.setMovementMethod(LinkMovementMethod.getInstance());
-		item.setText(Html.fromHtml(text));
+		item.setText(trimWhitespace(Html.fromHtml(text)));
 		item.setTextIsSelectable(true);
-		//item.setBackgroundColor(Color.parseColor("#FF0000"));
+		//item.setBackgroundColor(Color.argb(255, ((Double)(Math.random() * 255)).intValue(), ((Double)(Math.random() * 255)).intValue(), ((Double)(Math.random() * 255)).intValue()));
 
 		((LinearLayout)findViewById(R.id.item_frame)).addView(item);
 	}
@@ -160,7 +175,7 @@ public class NewsItem extends AppCompatActivity {
 	private ImageView addNewImageView(Bitmap image) {
 		ImageView item = new ImageView(this);
 
-		item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+		item.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		item.setImageBitmap(image);
 		//item.setBackgroundColor(Color.parseColor("#00FF00"));
 
@@ -171,9 +186,21 @@ public class NewsItem extends AppCompatActivity {
 	public void onImagesDownloaded(HashMap<String, Bitmap> images) {
 		for( String image : images.keySet() ) {
 			if(images.get(image) != null) {
-				imageViews.get(image).setImageDrawable(new BitmapDrawable(getResources(), images.get(image)));
+				ImageView view = imageViews.get(image);
+				BitmapDrawable bitmap = new BitmapDrawable(getResources(), images.get(image));
+				view.setImageDrawable(bitmap);
+				view.setAdjustViewBounds(true);
+				view.setMaxHeight(bitmap.getIntrinsicHeight());
+				view.setMaxWidth(((LinearLayout)view.getParent()).getWidth());
 			}
 		}
 		// TODO: scroll view if past pic so that reading is not interrupted
+	}
+
+	public CharSequence trimWhitespace(CharSequence item) {
+		while(item.charAt(item.length()-1) == '\n') {
+			item = item.subSequence(0, item.length()-1);
+		}
+		return item;
 	}
 }
