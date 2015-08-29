@@ -33,7 +33,6 @@ import uk.co.appsbystudio.damealiceowens.util.ImageDownloader;
 import uk.co.appsbystudio.damealiceowens.util.ManualDownloadClickListener;
 import uk.co.appsbystudio.damealiceowens.util.json.JSONItem;
 
-// TODO: convert to an embedded Fragment + transition?
 public class NewsItem extends AppCompatActivity {
 
 	private DatabaseHelper dbHelper;
@@ -164,9 +163,10 @@ public class NewsItem extends AppCompatActivity {
 		item.setLayoutParams(params);
 		item.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15F);
 		item.setTextColor(Color.parseColor("#000000"));
-		item.setMovementMethod(LinkMovementMethod.getInstance());
 		item.setText(trimWhitespace(Html.fromHtml(text)));
-		item.setTextIsSelectable(true);
+		item.setMovementMethod(LinkMovementMethod.getInstance());
+		item.setLinksClickable(true);
+		//item.setTextIsSelectable(true);
 		//item.setBackgroundColor(Color.argb(255, ((Double)(Math.random() * 255)).intValue(), ((Double)(Math.random() * 255)).intValue(), ((Double)(Math.random() * 255)).intValue()));
 
 		((LinearLayout)findViewById(R.id.item_frame)).addView(item);
@@ -184,7 +184,7 @@ public class NewsItem extends AppCompatActivity {
 	}
 
 	public void onImagesDownloaded(HashMap<String, Bitmap> images) {
-		for( String image : images.keySet() ) {
+		for(String image : images.keySet()) {
 			if(images.get(image) != null) {
 				ImageView view = imageViews.get(image);
 				BitmapDrawable bitmap = new BitmapDrawable(getResources(), images.get(image));
