@@ -197,7 +197,7 @@ public class NewsItem extends AppCompatActivity {
 		// TODO: scroll view if past pic so that reading is not interrupted
 	}
 
-	public CharSequence trimWhitespace(CharSequence item) {
+	private CharSequence trimWhitespace(CharSequence item) {
 		while(item.charAt(item.length()-1) == '\n') {
 			item = item.subSequence(0, item.length()-1);
 		}
