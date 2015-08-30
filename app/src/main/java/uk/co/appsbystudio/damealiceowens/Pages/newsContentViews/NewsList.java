@@ -57,7 +57,6 @@ public class NewsList extends Fragment {
 
 		onJSONParse(); // Force load from cache
 		if(PreferenceManager.getDefaultSharedPreferences(parent).getBoolean("pref_key_auto_refresh", true)) {
-			items = new ArrayList<>();
 			new FeedDownloader(this).execute(locations);
 		}
 		System.out.println("Resuming");
@@ -114,7 +113,7 @@ public class NewsList extends Fragment {
 		}
 
 		ListView listView = ((ListView) view.findViewById(R.id.newsList));
-		listView.setAdapter(new NewsItemAdapter<>(this.getActivity(), items));
+		listView.setAdapter(new NewsItemAdapter<>(getActivity(), items));
 		listView.setOnItemClickListener(listener);
 	}
 
