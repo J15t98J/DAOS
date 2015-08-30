@@ -47,7 +47,6 @@ public class NewsList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_news_list, container, false);
         setHasOptionsMenu(true);
-		System.out.println("Creating view");
 		return view;
     }
 
@@ -59,7 +58,6 @@ public class NewsList extends Fragment {
 		if(PreferenceManager.getDefaultSharedPreferences(parent).getBoolean("pref_key_auto_refresh", true)) {
 			new FeedDownloader(this).execute(locations);
 		}
-		System.out.println("Resuming");
 	}
 
 	@Override
