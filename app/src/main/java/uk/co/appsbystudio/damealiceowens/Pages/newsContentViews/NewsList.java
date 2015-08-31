@@ -68,9 +68,9 @@ public class NewsList extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.action_search:
-                onSearchRequest();
-                return true;
+            //case R.id.action_search:
+            //    onSearchRequest();
+            //    return true;
 	        case R.id.action_refresh:
 		        new FeedDownloader(this).execute(locations);
 		        Toast.makeText(parent, "Refreshing...", Toast.LENGTH_LONG).show();
