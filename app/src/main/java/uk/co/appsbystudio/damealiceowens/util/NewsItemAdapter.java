@@ -43,6 +43,7 @@ public class NewsItemAdapter<RSSItem> extends ArrayAdapter {
             ((TextView) currentRow.findViewById(R.id.item_title)).setTypeface(null, Typeface.NORMAL);
 		} else {
 			((ImageView) currentRow.findViewById(R.id.item_readIcon)).setImageResource(R.drawable.ic_icon_unread);
+			currentRow.findViewById(R.id.item_readIcon).setContentDescription(context.getResources().getString(R.string.unread_item_icon));
             ((TextView) currentRow.findViewById(R.id.item_title)).setTypeface(null, Typeface.BOLD);
 		}
 

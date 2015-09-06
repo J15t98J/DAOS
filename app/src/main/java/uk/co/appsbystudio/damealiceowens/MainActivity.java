@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 	    getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, list).commit();
 
-	    getSupportActionBar().setTitle(R.string.title_activity_main);
+		if(getSupportActionBar() != null) {
+			getSupportActionBar().setTitle(R.string.title_activity_main);
+		}
     }
 }

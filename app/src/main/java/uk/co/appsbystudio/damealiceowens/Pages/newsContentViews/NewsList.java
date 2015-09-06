@@ -83,10 +83,6 @@ public class NewsList extends Fragment {
         }
     }
 
-    private void onSearchRequest() {
-
-    }
-
     public void setListenerContext(MainActivity parent) {
 		this.parent = parent;
 	    listener = new ClickListener(parent);
@@ -100,7 +96,10 @@ public class NewsList extends Fragment {
 		items = parent.dbHelper.getVisibleItems(parent.db);
 		Collections.sort(items, new JSONItemComparator());
 
-		NetworkInfo network = ((ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+		NetworkInfo network = null;
+		if(getActivity() != null) {
+			network = ((ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+		}
 		boolean networkAvailable = network != null && network.isConnected();
 
 		View loadingView = view.findViewById(R.id.newsListLoading);
