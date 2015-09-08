@@ -105,6 +105,20 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		return item;
 	}
 
+	public ArrayList<String> getAllItems(SQLiteDatabase db) {
+		ArrayList<String> array = new ArrayList<>();
+
+		Cursor results = db.rawQuery("SELECT * FROM ITEMS", null);
+		results.moveToFirst();
+		while(!results.isAfterLast()) {
+			array.add(results.getString(results.getColumnIndex("guid")));
+			results.moveToNext();
+		}
+		results.close();
+
+		return array;
+	}
+
 	public ArrayList<JSONItem> getVisibleItems(SQLiteDatabase db) {
 		ArrayList<JSONItem> array = new ArrayList<>();
 

@@ -2,6 +2,7 @@ package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -53,6 +54,22 @@ public class NewsList extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+
+		// Clear database if this is the first launch since an update - TODO: remove at end of beta
+		try {
+			String version = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
+			if(!PreferenceManager.getDefaultSharedPreferences(parent).getString("app_version", "0").equals(version)) {
+				System.out.println("Recent update detected; wiping database...");
+				for(String itemGUID : parent.dbHelper.getAllItems(parent.db)) {
+					parent.dbHelper.removeItem(parent.db, itemGUID);
+				}
+				System.out.println("Done!");
+				PreferenceManager.getDefaultSharedPreferences(parent).edit().putString("app_version", version).apply();
+				// May need to keep something like this, as it appears to fix the problems with default prefs not taking effect until you open the settings menu...
+			}
+		} catch(PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		onJSONParse(); // Force load from cache
 		if(PreferenceManager.getDefaultSharedPreferences(parent).getBoolean("pref_key_auto_refresh", true)) {
