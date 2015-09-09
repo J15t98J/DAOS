@@ -3,6 +3,7 @@ package uk.co.appsbystudio.damealiceowens.util;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,10 +15,12 @@ import uk.co.appsbystudio.damealiceowens.R;
 
 public class ImageDownloader extends AsyncTask<String, Void, HashMap<String, Bitmap>> {
 
-	private final NewsItem activity;
+	private final FragmentActivity activity;
+	private final NewsItem fragment;
 
-	public ImageDownloader(NewsItem activity) {
+	public ImageDownloader(FragmentActivity activity, NewsItem fragment) {
 		this.activity = activity;
+		this.fragment = fragment;
 	}
 
 	@Override
@@ -51,6 +54,6 @@ public class ImageDownloader extends AsyncTask<String, Void, HashMap<String, Bit
 
 	@Override
 	public void onPostExecute(HashMap<String, Bitmap> images) {
-		activity.onImagesDownloaded(images);
+		fragment.onImagesDownloaded(images);
 	}
 }

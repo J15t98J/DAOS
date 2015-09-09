@@ -47,8 +47,8 @@ public class NewsList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_news_list, container, false);
-		((SwipeRefreshLayout)view).setColorSchemeResources(R.color.daos_red);
 		view.setEnabled(false);
+		((SwipeRefreshLayout)view).setColorSchemeResources(R.color.daos_red);
 		((SwipeRefreshLayout)view).setOnRefreshListener(new OnRefreshListener(this));
         setHasOptionsMenu(true);
 		return view;
@@ -58,10 +58,12 @@ public class NewsList extends Fragment {
 	public void onResume() {
 		super.onResume();
 
+		parent = (MainActivity)getActivity();
+
 		// Clear database if this is the first launch since an update - TODO: remove at end of beta
 		try {
 			String version = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
-			if(!PreferenceManager.getDefaultSharedPreferences(parent).getString("app_version", "0").equals(version)) {
+			if(!PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("app_version", "0").equals(version)) {
 				System.out.println("Recent update detected; wiping database...");
 				for(String itemGUID : parent.dbHelper.getAllItems(parent.db)) {
 					parent.dbHelper.removeItem(parent.db, itemGUID);
@@ -101,11 +103,6 @@ public class NewsList extends Fragment {
         }
     }
 
-    public void setListenerContext(MainActivity parent) {
-		this.parent = parent;
-	    listener = new ClickListener(parent);
-	}
-
 	public void setHasDownloaded() {
 		hasDownloaded = true;
 	}
@@ -132,7 +129,7 @@ public class NewsList extends Fragment {
 
 		ListView listView = ((ListView) view.findViewById(R.id.newsList));
 		listView.setAdapter(new NewsItemAdapter<>(getActivity(), items));
-		listView.setOnItemClickListener(listener);
+		listView.setOnItemClickListener(new ClickListener(parent));
 	}
 
 	public class ClickListener implements ListView.OnItemClickListener {
@@ -146,14 +143,19 @@ public class NewsList extends Fragment {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			if(!items.isEmpty()) {
-				activity.dbHelper.editItem(activity.db, items.get(position).getString("guid"), "isRead", "true");
+				JSONItem item = items.get(position);
+				//activity.dbHelper.editItem(activity.db, item.getString("guid"), "isRead", "true");
+				activity.onPostSelected(item.getString("guid"), item.getString("title"), item.getString("content"));
+				onJSONParse();
 
+				/*
 				Intent intentDetail = new Intent(activity, NewsItem.class);
 				intentDetail.putExtra("title", items.get(position).getString("title"));
 				intentDetail.putExtra("content", items.get(position).getString("content"));
 				intentDetail.putExtra("guid", items.get(position).getString("guid"));
 
 				startActivity(intentDetail);
+				*/
 			}
 		}
 	}
