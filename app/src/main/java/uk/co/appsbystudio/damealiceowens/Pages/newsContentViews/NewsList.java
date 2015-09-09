@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,6 +47,7 @@ public class NewsList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_news_list, container, false);
+		((SwipeRefreshLayout)view).setColorSchemeResources(R.color.daos_red);
         setHasOptionsMenu(true);
 		return view;
     }
@@ -88,10 +89,10 @@ public class NewsList extends Fragment {
             //case R.id.action_search:
             //    onSearchRequest();
             //    return true;
-	        case R.id.action_refresh:
-		        new FeedDownloader(this).execute(locations);
-		        Toast.makeText(parent, "Refreshing...", Toast.LENGTH_LONG).show();
-		        return true;
+	        //case R.id.action_refresh:
+		    //    new FeedDownloader(this).execute(locations);
+		    //    Toast.makeText(parent, "Refreshing...", Toast.LENGTH_LONG).show();
+		    //    return true;
 	        case R.id.action_settings:
 		        startActivity(new Intent(parent, Settings.class));
 		        return true;
@@ -110,6 +111,8 @@ public class NewsList extends Fragment {
 	}
 
 	public void onJSONParse() {
+		((SwipeRefreshLayout)getActivity().findViewById(R.id.swipe_refresh)).setRefreshing(false);
+
 		items = parent.dbHelper.getVisibleItems(parent.db);
 		Collections.sort(items, new JSONItemComparator());
 
@@ -151,6 +154,20 @@ public class NewsList extends Fragment {
 
 				startActivity(intentDetail);
 			}
+		}
+	}
+
+	public class OnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
+
+		private final NewsList parent;
+
+		public OnRefreshListener(NewsList parent) {
+			this.parent = parent;
+		}
+
+		@Override
+		public void onRefresh() {
+			new FeedDownloader(parent).execute(locations);
 		}
 	}
 }

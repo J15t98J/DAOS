@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="accent_material_light">#B20000</color>
-    <color name="primary_material_light">#B20000</color>
-    <color name="primary_dark_material_light">#880000</color>
-    <color name="primary_material_dark">#b20000</color>
-    <color name="primary_dark_material_dark">#880000</color>
+    <color name="daos_red">#B20000</color>
+    <color name="daos_dark_red">#880000</color>
+
+    <color name="accent_material_light">@color/daos_red</color>
+    <color name="primary_material_light">@color/daos_red</color>
+    <color name="primary_dark_material_light">@color/daos_dark_red</color>
+    <color name="primary_material_dark">@color/daos_red</color>
+    <color name="primary_dark_material_dark">@color/daos_dark_red</color>
 </resources>
