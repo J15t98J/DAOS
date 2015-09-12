@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -50,6 +51,24 @@ public class NewsList extends Fragment {
 		((SwipeRefreshLayout)view).setColorSchemeResources(R.color.daos_red);
 		view.setEnabled(false);
 		((SwipeRefreshLayout)view).setOnRefreshListener(new OnRefreshListener(this));
+
+		final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
+
+		final ListView listView = ((ListView) view.findViewById(R.id.newsList));
+
+		listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+				if (firstVisibleItem == 0) swipeRefreshLayout.setEnabled(true);
+				else swipeRefreshLayout.setEnabled(false);
+			}
+		});
+
         setHasOptionsMenu(true);
 		return view;
     }
@@ -130,9 +149,10 @@ public class NewsList extends Fragment {
 			view.findViewById(R.id.newsListError).setVisibility(items.isEmpty() && !networkAvailable ? View.VISIBLE : View.GONE);
 		}
 
-		ListView listView = ((ListView) view.findViewById(R.id.newsList));
+		final ListView listView = ((ListView) view.findViewById(R.id.newsList));
 		listView.setAdapter(new NewsItemAdapter<>(getActivity(), items));
 		listView.setOnItemClickListener(listener);
+
 	}
 
 	public class ClickListener implements ListView.OnItemClickListener {
