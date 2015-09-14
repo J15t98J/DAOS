@@ -33,7 +33,6 @@ public class NewsList extends Fragment {
 
 	public MainActivity parent;
 	private View view;
-	private ClickListener listener;
 
 	private ArrayList<JSONItem> items = new ArrayList<>();
 	private boolean hasDownloaded = false;
@@ -47,9 +46,7 @@ public class NewsList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_news_list, container, false);
-		view.setEnabled(false);
-		((SwipeRefreshLayout)view).setColorSchemeResources(R.color.daos_red);
-		((SwipeRefreshLayout)view).setOnRefreshListener(new OnRefreshListener(this));
+
         setHasOptionsMenu(true);
 		return view;
     }
@@ -57,6 +54,11 @@ public class NewsList extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+
+		SwipeRefreshLayout swipeRefresh = (SwipeRefreshLayout)getActivity().findViewById(R.id.swipe_refresh);
+		swipeRefresh.setEnabled(false);
+		swipeRefresh.setColorSchemeResources(R.color.daos_red);
+		swipeRefresh.setOnRefreshListener(new OnRefreshListener(this));
 
 		parent = (MainActivity)getActivity();
 

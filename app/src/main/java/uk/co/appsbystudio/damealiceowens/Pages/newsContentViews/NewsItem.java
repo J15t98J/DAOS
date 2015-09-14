@@ -1,7 +1,6 @@
 package uk.co.appsbystudio.damealiceowens.Pages.newsContentViews;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -30,16 +29,15 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import uk.co.appsbystudio.damealiceowens.MainActivity;
 import uk.co.appsbystudio.damealiceowens.R;
-import uk.co.appsbystudio.damealiceowens.util.DatabaseHelper;
 import uk.co.appsbystudio.damealiceowens.util.ImageDownloader;
 import uk.co.appsbystudio.damealiceowens.util.ManualDownloadClickListener;
 import uk.co.appsbystudio.damealiceowens.util.json.JSONItem;
 
 public class NewsItem extends Fragment {
 
-	private DatabaseHelper dbHelper;
-	private SQLiteDatabase db;
+	private MainActivity parent;
 
 	private String guid;
 	private JSONItem feedItem;
@@ -51,28 +49,9 @@ public class NewsItem extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		parent = (MainActivity)getActivity();
+
 		return inflater.inflate(R.layout.activity_news_item, container, false);
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-
-		if(db.isOpen()) {
-			db.setTransactionSuccessful();
-			db.endTransaction();
-			db.close();
-			dbHelper.close();
-		}
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-
-		dbHelper = new DatabaseHelper(getActivity());
-		db = dbHelper.getWritableDatabase();
-		db.beginTransaction();
 	}
 
 	@Override
@@ -82,8 +61,8 @@ public class NewsItem extends Fragment {
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
-		if(db.isOpen()) {
-			feedItem = dbHelper.getItem(db, guid);
+		if(parent.db.isOpen()) {
+			feedItem = parent.dbHelper.getItem(parent.db, guid);
 			menu.findItem(R.id.action_toggleReadStatus).setIcon(feedItem.getBool("isRead") ? R.drawable.ic_action_mark_unread : R.drawable.ic_action_mark_read)
 					.setTitle(feedItem.getBool("isRead") ? R.string.action_mark_unread : R.string.action_mark_read);
 			menu.findItem(R.id.action_toggleFlaggedStatus).setIcon(feedItem.getBool("isFlagged") ? R.drawable.ic_action_important : R.drawable.ic_action_not_important)
@@ -93,23 +72,23 @@ public class NewsItem extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if(db.isOpen()) {
-			feedItem = dbHelper.getItem(db, guid);
+		if(parent.db.isOpen()) {
+			feedItem = parent.dbHelper.getItem(parent.db, guid);
 			switch (item.getItemId()) {
 				case R.id.action_toggleReadStatus:
 					boolean wasRead = feedItem.getBool("isRead");
-					dbHelper.editItem(db, guid, "isRead", !wasRead ? "true" : "false");
+					parent.dbHelper.editItem(parent.db, guid, "isRead", !wasRead ? "true" : "false");
 					getActivity().invalidateOptionsMenu();
 					Toast.makeText(getActivity(), wasRead ? "Marked as unread" : "Marked as read", Toast.LENGTH_SHORT).show();
 					return true;
 				case R.id.action_toggleFlaggedStatus:
 					boolean wasFlagged = feedItem.getBool("isFlagged");
-					dbHelper.editItem(db, guid, "isFlagged", !wasFlagged ? "true" : "false");
+					parent.dbHelper.editItem(parent.db, guid, "isFlagged", !wasFlagged ? "true" : "false");
 					getActivity().invalidateOptionsMenu();
 					Toast.makeText(getActivity(), wasFlagged ? "Unflagged" : "Flagged", Toast.LENGTH_SHORT).show();
 					return true;
 				case R.id.action_delete:
-					dbHelper.editItem(db, guid, "isHidden", "true");
+					parent.dbHelper.editItem(parent.db, guid, "isHidden", "true");
 					Toast.makeText(getActivity(), "Post hidden", Toast.LENGTH_SHORT).show();
 					//this.finish(); TODO: return to empty view
 					return true;
@@ -120,7 +99,7 @@ public class NewsItem extends Fragment {
 		return false;
 	}
 
-	private void displayItem(String guid, String title, String content) {
+	public void displayItem(String guid, String title, String content) {
 		this.guid = guid;
 		parseInput(title, content);
 	}

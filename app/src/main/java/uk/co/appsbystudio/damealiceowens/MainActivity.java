@@ -3,6 +3,7 @@ package uk.co.appsbystudio.damealiceowens;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsItem;
 import uk.co.appsbystudio.damealiceowens.Pages.newsContentViews.NewsList;
@@ -36,7 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
 	public void onPostSelected(String guid, String title, String content) {
 		if(detail != null) {
-			//
+			detail.displayItem(guid, title, content);
+			if(getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().densityDpi < 720) {
+				findViewById(R.id.list_fragment_container).setVisibility(View.GONE);
+				findViewById(R.id.detail_fragment_container).setVisibility(View.VISIBLE);
+			}
 		}
 	}
 }
